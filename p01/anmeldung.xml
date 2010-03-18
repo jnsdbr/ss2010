@@ -1,0 +1,58 @@
+<!-- Nicht Editieren, diese Datei wurde aus "anmeldung.csv" erzeugt -->
+<OOP_Praktikum>
+  <Anmeldung>
+    <Nachname>Lang</Nachname>
+    <Vorname>Bernhard</Vorname>
+    <Email>mail@mail.de</Email>
+    <Matrikelnummer>012345</Matrikelnummer>
+    <Studienrichtung>Informatik</Studienrichtung>
+    <Semester>20</Semester>
+    <G1Name>Meier</G1Name>
+    <G1Vorname>Hugo</G1Vorname>
+    <Anmerkung>Was ist OOP?</Anmerkung>
+  </Anmeldung>
+  <Anmeldung>
+    <Nachname>Westerwelle</Nachname>
+    <Vorname>Guido</Vorname>
+    <Email>G.Westerwelle@fdp.de</Email>
+    <Matrikelnummer>999999</Matrikelnummer>
+    <Studienrichtung>FDP</Studienrichtung>
+    <Semester>9+</Semester>
+    <G1Name>Merkel</G1Name>
+    <G1Vorname>Angela</G1Vorname>
+    <Anmerkung>Angie mag ich</Anmerkung>
+  </Anmeldung>
+  <Anmeldung>
+    <Nachname>Merkel</Nachname>
+    <Vorname>Angela</Vorname>
+    <Email>Angela@regierung.de</Email>
+    <Matrikelnummer>000001</Matrikelnummer>
+    <Studienrichtung>CDU</Studienrichtung>
+    <Semester>30</Semester>
+    <G1Name>Westerwelle</G1Name>
+    <G1Vorname>Guido</G1Vorname>
+    <Anmerkung>Vielleicht doch besser mit Guido, wenn es moeglich ist?</Anmerkung>
+  </Anmeldung>
+  <Anmeldung>
+    <Nachname>Gysi</Nachname>
+    <Vorname>Gregor</Vorname>
+    <Email>Gregor@links.de</Email>
+    <Matrikelnummer>987654</Matrikelnummer>
+    <Studienrichtung>LINKE</Studienrichtung>
+    <Semester>100</Semester>
+    <G1Name>Steinmeier</G1Name>
+    <G1Vorname>Frank</G1Vorname>
+    <Anmerkung>Links der Mitte</Anmerkung>
+  </Anmeldung>
+  <Anmeldung>
+    <Nachname>Steinmeier</Nachname>
+    <Vorname>Frank</Vorname>
+    <Email>Frank@ehemalige.de</Email>
+    <Matrikelnummer>000002</Matrikelnummer>
+    <Studienrichtung>SPD</Studienrichtung>
+    <Semester>9+</Semester>
+    <G1Name>Gysi</G1Name>
+    <G1Vorname>Gregor</G1Vorname>
+    <Anmerkung>Ist doch besser</Anmerkung>
+  </Anmeldung>
+</OOP_Praktikum>
