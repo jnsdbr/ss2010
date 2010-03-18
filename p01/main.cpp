@@ -85,7 +85,6 @@ int check_file(char *source, char *destination)
 	return 1;
 }
 
-
 /**
  * Reads the source file and saves it into a list
  *
@@ -95,6 +94,9 @@ int read_file(char * source)
 {
 	string line;
 	ifstream file;
+	size_t found;
+	int str_position = 0;
+	int str_length = 0;
 
 	//file.exceptions(ifstream::eofbit | ifstream::failbit | ifstream::badbit);
 
@@ -105,7 +107,32 @@ int read_file(char * source)
 		while(!file.eof())
 		{
 			getline(file, line, '\n');
-			cout << line << endl;
+
+			// Only if line is not empty
+			if(line.length() != 0)
+			{
+				found = 0;
+
+				for(int i = 0; i <= 7; i++)
+				{
+					found = line.find(";", found+1);
+
+					if(found < string::npos)
+					{
+						str_length = int(found) - str_position;
+
+						cout << "SUBSTR: " << line.substr(str_position, str_length) << endl;
+
+						str_position = int(found) + 1;
+					}
+					if(i == 7)
+					{
+						cout << "SUBSTR: " << line.substr(str_position, line.length() - str_position) << endl;
+						cout << "---" << endl;
+					}
+				}
+				str_position = 0;
+			}
 		}
 
 		file.close();
@@ -119,6 +146,24 @@ int read_file(char * source)
 
 	return 1;
 }
+
+namespace list
+{
+	int insert(string anmerkung,
+			   string email,
+			   string g1name,
+			   string g1vorname,
+			   string matrikelnummer,
+			   string nachname,
+			   Anmeldung* next,
+			   string semester,
+			   string studienrichtiung,
+			   string vorname)
+	{
+		// Hello! :)
+	}
+}
+
 
 /**
  * main
