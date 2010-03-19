@@ -50,7 +50,7 @@ int check_arguments(int count, char *source, char *destination)
  * @param char	*source			Source filename
  * @param char	*destination	Destination filename
  */
-int check_file(char *source, char *destination)
+int check_file(char *filename)
 {
 	ifstream file;
 
@@ -59,25 +59,12 @@ int check_file(char *source, char *destination)
 	// Check if source file is available
 	try
 	{
-		file.open(source);
+		file.open(filename);
 		file.close();
 	}
 	catch(exception& e)
 	{
-		cout << "ERROR: Source file not found." << endl;
-
-		return 0;
-	}
-
-	// Check if destination file is available
-	try
-	{
-		file.open(destination);
-		file.close();
-	}
-	catch(exception& e)
-	{
-		cout << "ERROR: Destination file not found." << endl;
+		cout << "ERROR: file not found." << endl;
 
 		return 0;
 	}
@@ -94,8 +81,8 @@ int read_file(char * source)
 {
 	string line;
 	ifstream file;
-	size_t found;
-	int str_position = 0;
+	int found;
+	int str_start = 0;
 	int str_length = 0;
 
 	//file.exceptions(ifstream::eofbit | ifstream::failbit | ifstream::badbit);
@@ -119,19 +106,19 @@ int read_file(char * source)
 
 					if(found < string::npos)
 					{
-						str_length = int(found) - str_position;
+						str_length = int(found) - str_start;
 
-						cout << "SUBSTR: " << line.substr(str_position, str_length) << endl;
+						cout << "SUBSTR: " << line.substr(str_start, str_length) << endl;
 
-						str_position = int(found) + 1;
+						str_start = int(found) + 1;
 					}
 					if(i == 7)
 					{
-						cout << "SUBSTR: " << line.substr(str_position, line.length() - str_position) << endl;
+						cout << "SUBSTR: " << line.substr(str_start, line.length() - str_start) << endl;
 						cout << "---" << endl;
 					}
 				}
-				str_position = 0;
+				str_start = 0;
 			}
 		}
 
@@ -172,7 +159,7 @@ int main(int argc, char * const argv[])
 {
 	if(check_arguments(argc, argv[1], argv[2]))
 	{
-		if(check_file(argv[1], argv[2]))
+		if(check_file(argv[1]) && check_file(argv[2]))
 		{
 			if(read_file(argv[1]))
 			{
