@@ -6,13 +6,15 @@
  * @param int	count			Argument count (argc)
  * @param char	*source			Source filename
  * @param char	*destination	Destination filename
+ *
+ * @return Returns true if there are no errors / else false
  */
 int check_arguments(int count, char *source, char *destination)
 {
 	// No arguments
 	if(count == 1)
 	{
-		cout << "CSV to XML Parser " << endl << "Usage: <source> <destination>" << endl;
+		cout << "CSV to XML Parser - Authors: Jens de Boer & Boris Spinner" << endl << "Usage: <source> <destination>" << endl;
 
 		return 0;
 	}
@@ -36,7 +38,7 @@ int check_arguments(int count, char *source, char *destination)
 	// Source equals destination
 	if(!strcmp(source, destination))
 	{
-		cout << "ERROR: Source and destination cant be the same file." << endl;
+		cout << "ERROR: Source and destination are the same file." << endl;
 
 		return 0;
 	}
@@ -49,6 +51,8 @@ int check_arguments(int count, char *source, char *destination)
  *
  * @param char	*source			Source filename
  * @param char	*destination	Destination filename
+ *
+ * @return true if successfull, false if not
  */
 int check_file(char *filename)
 {
@@ -72,18 +76,36 @@ int check_file(char *filename)
 	return 1;
 }
 
+namespace list {
+	int insert(string *item)
+	{
+		cout << "Vorname: " << item[0] << endl;
+		cout << "Nachname: " << item[1] << endl;
+		cout << "E-Mail: " << item[2] << endl;
+		cout << "MatrikelNr.: " << item[3] << endl;
+		cout << "Studienrichtung: " << item[4] << endl;		
+		cout << "Semester: " << item[5] << endl;
+		cout << "G1 Name: " << item[6] << endl;		
+		cout << "G1 Vorname: " << item[7] << endl;
+		cout << "Anmerkung: " << item[8] << endl;
+		
+		cout << "---" << endl;
+	}
+}
+
 /**
  * Reads the source file and saves it into a list
  *
  * @param char	*source			Source filename
  */
-int read_file(char * source)
+int read_file(char *source)
 {
 	string line;
 	ifstream file;
 	int found;
 	int str_start = 0;
 	int str_length = 0;
+	string item[9];	
 
 	//file.exceptions(ifstream::eofbit | ifstream::failbit | ifstream::badbit);
 
@@ -106,20 +128,23 @@ int read_file(char * source)
 
 					if(found < string::npos)
 					{
-						str_length = int(found) - str_start;
-
-						cout << "SUBSTR: " << line.substr(str_start, str_length) << endl;
-
-						str_start = int(found) + 1;
+						str_length = found - str_start;
+						
+						//cout << "SUBSTR: " << i << " - " << line.substr(str_start, str_length) << endl;
+						item[i] = line.substr(str_start, str_length);
+	
+						str_start = found + 1;
 					}
 					if(i == 7)
 					{
-						cout << "SUBSTR: " << line.substr(str_start, line.length() - str_start) << endl;
-						cout << "---" << endl;
+						//cout << "SUBSTR: " << i << " - " << line.substr(str_start, line.length() - str_start) << endl << "---" << endl;
+						item[i+1] = line.substr(str_start, line.length() - str_start);
 					}
 				}
 				str_start = 0;
-			}
+
+				list::insert(item);
+			}			
 		}
 
 		file.close();
@@ -133,24 +158,6 @@ int read_file(char * source)
 
 	return 1;
 }
-
-namespace list
-{
-	int insert(string anmerkung,
-			   string email,
-			   string g1name,
-			   string g1vorname,
-			   string matrikelnummer,
-			   string nachname,
-			   Anmeldung* next,
-			   string semester,
-			   string studienrichtiung,
-			   string vorname)
-	{
-		// Hello! :)
-	}
-}
-
 
 /**
  * main
