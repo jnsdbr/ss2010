@@ -9,7 +9,7 @@
  *
  * @return Returns true if there are no errors / else false
  */
-int check_arguments(int count, char *source, char *destination)
+bool check_arguments(int count, char *source, char *destination)
 {
 	// No arguments
 	if(count == 1)
@@ -49,12 +49,11 @@ int check_arguments(int count, char *source, char *destination)
 /**
  * Checks if source and destination fila are available
  *
- * @param char	*source			Source filename
- * @param char	*destination	Destination filename
+ * @param string&	filname		Filename
  *
  * @return true if successfull, false if not
  */
-int check_file(char *filename)
+bool check_file(string& filename)
 {
 	ifstream file;
 
@@ -63,7 +62,7 @@ int check_file(char *filename)
 	// Check if source file is available
 	try
 	{
-		file.open(filename);
+		file.open(filename.c_str());
 		file.close();
 	}
 	catch(exception& e)
@@ -76,42 +75,132 @@ int check_file(char *filename)
 	return 1;
 }
 
-namespace list {
-	int insert(string *item)
+namespace list
+{
+	static Anmeldung* root = NULL;
+	static Anmeldung* current = NULL;
+	
+	/**
+	 * Allocates memory for a new list item
+	 *
+	 * @return	Anmeldung*		Pointer of the new element
+	 */
+	Anmeldung* create()
 	{
-		cout << "Vorname: " << item[0] << endl;
-		cout << "Nachname: " << item[1] << endl;
-		cout << "E-Mail: " << item[2] << endl;
-		cout << "MatrikelNr.: " << item[3] << endl;
-		cout << "Studienrichtung: " << item[4] << endl;		
-		cout << "Semester: " << item[5] << endl;
-		cout << "G1 Name: " << item[6] << endl;		
-		cout << "G1 Vorname: " << item[7] << endl;
-		cout << "Anmerkung: " << item[8] << endl;
+		Anmeldung* new_element = NULL;		
+		new_element = new Anmeldung;
+
+		new_element->next = NULL;
+
+		return new_element;
+	}
+	
+	/**
+	 * Inserts an element into a list
+	 *
+	 * @param string	item[]		Array of Strings
+	 *
+     * @return true if successfull, false if not	
+	 */
+	bool insert(string item[])
+	{		
+		if(root == NULL)
+		{
+			try
+			{
+				root = create();
+				current = root;				
+			}
+			catch(exception& e)
+			{
+				cout << "ERROR: Error while allocating Memory" << endl;
+				return 0;
+			}
+		}
+		else
+		{
+			try
+			{	
+				Anmeldung* new_element = NULL;
+				new_element = create();
+			
+				current->next = new_element;
+				current = new_element;
+			}
+			catch(exception& e)
+			{
+				cout << "ERROR: Error while allocating Memory" << endl;
+				return 0;				
+			}
+		}		
+
+
+		current->Nachname = item[0];
+		current->Vorname = item[1];
+		current->Email = item[2];
+		current->Matrikelnummer = item[3];
+		current->Studienrichtung = item[4];
+		current->Semester = item[5];
+		current->G1name = item[6];
+		current->G1vorname = item[7];
+		current->Anmerkung = item[8];
 		
-		cout << "---" << endl;
+		return 1;
+	}
+	
+	int remove_duplicates()
+	{
+		
+	}
+	
+	/**
+	 * Displays all elements of a list
+	 */
+	void show()
+	{
+		if(root != NULL)
+		{
+			current = root;
+		
+			while(current->next != NULL)
+			{
+				cout << "Vorname: " << current->Vorname << endl;	
+				cout << "Nachname: " << current->Nachname << endl;
+				cout << "E-Mail: " << current->Email << endl;
+				cout << "MatrikelNr.: " << current->Matrikelnummer << endl;
+				cout << "Studienrichtung: " << current->Studienrichtung << endl;		
+				cout << "Semester: " << current->Semester << endl;
+				cout << "G1 Name: " << current->G1name << endl;		
+				cout << "G1 Vorname: " << current->G1vorname << endl;
+				cout << "Anmerkung: " << current->Anmerkung << endl;
+				cout << "---" << endl;
+			
+				current = current->next;	
+			}
+		}
+		
 	}
 }
 
 /**
  * Reads the source file and saves it into a list
  *
- * @param char	*source			Source filename
+ * @param string&	source			Source filename
  */
-int read_file(char *source)
+int read_file(string& source)
 {
 	string line;
 	ifstream file;
 	int found;
 	int str_start = 0;
 	int str_length = 0;
-	string item[9];	
+	string item[9];
 
 	//file.exceptions(ifstream::eofbit | ifstream::failbit | ifstream::badbit);
 
 	try
 	{
-		file.open(source);
+		file.open(source.c_str());
 
 		while(!file.eof())
 		{
@@ -162,17 +251,21 @@ int read_file(char *source)
 /**
  * main
  */
-int main(int argc, char * const argv[])
+int main(int argc, char *argv[])
 {
 	if(check_arguments(argc, argv[1], argv[2]))
 	{
-		if(check_file(argv[1]) && check_file(argv[2]))
+		string source = argv[1];
+		string destination = argv[2];
+		
+		if(check_file(source) && check_file(destination))
 		{
-			if(read_file(argv[1]))
+			if(read_file(source))
 			{
+				list::show();
 				cout << "Fine." << endl;
 			}
-		}
+		}				
 	}
 
 	return 0;
