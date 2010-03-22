@@ -42,6 +42,24 @@ struct Anmeldung {
 //
 // Prototypen
 //
+namespace file
+{
+	bool check_file(string& filename);
+	bool write_xml(Anmeldung* list, string destination);
+	int read_file(string& source);
+}
+
+namespace list
+{
+	Anmeldung* create();
+	bool insert(string item[]);
+	int pop(Anmeldung* element, Anmeldung* previous);
+	int remove_duplicates();
+	void show();
+	
+	static Anmeldung* root = NULL;
+	static Anmeldung* current = NULL;	
+}
 
 #endif
 
