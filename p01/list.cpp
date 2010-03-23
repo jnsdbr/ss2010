@@ -1,3 +1,7 @@
+/**
+ * Namespace for list operations
+ */
+
 #include "P1.h"
 
 namespace list
@@ -102,7 +106,9 @@ namespace list
 						{
 							root = master->next;
 						}
+						
 						delete master;
+						
 						master = previous->next;
 					}
 					
@@ -164,4 +170,32 @@ namespace list
 	{
 		return root;
 	}
+	
+	/**
+	 * Clears memory
+	 *
+	 * @return Anmeldung* element	Pointer
+	 */
+	bool destroy(Anmeldung* element) 
+	{
+		Anmeldung* temp;
+		try
+		{
+			while(element != NULL)
+			{
+				temp = element;
+				element = element->next;
+				delete temp;
+			}
+		}
+		catch(exception& e)
+		{
+			cout << "ERROR: Couldn't clear memory" << endl;
+			
+			return 0;
+		}
+		
+		return 1;
+	}
+	
 }

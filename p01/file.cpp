@@ -1,3 +1,7 @@
+/**
+ * Namespace for file operations
+ */
+
 #include "P1.h"
 
 namespace file
@@ -23,7 +27,7 @@ namespace file
 		}
 		catch(exception& e)
 		{
-			cout << "ERROR: file not found." << endl;
+			cout << "ERROR: " << filename << " not found" << endl;
 
 			return 0;
 		}

@@ -1,3 +1,10 @@
+/**
+ * CSV to XML converter
+ * Converts csv formatted data into a xml file
+ *
+ * @author Boris Spinner & Jens de Boer 
+ */
+
 #include "P1.h"
 
 /**
@@ -64,9 +71,13 @@ int main(int argc, char *argv[])
 				{
 					list::remove_duplicates();
 					file::write_xml(list::get_root(), destination);
+					list::destroy(list::get_root());
 					cout << "Fine." << endl;
 				}
-				catch(exception& e) {}
+				catch(exception& e)
+				{
+					
+				}
 			}
 		}				
 	}
