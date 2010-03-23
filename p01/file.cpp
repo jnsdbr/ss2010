@@ -50,9 +50,9 @@ namespace file
 
 		ofstream file;
 
-		if(list::root != NULL)
+		if(list != NULL)
 		{
-			list::current = list::root;
+			list::current = list::get_root();
 
 			while(list::current != NULL)
 			{

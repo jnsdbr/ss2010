@@ -56,6 +56,7 @@ namespace list
 	int pop(Anmeldung* element, Anmeldung* previous);
 	int remove_duplicates();
 	void show();
+	Anmeldung* get_root();
 	
 	static Anmeldung* root = NULL;
 	static Anmeldung* current = NULL;	

@@ -60,9 +60,13 @@ int main(int argc, char *argv[])
 		{
 			if(file::read_file(source))
 			{
-				list::remove_duplicates();
-				file::write_xml(list::root, destination);
-				cout << "Fine." << endl;
+				try
+				{
+					list::remove_duplicates();
+					file::write_xml(list::get_root(), destination);
+					cout << "Fine." << endl;
+				}
+				catch(exception& e) {}
 			}
 		}				
 	}

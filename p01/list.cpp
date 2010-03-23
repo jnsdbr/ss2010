@@ -69,23 +69,12 @@ namespace list
 		
 		return 1;
 	}
-	
-	int pop(Anmeldung* element, Anmeldung* previous) {
 
-		if (element != NULL && previous != NULL) {
-
-			cout << "INFO: Removing entry with Matrikelnummer " << element->Matrikelnummer << endl;
-			/* Pass next element to previous element and free memory previously allocted for element */
-			previous->next = element->next;
-			//delete element;
-
-		} else {
-			cout << "ERROR: Passed parameter of \"element\" OR \"previous\" points to NULL. Operation aborted. Sorry, please stay calm anyway." << endl;
-			return 1;
-		}
-		return 0;
-	}
-
+	/**
+	 * Removes duplicate list entries
+	 *
+	 * @return
+	 */
 	int remove_duplicates()
 	{
 		/* Travel through list and compare each Item to each other */
@@ -95,39 +84,47 @@ namespace list
 		}
 		else 
 		{
-			cout << "INFO: Searching duplicates..." << endl;
-
 			Anmeldung* master = root; // compare MASTER to SLAVE
-			current = master->next; // slave
-			Anmeldung* previous = root; // needed for easier removal, spares traveling through list to find previous element
-
+			current = master->next; // SLAVE
+			Anmeldung* previous = root;
+			bool removed = false;
+			
 			while(master != NULL)
 			{
-
-				while(current != NULL)
+				while(current != NULL && !removed)
 				{
-					cout << "INFO: Comparing " << master->Matrikelnummer << " to " << current->Matrikelnummer << endl;
+					/* Compare Matrikelnummern -- on positive result, free memory at master
+					and relink remaining list-elements */
 					if(master->Matrikelnummer == current->Matrikelnummer)
 					{
-						cout << "INFO: MATCH! Will try to remove that shit..." << endl;
-						pop(current, previous);
-						previous = current;
-						current = previous->next;
+						previous->next = master->next;
+						if(master == root)
+						{
+							root = master->next;
+						}
+						delete master;
+						master = previous->next;
 					}
-					else
-					{
-						previous = current;
-						current = current->next;
-					}
-
+					
+					current = current->next;
 				}
-				master = master->next;
+				
+				previous = master;
+				
+				if(!removed)
+				{
+					master = master->next;
+				}
+				
 				if(master != NULL)
 				{
 					current = master->next;
 				}
+				
+				removed = false;
 			}
 		}
+		
 		return 0;
 	}
 	
@@ -155,7 +152,16 @@ namespace list
 			
 				current = current->next;	
 			}
-		}
-		
+		}	
+	}
+	
+	/**
+	 * Returns the address of root
+	 *
+	 * @return	Anmeldung* root	Pointer
+	 */
+	Anmeldung* get_root()
+	{
+		return root;
 	}
 }
