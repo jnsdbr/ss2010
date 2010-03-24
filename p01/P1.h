@@ -57,6 +57,7 @@ namespace list
 	int remove_duplicates();
 	void show();
 	Anmeldung* get_root();
+	bool destroy(Anmeldung*);
 	
 	static Anmeldung* root = NULL;
 	static Anmeldung* current = NULL;	
