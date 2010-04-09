@@ -30,12 +30,18 @@ void test1() {
   RationaleZahl a = {'+',4,7}; // +4/7
   RationaleZahl b = {'-',1,4}; // -1/4
   RationaleZahl c = {'+',5,6}; // +5/6
-  cout << b << '+' << b << '=' << b+b << endl;
-  cout << b << '+' << c << '='<< b+c << endl;
-  cout << c << '+' << b << '='<< c+b << endl;
-  cout << b << '-' << c << '='<< b-c << endl;
-  cout << "a*c = "<< a*c << endl;
-  cout << "b/a = "<< b/a << endl;
+  cout << b << '+' << b << '=' << b+b << endl << endl;
+  cout << b << '+' << c << '=' << b+c << endl << endl;
+  cout << c << '+' << b << '=' << c+b << endl << endl;
+  cout << b << '-' << c << '=' << b-c << endl << endl;
+  cout << a << '*' << c << '=' << a*c << endl << endl;
+  cout << a << '*' << b << '=' << a*b << endl << endl;
+  cout << b << '*' << a << '=' << b*a << endl << endl;
+  cout << b << '*' << b << '=' << b*b << endl << endl;
+  cout << a << '/' << c << '=' << a/c << endl << endl;
+  cout << a << '/' << b << '=' << a/b << endl << endl;
+  cout << b << '/' << a << '=' << b/a << endl << endl;
+  cout << b << '/' << b << '=' << b/b << endl << endl;
 }
 void test2() {
   // Test unbekannte Ausnahme

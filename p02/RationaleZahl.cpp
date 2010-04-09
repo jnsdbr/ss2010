@@ -24,36 +24,121 @@ using namespace std;
 // Operatoren: + - * /
 //
 RationaleZahl &operator +(const RationaleZahl &l, const RationaleZahl &r) {
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "plus"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-//  return ???;
+
+	int n1, n2;
+	int akt_ggT;
+	static RationaleZahl ergebnis;
+
+	akt_ggT = ggT(l.Nenner, r.Nenner);
+
+	n1 = l.Nenner/akt_ggT;
+	n2 = r.Nenner/akt_ggT;
+
+	int ZaehlerLinks = l.Zaehler;
+	int ZaehlerRechts = r.Zaehler;
+
+	if(l.Vorzeichen == '-')	ZaehlerLinks = ZaehlerLinks*(-1);
+	if(r.Vorzeichen == '-')	ZaehlerRechts = ZaehlerRechts*(-1);
+
+	int ErgebnisMitVorzeichen = 0;
+	ErgebnisMitVorzeichen = (ZaehlerLinks * n2) + (ZaehlerRechts * n1);
+	if(ErgebnisMitVorzeichen<0) {
+		ergebnis.Vorzeichen = '-'; // Das Vorzeichen wird in der Struct eingefügt
+		ergebnis.Zaehler = ErgebnisMitVorzeichen * (-1); // und von der Zahl entfernt
+	} else
+	{
+		ergebnis.Vorzeichen = '+';
+		ergebnis.Zaehler = ErgebnisMitVorzeichen;
+	}
+
+	// ergebnis.Zaehler = (l.Zaehler * n2) + (r.Zaehler * n1);
+	ergebnis.Nenner = n1 * n2 * akt_ggT;
+
+	// kürzen
+
+	akt_ggT = ggT(ergebnis.Zaehler, ergebnis.Nenner);
+	ergebnis.Zaehler = ergebnis.Zaehler/akt_ggT;
+	ergebnis.Nenner = ergebnis.Nenner/akt_ggT;
+
+	return ergebnis;
+
 }
 RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "minus"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-//  return ???;
+
+	RationaleZahl rNeu = r;
+
+	if(rNeu.Vorzeichen == '-') rNeu.Vorzeichen = '+';
+	else rNeu.Vorzeichen = '-';
+
+	return l + rNeu;
+
 }
 RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "mal"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-//  return ???;
+
+	int n1 = 0,
+		n2 = 0,
+		z1 = 0,
+		z2 = 0;
+
+	z1 = l.Zaehler / ggT(l.Zaehler, r.Nenner);
+	z2 = r.Zaehler / ggT(r.Zaehler, l.Nenner);
+	n1 = l.Nenner / ggT(r.Zaehler, l.Nenner);
+	n2 = r.Nenner / ggT(l.Zaehler, r.Nenner);
+
+	static RationaleZahl ergebnis;
+	ergebnis.Zaehler = z1 * z2;
+	ergebnis.Nenner = n1 * n2;
+	if(
+		(
+			(l.Vorzeichen == '-') || (r.Vorzeichen == '-')
+		)
+		&&
+		!(
+			(l.Vorzeichen == '-') && (r.Vorzeichen == '-')
+		)
+	  )
+			{
+			ergebnis.Vorzeichen = '-';
+	} else ergebnis.Vorzeichen = '+';
+
+	return ergebnis;
+
 }
 RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "durch"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-//  return ???;
+
+  RationaleZahl rNeu;
+  rNeu.Nenner = r.Zaehler;
+  rNeu.Zaehler = r.Nenner;
+  rNeu.Vorzeichen = r.Vorzeichen;
+
+  return l * rNeu;
 }
 
 //
 // Ausgabeoperator: <<
 //
 ostream &operator << (ostream & o, const RationaleZahl &r) {
-  o << "ostream &operator << (ostream & o, RationaleZahl r)"
-    << " noch nicht implementiert" << endl;
+  o << '('
+  	<< r.Vorzeichen
+  	<< r.Zaehler
+  	<< '/'
+  	<< r.Nenner
+  	<< ')';
   return o;
 }
 
+int ggT(int a, int b)
+{
+	int d=0, r=0;
+	if(b != 0)
+	{
+		r = a % b;
+		d = ggT(b, r);
+
+		return d;
+	}
+	else
+	{
+		return a;
+	}
+}

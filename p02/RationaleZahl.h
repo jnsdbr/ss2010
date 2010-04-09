@@ -42,3 +42,5 @@ RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r);
 
 using namespace std;
 ostream &operator << (ostream & o, const RationaleZahl &r); // benoetigt <iostream>
+
+int ggT(int , int);
