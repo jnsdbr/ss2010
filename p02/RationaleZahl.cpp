@@ -65,16 +65,6 @@ RationaleZahl &operator +(const RationaleZahl &l, const RationaleZahl &r) {
 }
 RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
 
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "minus"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-
-		/*
-			a = b - c => a = b + (-c)
-		*/
-
-//  return ???;
-
 	RationaleZahl rNeu = r;
 
 	if(rNeu.Vorzeichen == '-') rNeu.Vorzeichen = '+';
@@ -115,16 +105,6 @@ RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 
 }
 RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
-
-  cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "durch"
-       << '(' << r.Zaehler << '/' << r.Nenner << ')'
-       << "ist noch nicht implementiert" << endl;
-
-		/*
-			a = b / c	=> b * kehrwert c
-		*/
-
-//  return ???;
 
   RationaleZahl rNeu;
   rNeu.Nenner = r.Zaehler;
