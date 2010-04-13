@@ -64,7 +64,7 @@ RationaleZahl &operator +(const RationaleZahl &l, const RationaleZahl &r) {
 
 }
 RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
-<<<<<<< HEAD
+
   cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "minus"
        << '(' << r.Zaehler << '/' << r.Nenner << ')'
        << "ist noch nicht implementiert" << endl;
@@ -74,7 +74,6 @@ RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
 		*/
 
 //  return ???;
-=======
 
 	RationaleZahl rNeu = r;
 
@@ -83,7 +82,6 @@ RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
 
 	return l + rNeu;
 
->>>>>>> 22502e68aa24fab4ded38a35ca5ff7ad7e4fa21b
 }
 RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 
@@ -117,7 +115,7 @@ RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 
 }
 RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
-<<<<<<< HEAD
+
   cout << '(' << l.Zaehler << '/' << l.Nenner << ')' << "durch"
        << '(' << r.Zaehler << '/' << r.Nenner << ')'
        << "ist noch nicht implementiert" << endl;
@@ -127,7 +125,6 @@ RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
 		*/
 
 //  return ???;
-=======
 
   RationaleZahl rNeu;
   rNeu.Nenner = r.Zaehler;
@@ -135,7 +132,6 @@ RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
   rNeu.Vorzeichen = r.Vorzeichen;
 
   return l * rNeu;
->>>>>>> 22502e68aa24fab4ded38a35ca5ff7ad7e4fa21b
 }
 
 //
