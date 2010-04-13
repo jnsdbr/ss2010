@@ -2,7 +2,7 @@
 CC = g++
 PRODUCT = RationaleZahl
 OBJECTS = RationaleZahl.o Test_RationaleZahl.o
-HEADER = RationalZahl.h
+HEADER = RationaleZahl.h
 CFLAGS = 
 RM = rm
 
@@ -11,8 +11,8 @@ $(PRODUCT): $(OBJECTS)
 	$(CC) -o $@ $^
 
 # relations
-RationahlZahl.o: RationalZahl.cpp #$(HEADER)
-Test_RationaleZahl.o: Test_RationaleZahl.cpp #$(HEADER)
+RationahlZahl.o: RationalZahl.cpp $(HEADER)
+Test_RationaleZahl.o: Test_RationaleZahl.cpp $(HEADER)
 
 # pattern
 %.o: %.c
