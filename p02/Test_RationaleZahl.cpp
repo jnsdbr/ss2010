@@ -53,26 +53,44 @@ void test2() {
 void test3() {
   // Test ...
   cout << "Testprogramm 3" << endl;
+  RationaleZahl a = {'-',10,2};
+  RationaleZahl b = {'+',12,4};
+  cout << a << '+' << b << '=' << a+b << endl;
+  cout << b << '+' << a << '=' << b+a << endl;
+  cout << a << '-' << b << '=' << a-b << endl;
+  cout << b << '-' << a << '=' << b-a << endl;
 }
 void test4() {
-  // Test ...
   cout << "Testprogramm 4" << endl;
+  // Unendlich durch Unendlich
+  RationaleZahl a = {'+',4,0};
+  cout << a << '/' << a << '=' << a/a << endl;
 }
 void test5() {
-  // Test ...
   cout << "Testprogramm 5" << endl;
+  // NullDurchNull
+  RationaleZahl b = {'+',0,999};
+  cout << b << '/' << b << '=' << b/b << endl;
 }
 void test6() {
-  // Test ...
   cout << "Testprogramm 6" << endl;
+  // NullMalUnendlich
+  RationaleZahl a = {'+',3,0};
+  RationaleZahl b = {'+',0,3};
+    cout << b << '*' << a << '=' << b*a << endl;
 }
 void test7() {
-  // Test ...
   cout << "Testprogramm 7" << endl;
+  // MinusUnendlichUndPlusUnendlich
+  RationaleZahl c = {'+',3,0};
+  RationaleZahl d = {'-',5,0};
+  cout << c << '+' << d << '=' << c+d << endl;
 }
 void test8() {
-  // Test ...
   cout << "Testprogramm 8" << endl;
+  // Keine Zahl
+  RationaleZahl a = {'+',0,0};
+  cout << a << '*' << a << '=' << a*a << endl;
 }
 //
 // ... falls nötig, weitere Testprogramme vereinbaren

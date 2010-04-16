@@ -25,6 +25,16 @@ using namespace std;
 //
 RationaleZahl &operator +(const RationaleZahl &l, const RationaleZahl &r) {
 
+	if((r.Zaehler > 0 && r.Nenner == 0) && (l.Zaehler > 0 && l.Nenner == 0)){
+		MinusUnendlichUndPlusUnendlich error;
+		throw error;
+	}
+
+	if((r.Zaehler == 0 && r.Nenner == 0) || (l.Zaehler == 0 && l.Nenner == 0)){
+		KeineZahl error;
+		throw error;
+	}
+
 	int n1, n2;
 	int akt_ggT;
 	static RationaleZahl ergebnis;
@@ -75,6 +85,17 @@ RationaleZahl &operator -(const RationaleZahl &l, const RationaleZahl &r) {
 }
 RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 
+	if((l.Zaehler == 0 && l.Nenner > 0 && r.Zaehler > 0 && r.Nenner == 0) ||
+	   (l.Zaehler > 0 && l.Nenner == 0 && r.Zaehler == 0 && r.Nenner > 0)){
+		NullMalUnendlich error;
+		throw error;
+	}
+
+	if((r.Zaehler == 0 && r.Nenner == 0) || (l.Zaehler == 0 && l.Nenner == 0)) {
+		KeineZahl error;
+		throw error;
+	}
+
 	int n1 = 0,
 		n2 = 0,
 		z1 = 0,
@@ -88,16 +109,8 @@ RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 	static RationaleZahl ergebnis;
 	ergebnis.Zaehler = z1 * z2;
 	ergebnis.Nenner = n1 * n2;
-	if(
-		(
-			(l.Vorzeichen == '-') || (r.Vorzeichen == '-')
-		)
-		&&
-		!(
-			(l.Vorzeichen == '-') && (r.Vorzeichen == '-')
-		)
-	  )
-			{
+	if(((l.Vorzeichen == '-') || (r.Vorzeichen == '-'))&&!((l.Vorzeichen == '-') && (r.Vorzeichen == '-')))
+	{
 			ergebnis.Vorzeichen = '-';
 	} else ergebnis.Vorzeichen = '+';
 
@@ -106,25 +119,43 @@ RationaleZahl &operator *(const RationaleZahl &l, const RationaleZahl &r) {
 }
 RationaleZahl &operator /(const RationaleZahl &l, const RationaleZahl &r) {
 
-  RationaleZahl rNeu;
-  rNeu.Nenner = r.Zaehler;
-  rNeu.Zaehler = r.Nenner;
-  rNeu.Vorzeichen = r.Vorzeichen;
+	if(l.Zaehler > 0 && l.Nenner == 0 && r.Zaehler > 0 && r.Nenner == 0){
+		UnendlichDurchUnendlich error;
+		throw error;
+	}
 
-  return l * rNeu;
+	if(l.Zaehler == 0 && l.Nenner > 0 && r.Zaehler == 0 && r.Nenner > 0){
+		NullDurchNull error;
+		throw error;
+	}
+
+	RationaleZahl rNeu;
+	rNeu.Nenner = r.Zaehler;
+	rNeu.Zaehler = r.Nenner;
+	rNeu.Vorzeichen = r.Vorzeichen;
+
+	return l * rNeu;
 }
 
 //
 // Ausgabeoperator: <<
 //
 ostream &operator << (ostream & o, const RationaleZahl &r) {
-  o << '('
-  	<< r.Vorzeichen
-  	<< r.Zaehler
-  	<< '/'
-  	<< r.Nenner
-  	<< ')';
-  return o;
+  	o << '(';
+  	if(r.Zaehler == 0 && r.Nenner > 0){
+  	  o << "0";
+  	}
+  	else if(r.Zaehler > 0 && r.Nenner == 0){
+  	  o << r.Vorzeichen << "unendlich";
+  	}
+  	else if(r.Zaehler == 0 && r.Nenner == 0){
+  	  o << "NaN";
+  	}
+  	else{
+  	  o << r.Vorzeichen << r.Zaehler << '/' << r.Nenner ;
+  	}
+  	o << ')';
+  	return o;
 }
 
 int ggT(int a, int b)
