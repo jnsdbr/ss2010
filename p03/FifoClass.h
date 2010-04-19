@@ -2,7 +2,7 @@
 
 
 
-/*************************************************************************/
+ *************************************************************************/
 
 #include <iostream>
 #include <string>
@@ -14,25 +14,24 @@ class FifoClass {
 	private:
 		class FifoElement {
 			private:
-				FifoElement* next;
 				string value;
+				FifoElement* next;
 			public:
 				FifoElement(string v) : value(v), next(NULL) {};
 				~FifoElement() { delete next; }
 		};
 
 		FifoElement *root;
-		FifoClass& push(string v);
+		FifoClass& push(string &v);
 		FifoClass& pop(string &v);
 	public:
 		FifoClass() : root(NULL) {};
 		FifoClass(const char*);
 	 	~FifoClass() { if(!empty()) delete root; }
 		inline bool empty() { return root==NULL; }
-	 	inline FifoClass& operator<<(const string&); // push
-	 	inline FifoClass& operator>>(string&);		 // pop
+	 	inline FifoClass& operator << (string &v) { return push(&v); }
+	 	inline FifoClass& operator >> (string &v) { return pop(&v); );
 	 	operator string();
 	 	operator int() const;
 	 	const char* Error() const;
 };
-

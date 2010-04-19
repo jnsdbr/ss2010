@@ -2,9 +2,8 @@
 
 using namespace std;
 
-FifoClass& FifoClass::push(string v)
-{
-	//FifoElement *Test = new FifoElement();
-
+int main() {
+		FifoClass s;
+		s << "One";
+		return 0;
 }
-
