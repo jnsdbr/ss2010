@@ -1,5 +1,5 @@
 #include "FifoClass.h"
-
+/* nic3r */
 using namespace std;
 
 /* FifoClass */
