@@ -6,14 +6,13 @@ int main()
 {
 	FifoClass s;
 	s << "One";
-	s << "Two";
-	
+//	s << "Two";
+//	s << "Three";	
+
 	string peter = "Nicht geaendert!";
 	s >> peter;
 	cout << peter;
-	s >> peter;
-	cout << peter;
-	s >> peter;
-	cout << peter;
+//	s >> peter;
+//	cout << peter;
 	return 0;
 }

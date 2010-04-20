@@ -3,7 +3,7 @@ CC = g++
 PRODUCT = test
 OBJECTS = FifoClass.o test.o
 HEADER = FifoClass.h
-CFLAGS =
+CFLAGS = -Wall
 RM = rm
 
 # bindings
