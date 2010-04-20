@@ -18,8 +18,9 @@ class FifoClass {
 				string value;
 				FifoElement* next;
 			public:
-				FifoElement(string v) : value(v), next(NULL) {}
+				FifoElement(string v, FifoElement* n) : value(v), next(n) {};
 				~FifoElement() { delete next; }
+				inline FifoElement* next_element() {}
 		};
 		
 		FifoElement *root;
@@ -33,7 +34,7 @@ class FifoClass {
 		inline bool empty() { return root==NULL; }
 		inline FifoClass& operator <<(const string& v) { return push(v); }
 	 	inline FifoClass& operator >>(string& v) { return pop(v); }
-	 	operator string();
+	 	inline operator string() { return pop() };
 	 	operator int() const;
 	 	const char* Error() const;
 };

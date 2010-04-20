@@ -6,5 +6,6 @@ int main()
 {
 	FifoClass s;
 	s << "One";
+	s << "Two";
 	return 0;
 }
