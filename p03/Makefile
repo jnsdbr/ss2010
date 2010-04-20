@@ -8,7 +8,7 @@ RM = rm
 
 # bindings
 $(PRODUCT): $(OBJECTS)
-$(CC) -o $@ $^
+	$(CC) -o $@ $^
 
 # relations
 FifoClass.o: FifoClass.cpp $(HEADER)
@@ -16,9 +16,9 @@ test.o: test.cpp $(HEADER)
 
 # pattern
 %.o: %.c
-$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 .PHONY: clean
 clean:
-$(RM) $(PRODUCT)
-$(RM) $(OBJECTS)
+	$(RM) $(PRODUCT)
+	$(RM) $(OBJECTS)
