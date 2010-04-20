@@ -13,7 +13,7 @@ FifoClass& FifoClass::pop (string& v)
 {
 	if (empty()) throw "Stack underflow";
 	
-	
+	// bori5
 	
 	/*
 	v = *root;
