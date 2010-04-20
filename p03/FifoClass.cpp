@@ -1,5 +1,4 @@
 #include "FifoClass.h"
-/* nic3r */
 using namespace std;
 
 /* FifoClass */
@@ -12,8 +11,6 @@ FifoClass& FifoClass::push(const string& v)
 FifoClass& FifoClass::pop (string& v)
 {
 	if (empty()) throw "Stack underflow";
-	
-	// bori5
 	
 	/*
 	v = *root;
