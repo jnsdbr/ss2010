@@ -8,7 +8,7 @@ int main()
 	s << "One";
 //	s << "Two";
 //	s << "Three";	
-
+//
 	string peter = "Nicht geaendert!";
 	s >> peter;
 	cout << peter;
