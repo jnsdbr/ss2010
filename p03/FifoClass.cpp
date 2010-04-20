@@ -4,23 +4,30 @@ using namespace std;
 /* FifoClass */
 FifoClass& FifoClass::push(const string& v)
 {
-	root = new FifoElement(v, root);
+	top = new FifoElement(v, top);
+	if(root == NULL) {
+		root = top;
+	}
+
 	return *this;
 }
 
-FifoClass& FifoClass::pop (string& v)
+FifoClass& FifoClass::pop(string& v)
 {
-	if (empty()) throw "Stack underflow";
+	FifoElement *temp;
 	
-	/*
-	v = *root;
-	FifoElement *help = root;
-	root = root->next_element();
-	delete help;
-	return *this;*/
-}
-
-FifoClass::operator string()
-{
+	v = root->getValue();	
 	
+	temp = top;
+	while(temp->nextElement() != root && temp->nextElement() != NULL)
+	{
+		if(temp->nextElement() != NULL)
+		{
+			temp = temp->nextElement();
+		}
+		
+	}
+	
+	//delete root;
+	root = temp;
 }
