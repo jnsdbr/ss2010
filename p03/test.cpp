@@ -2,8 +2,9 @@
 
 using namespace std;
 
-int main() {
-		FifoClass s;
-		s << "One";
-		return 0;
+int main()
+{
+	FifoClass s;
+	s << "One";
+	return 0;
 }

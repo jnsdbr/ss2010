@@ -3,8 +3,7 @@
 using namespace std;
 
 /* FifoClass */
-
-FifoClass& FifoClass::push(string v)
+FifoClass& FifoClass::push(const string& v)
 {
 	FifoElement *test;
 	test = new FifoElement(v);
