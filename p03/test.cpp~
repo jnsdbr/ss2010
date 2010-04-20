@@ -11,10 +11,8 @@ int main()
 
 	string peter = "Nicht geaendert!";
 	s >> peter;
-	cout << peter << endl;
-	s >> peter;
-	cout << peter << endl;
-	s >> peter;
-	cout << peter << endl;
+	cout << peter;
+//	s >> peter;
+//	cout << peter;
 	return 0;
 }

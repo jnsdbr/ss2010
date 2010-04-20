@@ -23,6 +23,7 @@ class FifoClass {
 				~FifoElement() { delete next; }
 				inline FifoElement* nextElement() { return next; }
 				inline string getValue() { return value; }
+				inline void setNext(FifoElement* n) { next = n; };
 		};
 		
 		FifoElement *top;  // Stapelende -- das zuletzt hinzugefügt Element
@@ -38,6 +39,7 @@ class FifoClass {
 		inline FifoClass& operator <<(const string v) { return push(v); }
 	 	inline FifoClass& operator >>(string& v) { return pop(v); }
 		FifoElement* GetFirstElement();
+		FifoElement* GetSecondElement();
 		operator string(); //??
 	 	const char* Error() const;
 };
