@@ -34,7 +34,6 @@ class FifoClass {
 		inline bool empty() { return root==NULL; }
 		inline FifoClass& operator <<(const string& v) { return push(v); }
 	 	inline FifoClass& operator >>(string& v) { return pop(v); }
-	 	inline operator string() { return pop() };
-	 	operator int() const;
+		operator string();
 	 	const char* Error() const;
 };

@@ -19,3 +19,8 @@ FifoClass& FifoClass::pop (string& v)
 	delete help;
 	return *this;*/
 }
+
+FifoClass::operator string()
+{
+	
+}
