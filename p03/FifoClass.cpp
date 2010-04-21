@@ -2,9 +2,24 @@
 using namespace std;
 
 /* FifoClass */
+
+void FifoClass::ChangeLevel(bool updown) {
+	cout << "chLevel:: old: " << chLevel;	
+	//try {	
+		if(updown) {
+			chLevel++;
+		} else {
+			if(chLevel>0) chLevel--;
+			else throw "Charge level underflow";
+		}
+	//} throw "Changing charge level failed.";
+	cout << " new: " << chLevel << endl;
+}
+
 FifoClass& FifoClass::push(const string v)
 {
 	top = new FifoElement(v, top);
+	ChangeLevel(true);
 	return *this;
 }
 
@@ -21,6 +36,8 @@ FifoClass& FifoClass::pop(string& v)
 		delete root;	// wenn das Programm beendet wird (FifoClass::delete)
 		// Deshalb werden alle außer das letzte Element free'd!
 	}
+
+	ChangeLevel(false);
 	
 	return *this;
 }

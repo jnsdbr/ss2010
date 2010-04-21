@@ -26,13 +26,14 @@ class FifoClass {
 				inline void setNext(FifoElement* n) { next = n; };
 		};
 		
-		FifoElement *top;  // Stapelende -- das zuletzt hinzugefügt Element
+		FifoElement *top;  // List's End -- latest added element
 		FifoClass& push(const string);
 		FifoClass& pop(string&);
+		unsigned int chLevel; // Charge Level -- number of elements in list
 		
 	public:
 		
-		FifoClass() : top(0) {};
+		FifoClass() : top(0), chLevel(0) {};
 		FifoClass(const char*);
 	 	~FifoClass() { if(!empty()) delete top; }
 		inline bool empty() { return top==0; }
@@ -40,6 +41,8 @@ class FifoClass {
 	 	inline FifoClass& operator >>(string& v) { return pop(v); }
 		FifoElement* GetFirstElement();
 		FifoElement* GetSecondElement();
+		void ChangeLevel(bool updown);
+		unsigned int getLevel() { return chLevel; }
 		operator string(); //??
 	 	const char* Error() const;
 };
