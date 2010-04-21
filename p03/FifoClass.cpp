@@ -3,9 +3,19 @@ using namespace std;
 
 /* FifoClass */
 
+const char* FifoClass::Error() const {
+	switch(errorNo) {
+		/* hier fehlt noch kot */
+		/* hier fehlt noch kot */
+		/* hier fehlt noch kot */
+		/* hier fehlt noch kot */
+		/* hier fehlt noch kot */
+	}
+}
+
 void FifoClass::ChangeLevel(bool updown) {
-	cout << "chLevel:: old: " << chLevel;	
-	//try {	
+	cout << "chLevel:: old: " << chLevel;
+	//try {
 		if(updown) {
 			chLevel++;
 		} else {
@@ -24,13 +34,13 @@ FifoClass& FifoClass::push(const string v)
 }
 
 FifoClass& FifoClass::pop(string& v)
-{	
+{
 	if(empty()) throw "No elements in list";
 	FifoElement *root = GetFirstElement();
 	FifoElement *prev = GetSecondElement();
 	cout << "root: " << root << "\tprev: " << prev << "\ttop: " << top << endl;
 	v = root->getValue();
-	
+
 	if(root != prev) {
 		prev->setNext(NULL); // Der Speicher des letzten Elements wird befreit,
 		delete root;	// wenn das Programm beendet wird (FifoClass::delete)
@@ -38,7 +48,7 @@ FifoClass& FifoClass::pop(string& v)
 	}
 
 	ChangeLevel(false);
-	
+
 	return *this;
 }
 
@@ -66,4 +76,21 @@ FifoClass::FifoElement* FifoClass::GetSecondElement() {
 	}
 
 	return temp;
+}
+
+FifoClass::FifoClass(const char* source) {
+	chLevel = 0;
+	string line;
+	ifstream file;
+	// try
+
+	file.open(source);
+	while(!file.eof()) {
+		getline(file, line, '\n');
+		if(line.length() > 0) {
+			push(line);
+		}
+	}
+
+	file.close();
 }
