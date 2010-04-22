@@ -11,6 +11,8 @@ const char* FifoClass::Error() const {
 		/* hier fehlt noch kot */
 		/* hier fehlt noch kot */
 	}
+
+	return NULL; // ändern
 }
 
 void FifoClass::ChangeLevel(bool updown) {
@@ -80,6 +82,8 @@ FifoClass::FifoElement* FifoClass::GetSecondElement() {
 
 FifoClass::FifoClass(const char* source) {
 	chLevel = 0;
+	top = NULL;
+	errorNo = 0;
 	string line;
 	ifstream file;
 	// try

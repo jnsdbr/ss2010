@@ -6,6 +6,11 @@ int main()
 {
 	//FifoClass s;
 	FifoClass s("test.txt");
+	
+	string peter;
+//	s << "Omne";
+//	peter = static_cast<string>(s);
+
 	/*s << "One";
 	s << "Two";
 	s << "Three";
