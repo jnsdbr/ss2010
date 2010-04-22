@@ -3,12 +3,12 @@ CC = g++
 PRODUCT = test
 OBJECTS = FifoClass.o test.o
 HEADER = FifoClass.h
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 RM = rm
 
 # bindings
 $(PRODUCT): $(OBJECTS)
-	$(CC) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 # relations
 FifoClass.o: FifoClass.cpp $(HEADER)

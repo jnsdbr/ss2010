@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
   }
 
   //
-  // Test auf Fehler beim Datei-oeffnen 
+  // Test auf Fehler beim Datei-oeffnen
   //
   cout << "*** Es wird nun eine Ausnahme wegen nicht existierender Datei passieren ***" << endl;
   try {

@@ -4,19 +4,11 @@ using namespace std;
 /* FifoClass */
 
 const char* FifoClass::Error() const {
-	switch(errorNo) {
-		/* hier fehlt noch kot */
-		/* hier fehlt noch kot */
-		/* hier fehlt noch kot */
-		/* hier fehlt noch kot */
-		/* hier fehlt noch kot */
-	}
-
-	return NULL; // ändern
+	return error_str.c_str(); // ändern
 }
 
 void FifoClass::ChangeLevel(bool updown) {
-	cout << "chLevel:: old: " << chLevel;
+	//cout << "chLevel:: old: " << chLevel;
 	//try {
 		if(updown) {
 			chLevel++;
@@ -25,7 +17,7 @@ void FifoClass::ChangeLevel(bool updown) {
 			else throw "Charge level underflow";
 		}
 	//} throw "Changing charge level failed.";
-	cout << " new: " << chLevel << endl;
+	//cout << " new: " << chLevel << endl;
 }
 
 FifoClass& FifoClass::push(const string v)
@@ -40,7 +32,7 @@ FifoClass& FifoClass::pop(string& v)
 	if(empty()) throw "No elements in list";
 	FifoElement *root = GetFirstElement();
 	FifoElement *prev = GetSecondElement();
-	cout << "root: " << root << "\tprev: " << prev << "\ttop: " << top << endl;
+	//cout << "root: " << root << "\tprev: " << prev << "\ttop: " << top << endl;
 	v = root->getValue();
 
 	if(root != prev) {
@@ -83,7 +75,7 @@ FifoClass::FifoElement* FifoClass::GetSecondElement() {
 FifoClass::FifoClass(const char* source) {
 	chLevel = 0;
 	top = NULL;
-	errorNo = 0;
+	error_str = '\0';
 	string line;
 	ifstream file;
 	// try

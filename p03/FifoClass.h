@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <string>
-#include <new>
-
+#include <cstring> 	//?
+#include <new>		//?
 #include <fstream>
 
 using namespace std;
@@ -20,9 +20,9 @@ class FifoClass {
 				FifoElement* next;
 			public:
 				FifoElement(string v, FifoElement* n) : value(v), next(n) {
-					cout << "value: " << v << "\tnext: " << n << endl;
+					//cout << "value: " << v << "\tnext: " << n << endl;
 				};
-				~FifoElement() { cout << "deleting: " << next << endl; if(next!=NULL) delete next; }
+				~FifoElement() { /*cout << "deleting: " << next << endl;*/ if(next!=NULL) delete next; }
 				inline FifoElement* nextElement() { return next; }
 				inline string getValue() { return value; }
 				inline void setNext(FifoElement* n) { next = n; };
@@ -33,11 +33,11 @@ class FifoClass {
 		FifoClass& pop(string&);
 		inline string pop() { string v; pop(v); return v;}
 		unsigned int chLevel; // Charge Level -- number of elements in list
-		unsigned char errorNo;
+		string error_str;
 
 	public:
 
-		FifoClass() : top(NULL), chLevel(0), errorNo(0) {};
+		FifoClass() : top(NULL), chLevel(0), error_str('\0') {};
 		FifoClass(const char*);
 	 	~FifoClass() { if(!empty()) delete top; }
 		inline bool empty() { return top==NULL; }
