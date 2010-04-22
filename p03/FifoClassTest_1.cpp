@@ -53,7 +53,8 @@ int main(int argc, char *argv[]) {
   // Fifo Unterlauf testen
   //
   cout << "*** Es werden nun Fifo-Unterlaeufe passieren ***" << endl;
-  { FifoClass s; // Leeres Fifo einrichten
+  {
+	FifoClass s; // Leeres Fifo einrichten
     try {
       cout << static_cast<string>(s) << endl;
     } catch (FifoClass& f) {

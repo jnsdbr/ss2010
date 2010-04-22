@@ -3,39 +3,62 @@ using namespace std;
 
 /* FifoClass */
 
-const char* FifoClass::Error() const {
-	return error_str.c_str(); // ändern
+const char* FifoClass::Error() const
+{
+	return error_str.c_str();
 }
 
-void FifoClass::ChangeLevel(bool updown) {
-	//cout << "chLevel:: old: " << chLevel;
-	//try {
-		if(updown) {
-			chLevel++;
-		} else {
-			if(chLevel>0) chLevel--;
-			else throw "Charge level underflow";
-		}
-	//} throw "Changing charge level failed.";
-	//cout << " new: " << chLevel << endl;
+void FifoClass::ChangeLevel(bool updown)
+{
+	if(updown)
+	{
+		chLevel++;
+	}
+	else
+	{
+		if(chLevel>0) chLevel--;
+		else throw "Charge level underflow";
+	}
 }
 
 FifoClass& FifoClass::push(const string v)
 {
-	top = new FifoElement(v, top);
-	ChangeLevel(true);
+	try
+	{
+		top = new FifoElement(v, top);
+		ChangeLevel(true);
+	}
+	catch(bad_alloc)
+	{
+		error_str = "Bad Alloc.";
+		throw *this;
+	}
 	return *this;
 }
 
 FifoClass& FifoClass::pop(string& v)
 {
-	if(empty()) throw "No elements in list";
+	if(chLevel == 0)
+	{
+		error_str = "bla";
+		throw *this;
+	}
+	
+	if(empty())
+	{
+		error_str = "No elements in list";
+		throw *this;
+	}
+	
+	
 	FifoElement *root = GetFirstElement();
 	FifoElement *prev = GetSecondElement();
-	//cout << "root: " << root << "\tprev: " << prev << "\ttop: " << top << endl;
+	
+	
 	v = root->getValue();
 
-	if(root != prev) {
+	if(root != prev)
+	{
 		prev->setNext(NULL); // Der Speicher des letzten Elements wird befreit,
 		delete root;	// wenn das Programm beendet wird (FifoClass::delete)
 		// Deshalb werden alle außer das letzte Element free'd!
@@ -46,7 +69,8 @@ FifoClass& FifoClass::pop(string& v)
 	return *this;
 }
 
-FifoClass::FifoElement* FifoClass::GetFirstElement() {
+FifoClass::FifoElement* FifoClass::GetFirstElement()
+{
 	FifoElement *temp;
 	temp = top;
 
@@ -55,16 +79,22 @@ FifoClass::FifoElement* FifoClass::GetFirstElement() {
 
 	return temp;
 }
-FifoClass::FifoElement* FifoClass::GetSecondElement() {
+
+FifoClass::FifoElement* FifoClass::GetSecondElement()
+{
 	FifoElement *temp;
 	FifoElement *root = GetFirstElement();
 	temp = top;
 	bool previousfound = false;
 
-	while(!previousfound) {
-		if(temp->nextElement() != root && temp->nextElement() != NULL) {
+	while(!previousfound)
+	{
+		if(temp->nextElement() != root && temp->nextElement() != NULL)
+		{
 			temp = temp->nextElement();
-		} else {
+		}
+		else
+		{
 			previousfound = true;
 		}
 	}
@@ -75,17 +105,28 @@ FifoClass::FifoElement* FifoClass::GetSecondElement() {
 FifoClass::FifoClass(const char* source) {
 	chLevel = 0;
 	top = NULL;
-	error_str = '\0';
+	error_str = "\n";
 	string line;
+	
 	ifstream file;
-	// try
-
-	file.open(source);
-	while(!file.eof()) {
-		getline(file, line, '\n');
-		if(line.length() > 0) {
-			push(line);
+	
+	try
+	{
+		file.open(source);
+		
+		while(!file.eof())
+		{
+			getline(file, line, '\n');
+			if(line.length() > 0)
+			{
+				push(line);
+			}
 		}
+	}
+	catch(...)
+	{
+		error_str = "Could not open file.";
+		throw *this;
 	}
 
 	file.close();

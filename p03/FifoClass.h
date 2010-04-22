@@ -19,10 +19,8 @@ class FifoClass {
 				string value;
 				FifoElement* next;
 			public:
-				FifoElement(string v, FifoElement* n) : value(v), next(n) {
-					//cout << "value: " << v << "\tnext: " << n << endl;
-				};
-				~FifoElement() { /*cout << "deleting: " << next << endl;*/ if(next!=NULL) delete next; }
+				FifoElement(string v, FifoElement* n) : value(v), next(n) {};
+				~FifoElement() { delete next; }
 				inline FifoElement* nextElement() { return next; }
 				inline string getValue() { return value; }
 				inline void setNext(FifoElement* n) { next = n; };
@@ -37,7 +35,7 @@ class FifoClass {
 
 	public:
 
-		FifoClass() : top(NULL), chLevel(0), error_str('\0') {};
+		FifoClass() : top(NULL), chLevel(0), error_str("\n") {};
 		FifoClass(const char*);
 	 	~FifoClass() { if(!empty()) delete top; }
 		inline bool empty() { return top==NULL; }
