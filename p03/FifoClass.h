@@ -20,7 +20,7 @@ class FifoClass {
 				FifoElement* next;
 			public:
 				FifoElement(string v, FifoElement* n) : value(v), next(n) {};
-				~FifoElement() { delete next; }
+				~FifoElement() { delete  next; }
 				inline FifoElement* nextElement() { return next; }
 				inline string getValue() { return value; }
 				inline void setNext(FifoElement* n) { next = n; };
@@ -32,7 +32,7 @@ class FifoClass {
 		inline string pop() { string v; pop(v); return v;}
 		unsigned int chLevel; // Charge Level -- number of elements in list
 		string error_str;
-
+	
 	public:
 
 		FifoClass() : top(NULL), chLevel(0), error_str("\n") {};
@@ -48,4 +48,6 @@ class FifoClass {
 		inline operator int() const { return chLevel; }
 		inline operator string() { return pop(); };
 	 	const char* Error() const;
+
+		void mergesort();
 };

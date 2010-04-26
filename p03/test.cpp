@@ -4,12 +4,22 @@ using namespace std;
 
 int main()
 {
-	//FifoClass s;
-	FifoClass s("test.txt");
+	FifoClass s;
+	//FifoClass s("test.txt");
 	
 	string peter;
-//	s << "Omne";
-//	peter = static_cast<string>(s);
+	s << "c";
+	s << "b";
+	s << "a";
+	s << "f";
+	s << "e";
+	s << "d";
+	s.mergesort();
+	
+	while(s.getLevel() > 0) {
+		cout << static_cast<string>(s) << endl;
+	}
+
 
 	/*s << "One";
 	s << "Two";
