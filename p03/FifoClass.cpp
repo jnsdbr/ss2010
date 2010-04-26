@@ -3,11 +3,21 @@ using namespace std;
 
 /* FifoClass */
 
+/**
+ * Error Function
+ *
+ * @return char		Error message
+ */
 const char* FifoClass::Error() const
 {
 	return error_str.c_str();
 }
 
+/**
+ * Counts the FifoElements
+ *
+ * @param bool		Increment or Decrement
+ */
 void FifoClass::ChangeLevel(bool updown)
 {
 	if(updown)
@@ -21,6 +31,13 @@ void FifoClass::ChangeLevel(bool updown)
 	}
 }
 
+/**
+ * Pushes an FifoElement on top of the Stack
+ * 
+ * @param string	String to push
+ *
+ * @return 			Reference of FifoClass
+ */
 FifoClass& FifoClass::push(const string v)
 {
 	try
@@ -36,6 +53,13 @@ FifoClass& FifoClass::push(const string v)
 	return *this;
 }
 
+/**
+ * Removes the oldest FifoElement from the Stack
+ *
+ * @param string& 
+ *
+ * @return 			Reference of FifoClass
+ */
 FifoClass& FifoClass::pop(string& v)
 {
 	if(chLevel <= 0 || empty())
@@ -64,6 +88,11 @@ FifoClass& FifoClass::pop(string& v)
 	return *this;
 }
 
+/**
+ * Searches for the oldest FifoElement in the Stack
+ *
+ * @return Pointer of the element
+ */
 FifoClass::FifoElement* FifoClass::GetFirstElement()
 {
 	FifoElement *temp;
@@ -75,6 +104,11 @@ FifoClass::FifoElement* FifoClass::GetFirstElement()
 	return temp;
 }
 
+/**
+ * Searches for the second FifoElement in the Stack
+ *
+ * @return Pointer of the element
+ */
 FifoClass::FifoElement* FifoClass::GetSecondElement()
 {
 	FifoElement *temp;
@@ -97,6 +131,9 @@ FifoClass::FifoElement* FifoClass::GetSecondElement()
 	return temp;
 }
 
+/**
+ * Mergesort
+ */
 void FifoClass::mergesort()
 {
 	if(getLevel() > 1) {
@@ -146,6 +183,11 @@ void FifoClass::mergesort()
 	}
 }
 
+/**
+ * Default Constructor of FifoClass
+ *
+ * @param char		Filename
+ */
 FifoClass::FifoClass(const char* source) {
 	chLevel = 0;
 	top = NULL;
