@@ -1,26 +1,20 @@
 # variables
-CC = g++
-PRODUCT = fifo
-OBJECTS = FifoClass.o FifoClassTest_2.o
-HEADER = FifoClass.h
+CPP = c++
 CFLAGS = -Wall -g
 RM = rm
 
-# bindings
-$(PRODUCT): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^
+TARGETS = fifo1 fifo2
+HEADER = FifoClass.h
+OBJECTS = FifoClass.o FifoClassTest_1.o
+OBJECTS2 = FifoClass.o FifoClassTest_2.o
 
-# relations
-FifoClass.o: FifoClass.cpp $(HEADER)
-test.o: test.cpp $(HEADER)
-FifoClassTest_1.o: FifoClassTest_1.cpp $(HEADER)
-FifoClassTest_2.o: FifoClassTest_2.cpp $(HEADER)
+all: ${TARGETS}
 
-# pattern
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
+fifo1: $(OBJECTS)
+	$(CPP) $(CFLAGS) $(OBJECTS) -o fifo1
 
-.PHONY: clean
+fifo2: $(OBJECTS2)
+	$(CPP) $(CFLAGS) $(OBJECTS2) -o fifo2
+
 clean:
-	$(RM) $(PRODUCT)
-	$(RM) $(OBJECTS)
+	$(RM) *.o $(TARGETS)	
