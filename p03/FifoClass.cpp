@@ -138,25 +138,26 @@ void FifoClass::mergesort()
 {
 	if(getLevel() > 1) {
 
-		cout << "Sortiere... " << getLevel() << endl;
+//		cout << "Sortiere... " << getLevel() << endl;
 
 		FifoClass bigger;
 		FifoClass smaller;
 
 		string divider_str;
 		pop(divider_str);
-		cout << "Divider: " << divider_str << endl;
+		
+//		cout << "Divider: " << divider_str << endl;
 
 		string akt_str;
 		while(getLevel() > 0) {
-			cout << "getLevel: " << getLevel() << endl;
+//			cout << "getLevel: " << getLevel() << endl;
 			pop(akt_str);
 			if(akt_str >= divider_str) {
-				cout << "bigger->push() : " << akt_str << endl;
+//				cout << "bigger->push() : " << akt_str << endl;
 				bigger.push(akt_str);
 				
 			} else {
-				cout << "smaller->push() : " << akt_str << endl;
+//				cout << "smaller->push() : " << akt_str << endl;
 				smaller.push(akt_str);
 
 			}
@@ -166,17 +167,17 @@ void FifoClass::mergesort()
 		smaller.mergesort();
 
 		while(smaller.getLevel() > 0) {
-			cout << "smaller:: level:" << smaller.getLevel();
+//			cout << "smaller:: level:" << smaller.getLevel();
 			smaller.pop(akt_str);
-			cout << " akt_str: " << akt_str << endl;
+//			cout << " akt_str: " << akt_str << endl;
 			push(akt_str);
 		}
-		cout << "divider:: " << divider_str << endl;
+//		cout << "divider:: " << divider_str << endl;
 		push(divider_str);
 		while(bigger.getLevel() > 0) {
-			cout << "bigger:: level:" << bigger.getLevel();
+//			cout << "bigger:: level:" << bigger.getLevel();
 			bigger.pop(akt_str);
-			cout << " akt_str: " << akt_str << endl;
+//			cout << " akt_str: " << akt_str << endl;
 			push(akt_str);
 		}
 			

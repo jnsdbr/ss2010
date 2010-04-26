@@ -1,7 +1,7 @@
 # variables
 CC = g++
-PRODUCT = test
-OBJECTS = FifoClass.o FifoClassTest_1.o
+PRODUCT = fifo
+OBJECTS = FifoClass.o FifoClassTest_2.o
 HEADER = FifoClass.h
 CFLAGS = -Wall -g
 RM = rm
