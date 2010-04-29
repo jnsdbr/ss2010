@@ -4,29 +4,20 @@ using namespace std;
 
 Polynom::Polynom (const Polynom &p) 
 {
-	int i, pGrad = p;
-	while(pGrad > 0 && p[pGrad] == 0)	
-	{	
-		pGrad--;
-	}
+	Grad = p; // entspricht  Grad = p.Grad  aufgrund des überladenen Operators
+	K = new double[Grad+1];
 	
-	Grad = pGrad;												
-  
-	if(Grad)
-	{
-		K = new double[Grad + 1];
-		for(i = 0; i <= Grad; i++)
-    	{
-			K[i] = p[i];
-		}
+	for(int i = 0; i <= Grad; i++) {
+		p.K[i] = K[i];
 	}
-	else
-	{
-		K = new double[1];
-		K[0] = 0.0;
-	}	
+
+	/* @TODO:
+	 *
+	 * add removement of 'useless' koeffizienten
+	 *						*/
+	
 }
-Polynom::Polynom (const int g=0, const double v=0.0)
+Polynom::Polynom (const int g, const double v)
 {
 	Grad = g;
 	int i;
@@ -45,16 +36,7 @@ Polynom::~Polynom()
 }
 Polynom Polynom::operator= (const Polynom& r)
 {
-	delete [] K;
-	Grad = r;
-	K = new double[Grad + 1];
-	
-	for(int i = 0; i <= Grad; i++)
-	{
-		K[i] = r[i];
-	}
-	
-	return *this;
+	return 
 }
 Polynom::operator int () const
 {
@@ -84,11 +66,6 @@ Polynom Polynom::operator- (const double  &r) const
 {
 	
 }
-
-//Polynom::operator* (const Polynom &r) const;
-//Polynom::operator/ (const Polynom &r) const;
-//Polynom::operator% (const Polynom &r) const;
-//Polynom::Ableitung() const;
 
 ostream& operator << (ostream& o,const Polynom& P)
 {
