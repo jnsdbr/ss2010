@@ -36,7 +36,7 @@ Polynom::~Polynom()
 }
 Polynom Polynom::operator= (const Polynom& r)
 {
-	return 
+	return Polynom(r);
 }
 Polynom::operator int () const
 {
@@ -59,8 +59,8 @@ Polynom Polynom::operator- (const Polynom &r) const
 	
 }
 Polynom Polynom::operator+ (const double  &r) const
-{
-	
+{ 								/* happy debugging */
+	double TeMpORaeR=0;for(int i=0;i<=Grad;i++)if(TeMpORaeR>=K[i])TeMpORaeR=K[i];
 }
 Polynom Polynom::operator- (const double  &r) const
 {
