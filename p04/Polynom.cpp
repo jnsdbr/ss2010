@@ -4,24 +4,61 @@ using namespace std;
 
 Polynom::Polynom (const Polynom &p) 
 {
+	int i, pGrad = p;
+	while(pGrad > 0 && p[pGrad] == 0)	
+	{	
+		pGrad--;
+	}
 	
+	Grad = pGrad;												
+  
+	if(Grad)
+	{
+		K = new double[Grad + 1];
+		for(i = 0; i <= Grad; i++)
+    	{
+			K[i] = p[i];
+		}
+	}
+	else
+	{
+		K = new double[1];
+		K[0] = 0.0;
+	}	
 }
-/*
 Polynom::Polynom (const int g=0, const double v=0.0)
 {
+	Grad = g;
+	int i;
 	
-}*/
+	K = new double[Grad + 1];
+	K[Grad] = v;
+	
+	for (i = 0; i < Grad; i++) 
+	{
+		K[i] = 0.0;
+	}
+}
 Polynom::~Polynom()
 {
-	
+	delete[] K;
 }
 Polynom Polynom::operator= (const Polynom& r)
 {
+	delete [] K;
+	Grad = r;
+	K = new double[Grad + 1];
 	
+	for(int i = 0; i <= Grad; i++)
+	{
+		K[i] = r[i];
+	}
+	
+	return *this;
 }
 Polynom::operator int () const
 {
-	
+	return Grad;
 }
 double Polynom::operator[] (const int i) const
 {
@@ -54,6 +91,11 @@ Polynom Polynom::operator- (const double  &r) const
 //Polynom::Ableitung() const;
 
 ostream& operator << (ostream& o,const Polynom& P)
+{
+	
+}
+
+void Polynom::draw(Image &I, int i_xs, int i_xe, int i_ys, int i_ye, double xs, double xe, double ys, double ye, RGB_Pixel color)
 {
 	
 }
