@@ -46,9 +46,21 @@ double Polynom::operator[] (const int i) const
 {
 	
 }
+/**
+ * @return Wert an Stelle x
+ */
 double Polynom::operator() (const double &x) const
 {
+	int i;
+	double result = K[Grad];
 	
+	for(i = Grad - 1; i >= 0; i--) 
+	{
+		result *= x;
+		result += K[i];
+	}
+	
+	return result;
 }
 Polynom Polynom::operator+ (const Polynom &r) const
 {
