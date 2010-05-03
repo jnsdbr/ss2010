@@ -6,10 +6,10 @@
 // OOP-Praktikum
 //-------------------------------------------------------------------------------
 #include "Polynom.h"
-//#include "Image.h"
-//#include "BmpWrite.h"
-//#include "hline.h"
-//#include "vline.h"
+#include "Image.h"
+#include "BmpWrite.h"
+#include "hline.h"
+#include "vline.h"
 
 int main() {
 
@@ -29,7 +29,7 @@ int main() {
   cout << "A:   " << A << endl;
   Polynom B = X(1)+1.0;
   cout << "B:   " << B << endl;
-  cout << "P-P: " << P-P << endl;
+ // cout << "P-P: " << P-P << endl;
   cout << "P(0,75)=" << P(0.75) << endl;
 
   //
@@ -41,7 +41,7 @@ int main() {
     cout << " " << C[i]; 
   }
   cout << endl;
-/*
+
   //
   // Polynome in ein Image-Objekt einzeichnen  
   //
@@ -58,7 +58,7 @@ int main() {
   //
   cout << "Datei P4.bmp wird geschrieben" << endl;
   BmpWrite("P4.bmp",I);
-*/
+
   return 0;
 }
 

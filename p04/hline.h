@@ -11,9 +11,9 @@ class HLine
 		~HLine() {};
 		void draw(Image &I)
 		{
-			for (int i = x_pos; i < (x_pos+length); i++) 
+			for(int i = x_pos; i <= x_pos + length; i++ )
 			{
-				I[i][y_pos]=color;
-			}	
+				I[y_pos][i] = color;
+			}
 		}
 };
