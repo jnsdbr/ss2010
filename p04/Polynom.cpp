@@ -5,6 +5,12 @@ using namespace std;
 Polynom::Polynom (const Polynom &p) 
 {
 	Grad = p; // entspricht  Grad = p.Grad  aufgrund des überladenen Operators
+	
+	while(p(Grad) == 0.0)
+	{
+		Grad--;
+	}
+	
 	K = new double[Grad+1];
 	
 	for(int i = 0; i <= Grad; i++) {
@@ -14,8 +20,8 @@ Polynom::Polynom (const Polynom &p)
 	/* @TODO:
 	 *
 	 * add removement of 'useless' koeffizienten
-	 *						*/
-	
+	 *
+	 */
 }
 Polynom::Polynom (const int g, const double v)
 {
@@ -64,27 +70,112 @@ double Polynom::operator() (const double &x) const
 }
 Polynom Polynom::operator+ (const Polynom &r) const
 {
+	int i;
 	
+	if(r.Grad > Grad) 
+	{
+		Polynom result(r.Grad);
+		
+		for(i = r.Grad; i > Grad; i--) 
+		{
+			result.K[i] = r.K[i];
+		}
+		for (i = Grad; i >= 0; i--) 
+		{
+			result.K[i] = r.K[i] + K[i];
+		}
+		return Polynom(result);
+	}
+	else 
+	{
+		Polynom result(Grad);
+		
+		for (i = Grad; i > r.Grad; i--) 
+		{
+			result.K[i] = K[i];
+		}
+		for (i = r.Grad; i >= 0; i--) 
+		{
+			result.K[i] = r.K[i] + K[i];
+		}
+		return Polynom(result);
+	}
 }
 Polynom Polynom::operator- (const Polynom &r) const
 {
-	
+	int i;
+	if(r.Grad > Grad) 
+	{
+		Polynom result(r.Grad);
+    
+		for(i = r.Grad; i > Grad; i--) 
+		{
+			result.K[i] = -(r.K[i]);
+		}
+		for(i = Grad; i >= 0; i--) 
+		{
+			result.K[i] = K[i] - r.K[i];
+		}
+		
+		return Polynom(result);
+	}
+	else 
+	{
+		Polynom result(Grad);
+    
+		for(i = Grad; i > r.Grad; i--) 
+		{
+			result.K[i] = K[i];
+		}
+		for(i = r.Grad; i >= 0; i--)
+		{
+			result.K[i] = K[i] - r.K[i];
+		}
+		
+		return Polynom(result);
+	}	
 }
 Polynom Polynom::operator+ (const double  &r) const
-{ 								/* happy debugging */
-	double TeMpORaeR=0;for(int i=0;i<=Grad;i++)if(TeMpORaeR>=K[i])TeMpORaeR=K[i];
+{
+	Polynom result(*this);
+	result.K[0] += r;
+	
+	return result;	
 }
 Polynom Polynom::operator- (const double  &r) const
 {
+	Polynom result(*this);
+	result.K[0] -= r;
 	
+	return result;	
 }
 
-ostream& operator << (ostream& o,const Polynom& P)
-{
+ostream& operator << (ostream& o, const Polynom& P)
+{	
+	o << '(';
 	
+	for(int i = P; i >= 0; i--)
+	{
+		if(P[i] != 0)
+		{
+			if((P[i] >= 0) && (i < static_cast<int>(P)))
+			{
+				o<<"+";
+			}
+			o << P[i];
+			
+			if(i > 0 && i != P)
+			{
+				o << "* x("<< i <<")";
+			}
+		}
+	}
+	
+	o << ')';
+	
+	return o;
 }
 
 void Polynom::draw(Image &I, int i_xs, int i_xe, int i_ys, int i_ye, double xs, double xe, double ys, double ye, RGB_Pixel color)
 {
-	
 }
