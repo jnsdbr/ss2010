@@ -2,39 +2,32 @@
 
 using namespace std;
 
-Polynom::Polynom (const Polynom &p) 
+Polynom::Polynom (const Polynom &p)
 {
-	Grad = p; // entspricht  Grad = p.Grad  aufgrund des überladenen Operators
-	
-	while(p(Grad) == 0.0)
-	{
-		Grad--;
-	}
-	
-	K = new double[Grad+1];
-	
-	for(int i = 0; i <= Grad; i++) {
-		p.K[i] = K[i];
-	}
+    Grad = p;
 
-	/* @TODO:
-	 *
-	 * add removement of 'useless' koeffizienten
-	 *
-	 */
-}
-Polynom::Polynom (const int g, const double v)
-{
-	Grad = g;
-	int i;
-	
-	K = new double[Grad + 1];
-	K[Grad] = v;
-	
-	for (i = 0; i < Grad; i++) 
+    while(p.K[Grad] == 0.0)
 	{
-		K[i] = 0.0;
-	}
+        Grad--;
+    }
+    K = new double[Grad+1];
+
+    for(int i = Grad; i >= 0; i--)
+	{
+        K[i] = p.K[i];
+    }
+}
+
+Polynom::Polynom (const int g,const double v)
+{
+    Grad = g;
+    K = new double[g+1];
+    K[g] = v;
+
+    for(int i = 0; i < g; i++)
+	{
+		K[i]=0.0;
+    }
 }
 Polynom::~Polynom()
 {
