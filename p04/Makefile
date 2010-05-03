@@ -1,25 +1,19 @@
-# variables
 CC = g++
-PRODUCT = poly
-OBJECTS = BmpWrite.o Image.o Polynomtest.o
-HEADER = Polynom.h
-CFLAGS = -Wall -g
+CFLAGS = -c -Wall -g -lm
+LDFLAGS =
+SOURCES = BmpWrite.cpp Image.cpp Polynom.cpp Polynomtest.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+PRODUCT = Polymolly
 RM = rm
 
-# bindings
+all: $(SOURCES) $(PRODUCT)
+
 $(PRODUCT): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-# relations
-BmpWrite.o: BmpWrite.cpp BmpWrite.h
-Image.o: Image.cpp Image.h
-Polynomtest.o: Polynomtest.cpp $(HEADER)
-
-# pattern
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: clean
 clean:
-	$(RM) $(PRODUCT)
-	$(RM) $(OBJECTS)
+	$(RM) *o $(PRODUCT)
