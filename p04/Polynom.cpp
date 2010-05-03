@@ -43,7 +43,7 @@ Polynom::operator int () const
 }
 double Polynom::operator[] (const int i) const
 {
-	
+    return K[i];	
 }
 /**
  * @return Wert an Stelle x
@@ -144,7 +144,7 @@ Polynom Polynom::operator- (const double  &r) const
 }
 
 ostream& operator << (ostream& o, const Polynom& P)
-{	
+{
 	o << '(';
 	
 	for(int i = P; i >= 0; i--)
@@ -153,13 +153,13 @@ ostream& operator << (ostream& o, const Polynom& P)
 		{
 			if((P[i] >= 0) && (i < static_cast<int>(P)))
 			{
-				o<<"+";
+				o << "+";
 			}
 			o << P[i];
 			
-			if(i > 0 && i != P)
+			if(i > 0)
 			{
-				o << "* x("<< i <<")";
+				o << "*X("<< i <<")";
 			}
 		}
 	}
