@@ -14,7 +14,6 @@ class VLine
 			for (int i = y_pos; i < (y_pos+length); i++) 
 			{
 				I[i][x_pos]=color;
-			}
-			
+			}			
 		}
-}
+};

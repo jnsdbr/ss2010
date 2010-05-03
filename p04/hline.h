@@ -14,7 +14,6 @@ class HLine
 			for (int i = x_pos; i < (x_pos+length); i++) 
 			{
 				I[i][y_pos]=color;
-			}
-			
+			}	
 		}
-}
+};
