@@ -18,16 +18,17 @@ Polynom::Polynom (const Polynom &p)
     }
 }
 
-Polynom::Polynom (const int g,const double v)
-{
+Polynom::Polynom(const int g, const double v)
+{	
     Grad = g;
-    K = new double[g+1];
-    K[g] = v;
 
-    for(int i = 0; i < g; i++)
+    K = new double[g + 1];
+    for(int i = 1; i < g; i++)
 	{
-		K[i]=0.0;
+		K[i] = 0.0;
     }
+
+    K[Grad] = v;
 }
 Polynom::~Polynom()
 {
@@ -35,7 +36,15 @@ Polynom::~Polynom()
 }
 Polynom Polynom::operator= (const Polynom& r)
 {
-	return Polynom(r);
+	delete [] K;
+	Grad = r;
+	K = new double[Grad+1];
+	for(int i=0; i <= Grad;i++)
+	{
+		K[i] = r[i];
+	}
+	
+	return *this;
 }
 Polynom::operator int () const
 {
