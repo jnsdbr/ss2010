@@ -106,6 +106,7 @@ Polynom Polynom::operator+ (const Polynom &r) const
 Polynom Polynom::operator- (const Polynom &r) const
 {
 	int i;
+	
 	if(r.Grad > Grad) 
 	{
 		Polynom result(r.Grad);
@@ -180,4 +181,28 @@ ostream& operator << (ostream& o, const Polynom& P)
 
 void Polynom::draw(Image &I, int i_xs, int i_xe, int i_ys, int i_ye, double xs, double xe, double ys, double ye, RGB_Pixel color)
 {
+	int x_Bereich = i_xe - i_xs;
+	int y_Bereich = i_ye - i_ys;
+	
+	double x_Intervall = xe - xs;
+	double y_Intervall = ye - ys;
+
+	double x_schrittweite = x_Intervall / x_Bereich;
+	double y_schrittweite = y_Intervall / y_Bereich;
+
+	double funktionswert = 0.0;
+
+	for(int i = i_xs; i<=i_xe; i++)
+	{
+		funktionswert = (*this)(xs+(i-i_xs)*x_schrittweite);
+
+		if(funktionswert >= ys && funktionswert <= ye)
+		{
+			int y_position = static_cast<int>(((funktionswert-ys)/y_Intervall)*y_Bereich+0.5);
+
+			y_position += i_ys;	
+																																						 //ausgerechnetes Pixel einfaerben
+			I[y_position][i] = RGB_Pixel(color.Red(), color.Green(), color.Blue());
+		}
+	}
 }
