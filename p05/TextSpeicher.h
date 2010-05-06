@@ -9,6 +9,12 @@
 #ifndef _TextSpeicher_h_
 #define _TextSpeicher_h_
 
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
 class TextSpeicher {
  public:
   class TextZeile;
