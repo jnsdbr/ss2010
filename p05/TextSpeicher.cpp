@@ -26,7 +26,7 @@ TextSpeicher::TextSpeicher()
 	size = 0;
 	lines = 0;
 	t = NULL;
-	filename = NULL;
+	filename = static_cast<string>(NULL);
 }
 TextSpeicher::TextSpeicher(string Filename)
 {
