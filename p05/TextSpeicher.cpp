@@ -10,7 +10,7 @@ void TextSpeicher::expand(int s)
 		TextZeile **tmpArray = new *TextZeile [size + s];
 		
 		for(int i = 0; i < s; i++)
-		{
+		{//			  	Evtl ist hier ein cast nötig. BS
 			tmpArray[i] = (t[i] != NULL) ? t[i] : NULL;
 		}
 		
@@ -74,7 +74,8 @@ TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
 int TextSpeicher::MaxColumns () const
 {
 }
-/*TextSpeicher::TextZeile::TextZeile()
+/* Bereits im Header implementiert. BS
+TextSpeicher::TextZeile::TextZeile()
 {
 	
 }
