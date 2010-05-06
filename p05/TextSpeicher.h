@@ -39,11 +39,11 @@ class TextSpeicher {
 class TextSpeicher::TextZeile {
   string l;
  public:
-  TextZeile();
-  TextZeile(string tl);
-  TextZeile(TextZeile&);
-  ~TextZeile();
-  TextZeile& operator= (TextZeile&);
+  TextZeile() : l('\0') { };
+  TextZeile(string tl) : l(tl) { };
+  TextZeile(TextZeile&); // tief oder flach?
+  ~TextZeile() { ; }; // hat nix zu tun?
+  TextZeile& operator= (const TextZeile&);
   char& operator [] (int column);
   operator int () const { return l.size(); }
   operator const string () const { return l; }
