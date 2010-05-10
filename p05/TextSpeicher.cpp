@@ -28,7 +28,7 @@ void TextSpeicher::expand(int s)
 	}
 	
 	// Pointer Liste löschen
-	delete [] t;
+	delete [] t;              
 
 	// Size vergrößern
 	size = _s;
@@ -154,7 +154,7 @@ TextSpeicher::~TextSpeicher()
 		// Elemente löschen
 		for(int i = 0; i < lines; i++)
 		{
-			t[i] = NULL;
+			delete t[i];
 		}
 				
 		delete [] t;	
