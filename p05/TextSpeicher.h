@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
+#include <new>
 
 using namespace std;
 
@@ -27,7 +29,7 @@ class TextSpeicher {
   void expand(int s);
  public:
   class OutOfBounds {};
-  TextSpeicher() : filename('\0') {};
+  TextSpeicher() : filename(string()) {};
   TextSpeicher(string Filename);
   TextSpeicher(TextSpeicher&);
   ~TextSpeicher();
@@ -40,7 +42,7 @@ class TextSpeicher {
 class TextSpeicher::TextZeile {
   string l;
  public:
-  TextZeile() : l('\0') { };
+  TextZeile() : l(string()) { };
   TextZeile(string tl) : l(tl) { };
   TextZeile(TextZeile&); // tief oder flach?
   ~TextZeile() { ; }; // hat nix zu tun?

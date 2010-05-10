@@ -128,30 +128,30 @@ TextSpeicher::TextSpeicher(TextSpeicher& ts)
  */
 TextSpeicher::~TextSpeicher()
 {	
-	if(!filename.empty())
+	if(filename.length() > 0)
 	{
-		if(filename.length() > 0)
+		try
 		{
-			try
-			{
-				ofstream fout(filename.c_str());
+			// Stream öffnen und in Datei schreiben
+			ofstream fout(filename.c_str());
 			
-				for(int i = 0; i <= lines; i++)
-				{
-					fout << t[i];
-				}
-					
-			}
-			catch(...)
+			for(int i = 0; i <= lines; i++)
 			{
-				cerr << "Error opening File" << endl;
+				fout << t[i];
 			}
+			
+			delete [] t; // may not work			
+					
 		}
-
-		delete [] t; // may not work		
+		catch(...)
+		{
+			cerr << "Error opening File" << endl;
+		}
 	}
-
 }
+/**
+ *
+ */
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
 { // nicht getestet, könnte absoluter quatsch sein.
 	TextSpeicher* magic = new TextSpeicher(JensFailed);
@@ -170,11 +170,45 @@ void TextSpeicher::SetFilename(string Filename)
 		filename = Filename;
 	}
 }
+/**
+ * 
+ */
 TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
-{	
+{
+	// Index < 0 => OutOfBounds
+	if(line < 0)
+	{
+		OutOfBounds oob;
+		throw oob;
+	}
+	
+	// Index > lines => vergrößern
+	if(line > lines)
+	{
+		// Wenn line größer als size dann expand
+		if(line > size)
+		{
+			expand(100);
+		}
+		
+		// Objekte erstellen
+		while(lines < line)
+		{
+			t[lines] = new TextZeile(string());
+			lines++;
+		}	
+	}
+	
+	return *(t[line]);
 }
+/**
+ * Ermittelt den größten String?
+ *
+ * @return	int
+ */
 int TextSpeicher::MaxColumns () const
 {
+
 }
 /* Bereits im Header implementiert. BS
 TextSpeicher::TextZeile::TextZeile()
