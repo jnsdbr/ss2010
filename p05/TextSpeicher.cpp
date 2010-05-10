@@ -111,8 +111,10 @@ TextSpeicher::TextSpeicher(TextSpeicher&)
 TextSpeicher::~TextSpeicher()
 {
 }
-TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher&)
-{
+TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
+{ // nicht getestet, könnte absoluter quatsch sein.
+	TextSpeicher* magic = new TextSpeicher(JensFailed);
+	return *magic; // O_o ich hab kp von referenzen
 }
 void TextSpeicher::SetFilename(string Filename)
 {
