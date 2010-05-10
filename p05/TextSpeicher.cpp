@@ -97,7 +97,7 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 		{
 			cerr << "BAD_ALLOC: Memory error" << endl;
 			throw *this;
-		}																																			 //v     
+		}																																			    
 		
 		lines++;
 	}
@@ -106,6 +106,8 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 }
 TextSpeicher::TextSpeicher(TextSpeicher&)
 {
+	TextSpeicher* KopieTS = new TextSpeicher();
+
 	
 }
 TextSpeicher::~TextSpeicher()
