@@ -1,4 +1,6 @@
 #include "TextSpeicher.h"
+#include <new>
+#include <fstream>
 
 using namespace std;
 
@@ -45,8 +47,11 @@ void TextSpeicher::expand(int s)
  *
  * @param string Filename
  */
-TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
+TextSpeicher::TextSpeicher(string Filename)
 {
+	size = 1000;
+	lines = 0;
+	
 	filename = Filename;
 	ifstream file(filename.c_str());
 	
@@ -104,27 +109,82 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 		
 	file.close();
 }
-TextSpeicher::TextSpeicher(TextSpeicher&)
+/**
+ * 
+ */
+TextSpeicher::TextSpeicher(TextSpeicher& ts)
 {
+	// Elemente löschen
+	for(int i = 0; i < lines; i++)
+	{
+		delete t[i];
+	}	
 	
+	delete [] t;
+
+	// Größe und anzahl der Zeilen Speichern
+	size = ts.size;
+	lines = ts.lines;
+	filename = string();
+  
+	try
+	{
+		// Neues Array erstellen
+		t = new TextZeile*[size];
+	}
+	catch(bad_alloc)
+	{
+		cerr << "BAD_ALLOC: Memory error" << endl;
+		throw *this;
+	}
+
+	for(int i = 0; i < size; i++)
+	{
+		try
+		{
+			t[i] = new TextZeile(ts[i]);
+		}
+		catch(bad_alloc)
+		{
+			cerr << "BAD_ALLOC: Memory error" << endl;
+			throw *this;
+		}
+	}		
 }
+/**
+ * Destruktor - schreibt die Zeilen in eine Datei und gibt danach den Speicher frei
+ */
 TextSpeicher::~TextSpeicher()
-{
-	
-	if(filename.length() > 0) {
+{	
+	if(filename.length() > 0)
+	{
 		ofstream fout(filename.c_str());
 		for(int i = 0; i <= lines; i++)
 			fout << t[i];		// exception missing
 	}
-
-	delete [] TextZeile; // may not work
-
+	
+	// Elemente löschen
+	for(int i = 0; i < lines; i++)
+	{
+		delete t[i];
+	}	
+	
+	delete [] t;
 }
+/**
+ * Überladener Zuweisungsoperator der Tiefe kopie erstellt
+ */
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
 { // nicht getestet, könnte absoluter quatsch sein.
 	TextSpeicher* magic = new TextSpeicher(JensFailed);
 	return *magic; // O_o ich hab kp von referenzen
 }
+/**
+ * Funktion zum speichern des Dateinamens
+ * 
+ * @param string	Filename
+ * @return void
+ */
 void TextSpeicher::SetFilename(string Filename)
 {
 	if(!Filename.empty())
@@ -133,10 +193,12 @@ void TextSpeicher::SetFilename(string Filename)
 	}
 }
 TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
-{	
+{
+	
 }
 int TextSpeicher::MaxColumns () const
 {
+	
 }
 /* Bereits im Header implementiert. BS
 TextSpeicher::TextZeile::TextZeile()
