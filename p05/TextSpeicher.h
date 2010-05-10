@@ -10,6 +10,7 @@
 #define _TextSpeicher_h_
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -26,7 +27,7 @@ class TextSpeicher {
   void expand(int s);
  public:
   class OutOfBounds {};
-  TextSpeicher();
+  TextSpeicher() : filename('\0') {};
   TextSpeicher(string Filename);
   TextSpeicher(TextSpeicher&);
   ~TextSpeicher();
