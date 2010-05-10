@@ -1,5 +1,4 @@
 #include "TextSpeicher.h"
-
 using namespace std;
 
 /**
@@ -26,20 +25,21 @@ void TextSpeicher::expand(int s)
 	{
 		tmpArray[i] = NULL;	
 	}
-	
-	// Pointer Liste löschen
-	delete [] t;              
+
+	delete [] t;
 
 	// Size vergrößern
 	size = _s;
 	t = tmpArray;
+
+	
 }
 /**
  * Überladener Konstruktor
  *
  * @param string Filename
  */
-TextSpeicher::TextSpeicher(string Filename): size(10), lines(0)
+TextSpeicher::TextSpeicher(string Filename): size(0), lines(0), t(NULL)
 {
 	// Dateinamen setzen und Stream Objekt erstellen.
 	filename = Filename;
@@ -169,9 +169,9 @@ TextSpeicher::~TextSpeicher()
  *
  */
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
-{ // nicht getestet, könnte absoluter quatsch sein.
+{ 
 	TextSpeicher* magic = new TextSpeicher(JensFailed);
-	return *magic; // O_o ich hab kp von referenzen
+	return *magic;
 }
 /**
  * Speichert den Dateinamen
@@ -197,7 +197,7 @@ TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
 	   Hier hätte man auch gut mit einer Konstanten arbeiten können...
 						ist mir nun aber auch egal */
   	if(line+1 > lines) {
-    		expand(10);
+    		expand(line+1 - lines + 10);
     		lines = line+1;
   	}
 	/* Nachdem wir den Array mit den Zeigern erweitert haben, legen wir
@@ -242,4 +242,3 @@ char& TextSpeicher::TextZeile::operator [] (int column)
 
 	return l[column];
 }
-

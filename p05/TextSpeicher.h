@@ -29,7 +29,7 @@ class TextSpeicher {
   void expand(int s);
  public:
   class OutOfBounds {};
-  TextSpeicher() : filename(string()) {};
+  TextSpeicher() : filename(string()), size(0), lines(0), t(NULL) {};
   TextSpeicher(string Filename);
   TextSpeicher(TextSpeicher&);
   ~TextSpeicher();
