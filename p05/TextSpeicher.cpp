@@ -99,12 +99,16 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 		
 	file.close();
 }
-TextSpeicher::TextSpeicher(TextSpeicher &ts) {
-	size = ts.size; // ggf in die h.date knallen
-	lines = ts.lines;
-	filename.clear();
+TextSpeicher::TextSpeicher(TextSpeicher& ts)
+{
 
-	t = new TextZeile*[ts.size];
+	TextSpeicher* KopieTS = new TextSpeicher();
+	// Elemente löschen
+	for(int i = 0; i < lines; i++)
+	{
+		delete t[i];
+	}	
+	delete [] t;
 
 	for(int i=0;i<size;i++) {
 		t[i] = ts.t[i];
