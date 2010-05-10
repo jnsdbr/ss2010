@@ -106,6 +106,7 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 }
 TextSpeicher::TextSpeicher(TextSpeicher&)
 {
+	
 }
 TextSpeicher::~TextSpeicher()
 {
