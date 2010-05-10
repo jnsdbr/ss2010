@@ -40,7 +40,11 @@ void TextSpeicher::expand(int s)
 	size += s;
 	t = tmpArray;
 }
-
+/**
+ * Überladener Konstruktor
+ *
+ * @param string Filename
+ */
 TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 {
 	filename = Filename;
@@ -69,21 +73,24 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 		t[i] = NULL;
 	}
 
-
 	// Einlesen der Datei
 	string zeile;
 	
+	// Solange Dateiende nicht erreicht ist
 	while(!file.eof())
 	{
 		if(lines >= size)
 		{
+			// Feld vergrößern um 500
 			expand(500);
 		}
 		
+		// Zeile einlesen
 		getline(file, zeile, '\n');
 		
 		try
 		{
+			// Speicher alloziieren
 			t[lines] = new TextZeile(zeile);			
 		}
 		catch(bad_alloc)
