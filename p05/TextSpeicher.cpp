@@ -32,7 +32,7 @@ void TextSpeicher::expand(int s)
 	delete [] t;
 
 	// Size vergrößern
-	size += s;
+	size = _s;
 	t = tmpArray;
 }
 /**
@@ -42,6 +42,7 @@ void TextSpeicher::expand(int s)
  */
 TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 {
+	// Dateinamen setzen und Stream Objekt erstellen.
 	filename = Filename;
 	ifstream file(filename.c_str());
 	
@@ -99,31 +100,56 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 		
 	file.close();
 }
+/**
+ * Überladener Konstruktor
+ *
+ * @param TextSpeicher ts
+ */
 TextSpeicher::TextSpeicher(TextSpeicher& ts)
 {
-
 	TextSpeicher* KopieTS = new TextSpeicher();
+	
 	// Elemente löschen
 	for(int i = 0; i < lines; i++)
 	{
-		delete t[i];
-	}	
+		t[i] = NULL;
+	}
+	
 	delete [] t;
 
-	for(int i=0;i<size;i++) {
+	// Neue Elemente speichern
+	for(int i = 0; i < size; i++)
+	{
 		t[i] = ts.t[i];
 	}
 }
+/**
+ * Destruktor
+ */
 TextSpeicher::~TextSpeicher()
-{
-	
-	if(filename.length() > 0) {
-		ofstream fout(filename.c_str());
-		for(int i = 0; i <= lines; i++)
-			fout << t[i];		// exception missing
-	}
+{	
+	if(!filename.empty())
+	{
+		if(filename.length() > 0)
+		{
+			try
+			{
+				ofstream fout(filename.c_str());
+			
+				for(int i = 0; i <= lines; i++)
+				{
+					fout << t[i];
+				}
+					
+			}
+			catch(...)
+			{
+				cerr << "Error opening File" << endl;
+			}
+		}
 
-	delete [] t; // may not work
+		delete [] t; // may not work		
+	}
 
 }
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
@@ -131,6 +157,12 @@ TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
 	TextSpeicher* magic = new TextSpeicher(JensFailed);
 	return *magic; // O_o ich hab kp von referenzen
 }
+/**
+ * Speichert den Dateinamen
+ *
+ * @param string	Filename
+ * @return void
+ */
 void TextSpeicher::SetFilename(string Filename)
 {
 	if(!Filename.empty())
