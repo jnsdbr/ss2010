@@ -138,15 +138,29 @@ TextSpeicher::~TextSpeicher()
 			for(int i = 0; i <= lines; i++)
 			{
 				fout << t[i];
-			}
-			
-			delete [] t; // may not work			
+			}	
 					
 		}
 		catch(...)
 		{
 			cerr << "Error opening File" << endl;
 		}
+	}
+	
+	
+	try
+	{
+		// Elemente löschen
+		for(int i = 0; i < lines; i++)
+		{
+			t[i] = NULL;
+		}
+				
+		delete [] t;	
+	}
+	catch(...)
+	{
+		cerr << "Error while closing program" << endl;
 	}
 }
 /**
@@ -192,14 +206,18 @@ TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
 		}
 		
 		// Objekte erstellen
-		while(lines < line)
+		while(lines <= line)
 		{
 			t[lines] = new TextZeile(string());
 			lines++;
 		}	
 	}
 	
-	return *(t[line]);
+	if(!t[line]){
+    t[line] = new TextZeile();
+  }
+	
+	return *t[line];
 }
 /**
  * Ermittelt den größten String?
