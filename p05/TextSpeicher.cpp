@@ -125,7 +125,7 @@ TextSpeicher::TextSpeicher(TextSpeicher& ts)
  */
 TextSpeicher::~TextSpeicher()
 {	
-	if(filename.length() > 0)
+	if(filename.length() > 0 && filename != "no_write")
 	{
 		try
 		{
