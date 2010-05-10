@@ -2,38 +2,104 @@
 
 using namespace std;
 
+/**
+ * Vergrößert das t um die Größe s
+ * 
+ * @param int	s	size + s
+ * @return void
+ */
 void TextSpeicher::expand(int s)
-{
+{	
+	int _s = s + size;
 	
-	if(s > lines)
+	// Array von Zeigern größe + expand größe	
+	TextZeile **tmpArray = new TextZeile*[_s];
+	
+	// Pointer von TextZeilen Element zwischenspeichern	
+	for(int i = 0; i < lines; i++)
 	{
-		TextZeile **tmpArray = new *TextZeile [size + s];
-		
-		for(int i = 0; i < s; i++)
-		{//			  	Evtl ist hier ein cast nötig. BS
-			tmpArray[i] = (t[i] != NULL) ? t[i] : NULL;
-		}
-		
-		delete [] t;
-		
-		t = tmpArray;		
-		
-		lines = s;
+		tmpArray[i] = new TextZeile( *(t[i]) );	
 	}
+	
+	// Die unverbrauchten Felder mit NULL füllen
+	for(int i = lines; i < _s; i++)
+	{
+		tmpArray[i] = NULL;	
+	}
+
+	// die alten Elemente löschen
+	for(int i = 0; i < lines; i++)
+	{
+		delete t[i];
+	}
+	
+	// Pointer Liste löschen
+	delete [] t;
+
+	// Size vergrößern
+	size += s;
+	t = tmpArray;
 }
-TextSpeicher::TextSpeicher()
+
+TextSpeicher::TextSpeicher(string Filename)
 {
-	size = 0;
-	lines = 0;
-	t = NULL;
-	filename = static_cast<string>(NULL);
+	filename = Filename;
+	ifstream file(filename.c_str());
+	
+	if(!file)
+	{
+		cerr << "Error while opening file" << endl;
+		throw *this;
+	}
+	
+	try
+	{
+		// Array von Pointern anlegen
+		t = new TextZeile*[size];
+	}
+	catch(bad_alloc)
+	{
+		cerr << "BAD_ALLOC: Memory error" << endl;
+		throw *this;
+	}
+	
+	for(int i = 0; i < size; i++)
+	{
+		t[i] = NULL;
+	}
+
+	string zeile;
+	
+	while(!file.eof())
+	{
+		if(lines >= size)
+		{
+			expand(size + 500);
+		}
+		getline(file, zeile, '\n');
+		try
+		{
+			t[lines] = new TextZeile(zeile);			
+		}
+		catch(bad_alloc)
+		{
+			cerr << "Kein Speicherplatz vorhanden" << endl;
+			throw *this;
+		}																																			 //v     
+		
+		lines++;
+	}
+		
+	file.close();
 }
+
 TextSpeicher::TextSpeicher(string Filename)
 {
 	size = 0;
 	lines = 0;
 	t = NULL;
 	
+	/*
 	ifstream in(Filename.c_str());
 	
 	try
@@ -51,6 +117,7 @@ TextSpeicher::TextSpeicher(string Filename)
 	{
 		
 	}
+	*/
 }
 TextSpeicher::TextSpeicher(TextSpeicher&)
 {
