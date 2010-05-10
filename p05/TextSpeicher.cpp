@@ -110,6 +110,15 @@ TextSpeicher::TextSpeicher(TextSpeicher&)
 }
 TextSpeicher::~TextSpeicher()
 {
+	
+	if(filename.length() > 0) {
+		ofstream fout(filename.c_str());
+		for(int i = 0; i <= lines; i++)
+			fout << t[i];		// exception missing
+	}
+
+	delete [] TextZeile; // may not work
+
 }
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
 { // nicht getestet, könnte absoluter quatsch sein.
