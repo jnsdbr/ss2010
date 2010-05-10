@@ -20,8 +20,7 @@ void TextSpeicher::expand(int s)
 	{
 		tmpArray[i] = t[i];
 		t[i] = NULL;	
-	}
-	
+	} 	
 	// Die unverbrauchten Felder mit NULL füllen
 	for(int i = lines; i < _s; i++)
 	{
@@ -40,7 +39,7 @@ void TextSpeicher::expand(int s)
  *
  * @param string Filename
  */
-TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
+TextSpeicher::TextSpeicher(string Filename): size(10), lines(0)
 {
 	// Dateinamen setzen und Stream Objekt erstellen.
 	filename = Filename;
@@ -77,8 +76,8 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 	{
 		if(lines >= size)
 		{
-			// Feld vergrößern um 500
-			expand(500);
+			// Feld vergrößern um 10
+			expand(10);
 		}
 		
 		// Zeile einlesen
@@ -106,9 +105,7 @@ TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
  * @param TextSpeicher ts
  */
 TextSpeicher::TextSpeicher(TextSpeicher& ts)
-{
-	TextSpeicher* KopieTS = new TextSpeicher();
-	
+{	
 	// Elemente löschen
 	for(int i = 0; i < lines; i++)
 	{
@@ -135,15 +132,19 @@ TextSpeicher::~TextSpeicher()
 			// Stream öffnen und in Datei schreiben
 			ofstream fout(filename.c_str());
 			
-			for(int i = 0; i <= lines; i++)
+			for(int i = 0; i < lines; i++)
 			{
-				fout << t[i];
+				if(t[i]) {
+					fout << static_cast<string>(*t[i]) << endl;
+				} else {
+					fout << endl;
+				}
 			}	
 					
 		}
 		catch(...)
 		{
-			cerr << "Error opening File" << endl;
+			cerr << "Error handling File" << endl;
 		}
 	}
 	
@@ -163,6 +164,7 @@ TextSpeicher::~TextSpeicher()
 		cerr << "Error while closing program" << endl;
 	}
 }
+
 /**
  *
  */
@@ -177,85 +179,67 @@ TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
  * @param string	Filename
  * @return void
  */
-void TextSpeicher::SetFilename(string Filename)
-{
-	if(!Filename.empty())
-	{
-		filename = Filename;
-	}
+void TextSpeicher::SetFilename(string Filename) {
+	if(!Filename.empty()) filename = Filename;
 }
 /**
  * 
  */
 TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
 {
-	// Index < 0 => OutOfBounds
-	if(line < 0)
-	{
-		OutOfBounds oob;
-		throw oob;
-	}
-	
-	// Index > lines => vergrößern
-	if(line > lines)
-	{
-		// Wenn line größer als size dann expand
-		if(line > size)
-		{
-			expand(100);
-		}
-		
-		// Objekte erstellen
-		while(lines <= line)
-		{
-			t[lines] = new TextZeile(string());
-			lines++;
-		}	
-	}
-	
-	if(!t[line]){
-    t[line] = new TextZeile();
-  }
-	
-	return *t[line];
+	if(line < 0) {
+		OutOfBounds error;
+    	throw error;
+  	}
+	/* Wir benötigen mehr Zeilen_zeiger_ um die neuen Daten unterzubekommen!
+	   Deshalb legen wir 10 neue an und hoffen, dass es reicht.
+	   Ansonsten werden später nochmal 10 angelegt.
+	   Hier hätte man auch gut mit einer Konstanten arbeiten können...
+						ist mir nun aber auch egal */
+  	if(line+1 > lines) {
+    		expand(10);
+    		lines = line+1;
+  	}
+	/* Nachdem wir den Array mit den Zeigern erweitert haben, legen wir
+	   schlussendlich ein neues TextZeilen-Objekt für die neue Zeile an */
+  	if(!t[line]){
+    		t[line] = new TextZeile();
+  	}
+
+	// fin
+  	return *t[line];
 }
 /**
- * Ermittelt den größten String?
+ * Alle Zeilen durchgehen und längste Spalte finden
  *
  * @return	int
  */
 int TextSpeicher::MaxColumns () const
 {
-
+	int max_columns = 0;
+	for(int i=0; i<lines; i++) {
+		if(*t[i] > max_columns) {
+			max_columns = *t[i];
+		}
+	}
+	return max_columns;
 }
-/* Bereits im Header implementiert. BS
-TextSpeicher::TextZeile::TextZeile()
-{
-	
-}
-TextSpeicher::TextZeile::TextZeile(string tl)
-{
-}
-TextSpeicher::TextZeile::TextZeile(TextZeile&)
-{
-}
-TextSpeicher::TextZeile::~TextZeile()
-{
-}*/
 TextSpeicher::TextZeile& TextSpeicher::TextZeile::operator= (const TextZeile& tl)
 {
 	l = static_cast<string>(tl);
 }
 char& TextSpeicher::TextZeile::operator [] (int column)
 {
+	// Sicherheitsabfrage - negative Spalten gibbet net
 	if(column < 0) {
 		OutOfBounds ThrowMeGently;
-  /* Okay, I */	throw ThrowMeGently; /*! Are you satisfied now? */
-
-	} else if (column > l.length()) { // the chance for an error
-/*probl. sucks*/for(; column > l.length(); l += ' '); // is VERY high here
-	}
+  		throw ThrowMeGently; 
+	} else if (column >= l.length()) {
+		/* Wir greifen auf eine Spalte zu, die noch nicht "angelegt" wurde
+			 Dies holen wir nun nach und füllen den Zwischenraum mit Leerzeichen */
+		l.resize(column+1, ' '); 
+	} 
 
 	return l[column];
-
 }
+
