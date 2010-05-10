@@ -41,7 +41,7 @@ void TextSpeicher::expand(int s)
 	t = tmpArray;
 }
 
-TextSpeicher::TextSpeicher(string Filename)
+TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 {
 	filename = Filename;
 	ifstream file(filename.c_str());
@@ -65,25 +65,30 @@ TextSpeicher::TextSpeicher(string Filename)
 	
 	for(int i = 0; i < size; i++)
 	{
+		// Array mit NULL füllen
 		t[i] = NULL;
 	}
 
+
+	// Einlesen der Datei
 	string zeile;
 	
 	while(!file.eof())
 	{
 		if(lines >= size)
 		{
-			expand(size + 500);
+			expand(500);
 		}
+		
 		getline(file, zeile, '\n');
+		
 		try
 		{
 			t[lines] = new TextZeile(zeile);			
 		}
 		catch(bad_alloc)
 		{
-			cerr << "Kein Speicherplatz vorhanden" << endl;
+			cerr << "BAD_ALLOC: Memory error" << endl;
 			throw *this;
 		}																																			 //v     
 		
@@ -91,33 +96,6 @@ TextSpeicher::TextSpeicher(string Filename)
 	}
 		
 	file.close();
-}
-
-TextSpeicher::TextSpeicher(string Filename)
-{
-	size = 0;
-	lines = 0;
-	t = NULL;
-	
-	/*
-	ifstream in(Filename.c_str());
-	
-	try
-	{
-		if(in)
-		{
-			while(!in.eof())
-			{
-				//getline(in, ,'\n');
-			}
-			in.close();
-		}	
-	}
-	catch(...)
-	{
-		
-	}
-	*/
 }
 TextSpeicher::TextSpeicher(TextSpeicher&)
 {
