@@ -102,7 +102,7 @@ TextSpeicher::TextSpeicher(string Filename)
 		{
 			cerr << "BAD_ALLOC: Memory error" << endl;
 			throw *this;
-		}																																			 //v     
+		}																																			    
 		
 		lines++;
 	}
@@ -114,11 +114,16 @@ TextSpeicher::TextSpeicher(string Filename)
  */
 TextSpeicher::TextSpeicher(TextSpeicher& ts)
 {
+<<<<<<< HEAD
 	// Elemente löschen
 	for(int i = 0; i < lines; i++)
 	{
 		delete t[i];
 	}	
+=======
+	TextSpeicher* KopieTS = new TextSpeicher();
+
+>>>>>>> origin/master
 	
 	delete [] t;
 
