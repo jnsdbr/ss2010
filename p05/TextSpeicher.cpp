@@ -1,6 +1,4 @@
 #include "TextSpeicher.h"
-#include <new>
-#include <fstream>
 
 using namespace std;
 
@@ -17,22 +15,17 @@ void TextSpeicher::expand(int s)
 	// Array von Zeigern größe + expand größe	
 	TextZeile **tmpArray = new TextZeile*[_s];
 	
-	// Pointer von TextZeilen Element zwischenspeichern	
+	// Pointer von TextZeilen Element zwischenspeichern	und alte Elemente auf NULL setzen
 	for(int i = 0; i < lines; i++)
 	{
-		tmpArray[i] = new TextZeile( *(t[i]) );	
+		tmpArray[i] = t[i];
+		t[i] = NULL;	
 	}
 	
 	// Die unverbrauchten Felder mit NULL füllen
 	for(int i = lines; i < _s; i++)
 	{
 		tmpArray[i] = NULL;	
-	}
-
-	// die alten Elemente löschen
-	for(int i = 0; i < lines; i++)
-	{
-		delete t[i];
 	}
 	
 	// Pointer Liste löschen
@@ -47,11 +40,8 @@ void TextSpeicher::expand(int s)
  *
  * @param string Filename
  */
-TextSpeicher::TextSpeicher(string Filename)
+TextSpeicher::TextSpeicher(string Filename): size(1000), lines(0)
 {
-	size = 1000;
-	lines = 0;
-	
 	filename = Filename;
 	ifstream file(filename.c_str());
 	
@@ -102,94 +92,41 @@ TextSpeicher::TextSpeicher(string Filename)
 		{
 			cerr << "BAD_ALLOC: Memory error" << endl;
 			throw *this;
-		}																																			    
+		}											    
 		
 		lines++;
 	}
 		
 	file.close();
 }
-/**
- * 
- */
-TextSpeicher::TextSpeicher(TextSpeicher& ts)
-{
-<<<<<<< HEAD
-	// Elemente löschen
-	for(int i = 0; i < lines; i++)
-	{
-		delete t[i];
-	}	
-=======
-	TextSpeicher* KopieTS = new TextSpeicher();
-
->>>>>>> origin/master
-	
-	delete [] t;
-
-	// Größe und anzahl der Zeilen Speichern
-	size = ts.size;
+TextSpeicher::TextSpeicher(TextSpeicher &ts) {
+	size = ts.size; // ggf in die h.date knallen
 	lines = ts.lines;
-	filename = string();
-  
-	try
-	{
-		// Neues Array erstellen
-		t = new TextZeile*[size];
-	}
-	catch(bad_alloc)
-	{
-		cerr << "BAD_ALLOC: Memory error" << endl;
-		throw *this;
-	}
+	filename.clear();
 
-	for(int i = 0; i < size; i++)
-	{
-		try
-		{
-			t[i] = new TextZeile(ts[i]);
-		}
-		catch(bad_alloc)
-		{
-			cerr << "BAD_ALLOC: Memory error" << endl;
-			throw *this;
-		}
-	}		
+	t = new TextZeile*[ts.size];
+
+	for(int i=0;i<size;i++) {
+		t[i] = ts.t[i];
+	}
 }
-/**
- * Destruktor - schreibt die Zeilen in eine Datei und gibt danach den Speicher frei
- */
 TextSpeicher::~TextSpeicher()
-{	
-	if(filename.length() > 0)
-	{
+{
+	
+	if(filename.length() > 0) {
 		ofstream fout(filename.c_str());
 		for(int i = 0; i <= lines; i++)
 			fout << t[i];		// exception missing
 	}
-	
-	// Elemente löschen
-	for(int i = 0; i < lines; i++)
-	{
-		delete t[i];
-	}	
-	
-	delete [] t;
+
+	delete [] t; // may not work
+
 }
-/**
- * Überladener Zuweisungsoperator der Tiefe kopie erstellt
- */
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
 { // nicht getestet, könnte absoluter quatsch sein.
 	TextSpeicher* magic = new TextSpeicher(JensFailed);
 	return *magic; // O_o ich hab kp von referenzen
 }
-/**
- * Funktion zum speichern des Dateinamens
- * 
- * @param string	Filename
- * @return void
- */
 void TextSpeicher::SetFilename(string Filename)
 {
 	if(!Filename.empty())
@@ -198,12 +135,10 @@ void TextSpeicher::SetFilename(string Filename)
 	}
 }
 TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
-{
-	
+{	
 }
 int TextSpeicher::MaxColumns () const
 {
-	
 }
 /* Bereits im Header implementiert. BS
 TextSpeicher::TextZeile::TextZeile()
