@@ -31,8 +31,6 @@ void TextSpeicher::expand(int s)
 	// Size vergrößern
 	size = _s;
 	t = tmpArray;
-
-	
 }
 /**
  * Überladener Konstruktor
@@ -166,11 +164,11 @@ TextSpeicher::~TextSpeicher()
 }
 
 /**
- *
+ * Zuweisungsoperator, erzeugt eine tiefe Kopie des Objektes. Der Dateiname wird nicht kopiert.
  */
-TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
+TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& ts)
 { 
-	TextSpeicher* magic = new TextSpeicher(JensFailed);
+	TextSpeicher* magic = new TextSpeicher(ts);
 	return *magic;
 }
 /**
@@ -179,7 +177,8 @@ TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& JensFailed)
  * @param string	Filename
  * @return void
  */
-void TextSpeicher::SetFilename(string Filename) {
+void TextSpeicher::SetFilename(string Filename)
+{
 	if(!Filename.empty()) filename = Filename;
 }
 /**
@@ -193,9 +192,7 @@ TextSpeicher::TextZeile& TextSpeicher::operator [] (int line)
   	}
 	/* Wir benötigen mehr Zeilen_zeiger_ um die neuen Daten unterzubekommen!
 	   Deshalb legen wir 10 neue an und hoffen, dass es reicht.
-	   Ansonsten werden später nochmal 10 angelegt.
-	   Hier hätte man auch gut mit einer Konstanten arbeiten können...
-						ist mir nun aber auch egal */
+	   Ansonsten werden später nochmal 10 angelegt. */
   	if(line+1 > lines) {
     		expand(line+1 - lines + 10);
     		lines = line+1;
