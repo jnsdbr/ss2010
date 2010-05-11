@@ -24,7 +24,7 @@ int main()
 	// Image groesse berechnen
 	Image I(max_width, max_height+font_height);
 
-	// Von oben nach unten
+	// Von unten nach oben
 	for(int Iy = max_height - font_height; Iy >= 0; Iy -= font_height)
 	{
 		// Von links nach rechts
