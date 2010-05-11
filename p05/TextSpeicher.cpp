@@ -123,7 +123,7 @@ TextSpeicher::TextSpeicher(TextSpeicher& ts)
  */
 TextSpeicher::~TextSpeicher()
 {	
-	if(filename.length() > 0 && filename != "no_write")
+	if(!filename.empty() && filename != "no_write")
 	{
 		try
 		{
@@ -133,7 +133,8 @@ TextSpeicher::~TextSpeicher()
 			for(int i = 0; i < lines; i++)
 			{
 				if(t[i]) {
-					fout << static_cast<string>(*t[i]) << endl;
+					fout << static_cast<string>(*t[i])
+					     << endl;
 				} else {
 					fout << endl;
 				}
@@ -164,7 +165,8 @@ TextSpeicher::~TextSpeicher()
 }
 
 /**
- * Zuweisungsoperator, erzeugt eine tiefe Kopie des Objektes. Der Dateiname wird nicht kopiert.
+ * Zuweisungsoperator, erzeugt eine tiefe Kopie des Objektes.
+ * Der Dateiname wird nicht kopiert.
  */
 TextSpeicher& TextSpeicher::TextSpeicher::operator= (TextSpeicher& ts)
 { 
@@ -221,7 +223,7 @@ int TextSpeicher::MaxColumns () const
 	}
 	return max_columns;
 }
-TextSpeicher::TextZeile& TextSpeicher::TextZeile::operator= (const TextZeile& tl)
+TextSpeicher::TextZeile& TextSpeicher::TextZeile::operator=(const TextZeile& tl)
 {
 	l = static_cast<string>(tl);
 }
@@ -232,8 +234,9 @@ char& TextSpeicher::TextZeile::operator [] (int column)
 		OutOfBounds ThrowMeGently;
   		throw ThrowMeGently; 
 	} else if (column >= l.length()) {
-		/* Wir greifen auf eine Spalte zu, die noch nicht "angelegt" wurde
-			 Dies holen wir nun nach und füllen den Zwischenraum mit Leerzeichen */
+		/* Wir greifen auf eine Spalte zu, die noch nicht "angelegt"
+		   wurde. Dies holen wir nun nach und füllen den Zwischenraum 
+		   mit Leerzeichen */
 		l.resize(column+1, ' '); 
 	} 
 

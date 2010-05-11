@@ -1,0 +1,98 @@
+                                
+                                
+                   ddd    fff   
+                    dd   ff ff  
+                    dd   ff  f  
+ aaaa    sssss    dddd   ff     
+    aa  ss   ss  dd dd  ffff    
+ aaaaa   sss    dd  dd   ff     
+aa  aa     sss  dd  dd   ff     
+aa  aa  ss   ss dd  dd   ff     
+ aaa aa  sssss   ddd dd ffff    
+                                
+                                
+                                
+                                
+                                
+                   ddd    fff   
+                    dd   ff ff  
+                    dd   ff  f  
+ aaaa    sssss    dddd   ff     
+    aa  ss   ss  dd dd  ffff    
+ aaaaa   sss    dd  dd   ff     
+aa  aa     sss  dd  dd   ff     
+aa  aa  ss   ss dd  dd   ff     
+ aaa aa  sssss   ddd dd ffff    
+                                
+                                
+                                
+                                
+                                
+                   ddd    fff   
+                    dd   ff ff  
+                    dd   ff  f  
+ aaaa    sssss    dddd   ff     
+    aa  ss   ss  dd dd  ffff    
+ aaaaa   sss    dd  dd   ff     
+aa  aa     sss  dd  dd   ff     
+aa  aa  ss   ss dd  dd   ff     
+ aaa aa  sssss   ddd dd ffff    
+                                
+                                
+                                
+                                        
+                                        
+                   ddd    fff           
+                    dd   ff ff          
+                    dd   ff  f          
+ aaaa    sssss    dddd   ff      aaaa   
+    aa  ss   ss  dd dd  ffff        aa  
+ aaaaa   sss    dd  dd   ff      aaaaa  
+aa  aa     sss  dd  dd   ff     aa  aa  
+aa  aa  ss   ss dd  dd   ff     aa  aa  
+ aaa aa  sssss   ddd dd ffff     aaa aa 
+                                        
+                                        
+                                        
+                                                                        
+                                                                        
+   ddd            fff      ddd  hhh        ddd    fff   hhh     hhh     
+    dd           ff ff      dd   hh         dd   ff ff   hh      hh     
+    dd           ff  f      dd   hh         dd   ff  f   hh      hh     
+  dddd   sssss   ff       dddd   hh hh    dddd   ff      hh hh   hh hh  
+ dd dd  ss   ss ffff     dd dd   hhh hh  dd dd  ffff     hhh hh  hhh hh 
+dd  dd   sss     ff     dd  dd   hh  hh dd  dd   ff      hh  hh  hh  hh 
+dd  dd     sss   ff     dd  dd   hh  hh dd  dd   ff      hh  hh  hh  hh 
+dd  dd  ss   ss  ff     dd  dd   hh  hh dd  dd   ff      hh  hh  hh  hh 
+ ddd dd  sssss  ffff     ddd dd hhh  hh  ddd dd ffff    hhh  hh hhh  hh 
+                                                                        
+                                                                        
+                                                                        
+                
+                
+   ddd          
+    dd          
+    dd          
+  dddd   ggg gg 
+ dd dd  gg  gg  
+dd  dd  gg  gg  
+dd  dd  gg  gg  
+dd  dd   ggggg  
+ ddd dd     gg  
+        gg  gg  
+         gggg   
+                
+                                
+                                
+   ddd          hhh             
+    dd           hh             
+    dd           hh             
+  dddd   sssss   hh hh   sssss  
+ dd dd  ss   ss  hhh hh ss   ss 
+dd  dd   sss     hh  hh  sss    
+dd  dd     sss   hh  hh    sss  
+dd  dd  ss   ss  hh  hh ss   ss 
+ ddd dd  sssss  hhh  hh  sssss  
+                                
+                                
+                                

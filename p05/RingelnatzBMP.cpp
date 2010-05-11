@@ -30,11 +30,14 @@ int main()
 		// Von links nach rechts
 		for(int Ix = 0; Ix < max_width; Ix += font_width)
 		{	
-			// Positionierung
-			SimpleFont a(ts[ts - 1 - (Iy / font_height)][Ix/ font_width]);
+			// Buchstaben aus TextSpeicher-Objekt holen
+			SimpleFont a(ts[ts - 1 - (Iy / font_height)]
+				       [Ix / font_width]);
 
-			// Tabs abfangen
-			if(ts[ts - 1 - (Iy / font_height)][Ix / font_width] != '\t')
+			/* Tabs abfangen, um seltsame Zeichen zu vermeiden.
+			   Stattdessen wird einfach nichts gezeichnet und der
+			   "Zeichenstift" einfach weiterbewegt */
+			if(ts[ts - 1 - (Iy/font_height)][Ix/font_width] != '\t')
 			{
 				// Pixel zeichnen
 				for(int y = 0; y < font_height; y++)
