@@ -22,19 +22,19 @@ int main()
 	int max_height = (ts)*font_height;
 	
 	// Image groesse berechnen
-	Image I(max_width+(2*font_width), max_height+font_height);
+	Image I(max_width, max_height+font_height);
 
 	// Von oben nach unten
 	for(int Iy = max_height - font_height; Iy >= 0; Iy -= font_height)
 	{
 		// Von links nach rechts
-		for(int Ix = font_width; Ix < max_width; Ix += font_width)
+		for(int Ix = 0; Ix < max_width; Ix += font_width)
 		{	
 			// Positionierung
-			SimpleFont a(ts[ts - 1 - (Iy / font_height)][(Ix - font_width) / font_width]);
+			SimpleFont a(ts[ts - 1 - (Iy / font_height)][Ix/ font_width]);
 
 			// Tabs abfangen
-			if(ts[ts - 1 - (Iy / font_height)][(Ix - font_width) / font_width] != '\t')
+			if(ts[ts - 1 - (Iy / font_height)][Ix / font_width] != '\t')
 			{
 				// Pixel zeichnen
 				for(int y = 0; y < font_height; y++)
