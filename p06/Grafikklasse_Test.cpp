@@ -22,6 +22,9 @@ int main() {
 		RechteckGefuellt(50,50,100,100,red,blue).draw(I);
 		Zeichen(20,20,'Y',green,yellow).draw(I);
 		TextZeile(10,10,"Bo5 > JdB", white, black).draw(I);
+
+		Linie(8, 17, 80, 17, red).draw(I);
+		Kreis(150,150, yellow, 30).draw(I);		
 	}
 	catch (...) {
 		cout << "moep";

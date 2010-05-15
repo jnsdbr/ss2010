@@ -44,11 +44,13 @@ class Linie: public GrafikElement {
 		RGB_Pixel c;	// Farbe
 	public:
 		Linie(): GrafikElement(), c(0,0,0) {};
-		Linie(int XS, int YS, RGB_Pixel C): GrafikElement(XS, YS), c(C) {};
+		Linie(int XS, int YS, int XE, int YE, RGB_Pixel C): GrafikElement(XS, YS), xe(XE), ye(YE), c(C) {};
 
 		int get_xe() const { return xe; }
 		int get_ye() const { return ye; }
 		RGB_Pixel get_color() const { return c; }
+		
+		virtual void draw(Image&);
 };
 class Kreis: public GrafikElement {
 	private:
@@ -60,6 +62,8 @@ class Kreis: public GrafikElement {
 
 		int get_radius() const { return radius; }
 		RGB_Pixel get_color() const { return c; }
+		
+		virtual void draw(Image&);
 };
 class Rechteck: public GrafikElement {
 	protected:
