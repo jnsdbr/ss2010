@@ -24,7 +24,8 @@ class GrafikElement {
 		int get_ys() const { return ys; }
 
 		virtual void draw(Image&) {};
-		virtual void add_offset(int x_offset, int y_offset) = 0;
+		virtual void add_offset(int x_offset, int y_offset) {};
+		virtual GrafikElement* clone() const { return NULL; }
 };
 
 class Punkt: public GrafikElement {
@@ -38,6 +39,7 @@ class Punkt: public GrafikElement {
 
 		virtual void draw(Image&);
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }
 };
 
 class Linie: public GrafikElement {
@@ -51,9 +53,10 @@ class Linie: public GrafikElement {
 		int get_xe() const { return xe; }
 		int get_ye() const { return ye; }
 		RGB_Pixel get_color() const { return c; }
-		
+
 		virtual void draw(Image&);
-		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }		
+		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }
 };
 class Kreis: public GrafikElement {
 	private:
@@ -65,9 +68,10 @@ class Kreis: public GrafikElement {
 
 		int get_radius() const { return radius; }
 		RGB_Pixel get_color() const { return c; }
-		
+
 		virtual void draw(Image&);
-		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }		
+		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }
 };
 class Rechteck: public GrafikElement {
 	protected:
@@ -82,7 +86,8 @@ class Rechteck: public GrafikElement {
 		RGB_Pixel get_color() const { return c; }
 
 		virtual void draw(Image&);
-		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }			
+		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }
 };
 class RechteckGefuellt: public Rechteck {
 	private:
@@ -93,6 +98,7 @@ class RechteckGefuellt: public Rechteck {
 		RGB_Pixel get_fcolor() const { return f; }
 
 		virtual void draw(Image&);
+		virtual GrafikElement* clone() const { return NULL; }
 };
 class Zeichen: public GrafikElement {
 	private:
@@ -101,13 +107,14 @@ class Zeichen: public GrafikElement {
 	public:
 		Zeichen(): GrafikElement(), ch('\0'), fg(0,0,0), bg(0,0,0) {};
 		Zeichen(int XS, int YS, unsigned char CH, RGB_Pixel FG, RGB_Pixel BG): GrafikElement(XS, YS), ch(CH), fg(FG), bg(BG) {};
-				
+
 		unsigned char get_char() const { return ch; }
 		RGB_Pixel get_fg() const { return fg; }
 		RGB_Pixel get_bg() const { return bg; }
 
 		virtual void draw(Image&);
-		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }			
+		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }		
 };
 class TextZeile: public GrafikElement {
 	private:
@@ -122,7 +129,8 @@ class TextZeile: public GrafikElement {
 		RGB_Pixel get_bg() const { return bg; }
 
 		virtual void draw(Image&);
-		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }			
+		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
+		virtual GrafikElement* clone() const { return NULL; }
 };
 
 #endif
