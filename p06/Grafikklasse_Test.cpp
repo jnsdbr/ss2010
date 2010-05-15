@@ -5,13 +5,17 @@
 
 using namespace std;
 
-int main() {
-
-    	RGB_Pixel red(255,0,0); RGB_Pixel green(0,255,0);
-    	RGB_Pixel blue(0,0,255); RGB_Pixel yellow(255,255,0);
+int main()
+{
+	RGB_Pixel red(255,0,0);
+	RGB_Pixel green(0,255,0);
+	RGB_Pixel blue(0,0,255);
+	RGB_Pixel yellow(255,255,0);
 	RGB_Pixel white(255,255,255);
-    	RGB_Pixel black;
-    	const int height=300, width=300, iterations=100;
+	RGB_Pixel black;
+	
+	const int height=300, width=300, iterations=100;
+	
 	Image I(width,height);
 	
 	Punkt TestPunkt(270,270,red);
@@ -27,10 +31,8 @@ int main() {
 		Kreis(150,150, yellow, 30).draw(I);		
 	}
 	catch (...) {
-		cout << "moep";
+		cout << "fail";
 	}
-
-		
 	BmpWrite("test.bmp",I);
 
 	return 0;

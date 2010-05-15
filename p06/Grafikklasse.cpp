@@ -3,6 +3,9 @@
 
 using namespace std;
 
+/**
+ * Zechnet einen Punkt an Position x,y
+ */
 inline void Punkt::draw(Image& I) {
 	I[xs][ys] = c;
 }
@@ -30,7 +33,7 @@ inline void Linie::draw(Image& I)
 		const int _c = 2 * HX, M = 2 * HY;
 		while(true)
 		{
-			Punkt(y,x,c).draw(I);
+			Punkt(y, x, c).draw(I);
 			if(x == xe) { break; }
 			x += xInc;
 			D += M;
@@ -43,7 +46,7 @@ inline void Linie::draw(Image& I)
 		const int _c = 2 * HY, M = 2 * HX;
 		while(true)
 		{
-			Punkt(y,x,c).draw(I);
+			Punkt(y, x, c).draw(I);
 			if(y == ye) { break; }
 			y += yInc;
 			D += M;
@@ -51,7 +54,9 @@ inline void Linie::draw(Image& I)
 		} 
 	}
 }
-
+/**
+ * Zeichnet ein Rechteck von xs,ys nach xe,ye
+ */
 inline void Rechteck::draw(Image& I) {
 	
 	// Sauberer?
@@ -71,7 +76,9 @@ inline void Rechteck::draw(Image& I) {
 	}
 	*/
 }
-
+/**
+ * Zeichnet ein gefuelltes Rechteck
+ */
 inline void RechteckGefuellt::draw(Image& I) {	
 	for(int i = 0; i <= (xe-xs)/2; i++)
 		Rechteck(xs+i,ys+i,xe-i,ye-i, (i==0)?c:f).draw(I);
@@ -117,7 +124,9 @@ inline void Kreis::draw(Image& I)
 		Punkt(xs - y, ys - x, c).draw(I);		
 	}
 }
-
+/**
+ * Zeichnet ein farbiges Zeichen an der Position x,y
+ */
 void Zeichen::draw(Image& I) {
 	int font_height = SimpleFont::height();
 	int font_width = SimpleFont::width();
@@ -131,7 +140,9 @@ void Zeichen::draw(Image& I) {
 	   	}	
 	}
 }
-
+/**
+ * Zeichnet eine farbige Textzeile an der Position x,y
+ */
 inline void TextZeile::draw(Image& I) {
 	int font_height = SimpleFont::height();
 	int font_width = SimpleFont::width();
