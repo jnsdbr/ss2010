@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * Zechnet einen Punkt an Position x,y
+ * Zeichnet einen Punkt an Position x,y
  *
  * @param	Image&	I	Bild in das gezeichnet wird
  */
