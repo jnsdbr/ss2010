@@ -5,6 +5,8 @@ using namespace std;
 
 /**
  * Zechnet einen Punkt an Position x,y
+ *
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void Punkt::draw(Image& I) {
 	I[xs][ys] = c;
@@ -12,7 +14,7 @@ inline void Punkt::draw(Image& I) {
 /**
  * Bresenham-Linien-Algorithmus
  *
- * @param	Image&		I
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void Linie::draw(Image& I) 
 {
@@ -56,6 +58,8 @@ inline void Linie::draw(Image& I)
 }
 /**
  * Zeichnet ein Rechteck von xs,ys nach xe,ye
+ *
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void Rechteck::draw(Image& I) {
 	
@@ -78,6 +82,8 @@ inline void Rechteck::draw(Image& I) {
 }
 /**
  * Zeichnet ein gefuelltes Rechteck
+ *
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void RechteckGefuellt::draw(Image& I) {	
 	for(int i = 0; i <= (xe-xs)/2; i++)
@@ -86,7 +92,7 @@ inline void RechteckGefuellt::draw(Image& I) {
 /**
  * Bresenham-Kreis-Algorithmus
  *
- * @param	Image&		I
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void Kreis::draw(Image& I)
 {
@@ -126,6 +132,8 @@ inline void Kreis::draw(Image& I)
 }
 /**
  * Zeichnet ein farbiges Zeichen an der Position x,y
+ *
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 void Zeichen::draw(Image& I) {
 	int font_height = SimpleFont::height();
@@ -142,6 +150,8 @@ void Zeichen::draw(Image& I) {
 }
 /**
  * Zeichnet eine farbige Textzeile an der Position x,y
+ *
+ * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void TextZeile::draw(Image& I) {
 	int font_height = SimpleFont::height();
@@ -149,5 +159,3 @@ inline void TextZeile::draw(Image& I) {
 	for(int i=0; i<s.length(); i++)
 		Zeichen(xs+i*font_width,ys,s[i],fg,bg).draw(I);
 }
-
-
