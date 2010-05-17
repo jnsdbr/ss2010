@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -c -Wall -g -lm
 LDFLAGS =
-SOURCES = BmpWrite.cpp Image.cpp Grafikklasse.cpp Grafikklasse_Test.cpp SimpleFont.cpp
+SOURCES = BmpWrite.cpp Image.cpp Grafikklasse.cpp P6_Test.cpp SimpleFont.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 PRODUCT = GrafikTest
 RM = rm
