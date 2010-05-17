@@ -19,6 +19,8 @@ int main()
 	Image I(width,height);
 	
 	Punkt TestPunkt(270,270,red);
+	Rechteck r1(8,height/2-2,130,height/2+15,yellow);
+	GrafikElement &g1=r1;
 
 	try {
 		TestPunkt.draw(I);	
@@ -28,7 +30,13 @@ int main()
 		TextZeile(10,10,"Bo5 > JdB", white, black).draw(I);
 
 		Linie(8, 17, 80, 17, red).draw(I);
-		Kreis(150,150, yellow, 30).draw(I);		
+		Kreis(150,150, yellow, 30).draw(I);	
+
+	     	Linie l;
+	      	l=g1;	
+	}
+	catch (bad_cast) {
+		cout << "bad_cast";
 	}
 	catch (...) {
 		cout << "fail";
