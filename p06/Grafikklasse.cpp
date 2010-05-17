@@ -163,29 +163,37 @@ inline void TextZeile::draw(Image& I) {
 		Zeichen(xs+i*font_width,ys,s[i],fg,bg).draw(I);
 }
 
-GrafikElement* GrafikElement::operator=(const GrafikElement& r) {
+GrafikElement& GrafikElement::operator=(const GrafikElement& r) {
 	try{
 		const GrafikElement &ref=dynamic_cast<const GrafikElement&>(r); // type-check
-		xs = ref.xs;
-		ys = ref.ys;
+		xs = ref.get_xs();
+		ys = ref.get_ys();
 		return *this;
 	} catch(...) {
 		throw;
 	}
 }
 
-GrafikElement* Punkt::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& Punkt::operator=(const GrafikElement& r) {
+	try{
+		const Punkt &ref=dynamic_cast<const Punkt&>(r); // type-check
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		c  = ref.get_color();
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }
 
-GrafikElement* Linie::operator=(const GrafikElement& r) {
+GrafikElement& Linie::operator=(const GrafikElement& r) {
 	try{
 		const Linie &ref=dynamic_cast<const Linie&>(r); // type-check
-		xs = ref.xs;
-		ys = ref.ys;
-		xe = ref.xe;
-		ye = ref.ye;
-		c  = ref.c;
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		xe = ref.get_xe();
+		ye = ref.get_ye();
+		c  = ref.get_color();
 
 		return *this;
 	} catch(...) {
@@ -193,22 +201,75 @@ GrafikElement* Linie::operator=(const GrafikElement& r) {
 	}
 }
 
-GrafikElement* Kreis::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& Kreis::operator=(const GrafikElement& r) {
+	try{
+		const Kreis &ref=dynamic_cast<const Kreis&>(r); // type-check
+		radius 	= ref.get_radius();
+		     c	= ref.get_color();
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }
 
-GrafikElement* Rechteck::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& Rechteck::operator=(const GrafikElement& r) {
+	try{
+		const Rechteck &ref=dynamic_cast<const Rechteck&>(r); // type-check
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		xe = ref.get_xe();
+		ye = ref.get_ye();
+		c  = ref.get_color();
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }
 
-GrafikElement* RechteckGefuellt::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& RechteckGefuellt::operator=(const GrafikElement& r) {
+	try{
+		const RechteckGefuellt &ref=dynamic_cast<const RechteckGefuellt&>(r); // type-check
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		xe = ref.get_xe();
+		ye = ref.get_ye();
+		c  = ref.get_color();
+		f  = ref.f;
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }
 
-GrafikElement* Zeichen::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& Zeichen::operator=(const GrafikElement& r) {
+	try{
+		const Zeichen &ref=dynamic_cast<const Zeichen&>(r); // type-check
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		ch = ref.get_char();
+		fg  = ref.get_fg();
+		bg  = ref.get_bg();
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }
 
-GrafikElement* TextZeile::operator=(const GrafikElement& r) {
-	cout << "Operator aufgerufen";
+GrafikElement& TextZeile::operator=(const GrafikElement& r) {
+	try{
+		const TextZeile &ref=dynamic_cast<const TextZeile&>(r); // type-check
+		xs = ref.get_xs();
+		ys = ref.get_ys();
+		s = ref.get_string();
+		fg  = ref.get_fg();
+		bg  = ref.get_bg();
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
 }

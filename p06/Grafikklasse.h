@@ -29,7 +29,7 @@ class GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) {};
 		virtual GrafikElement* clone() const = 0; 
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 
 class Punkt: public GrafikElement {
@@ -46,7 +46,7 @@ class Punkt: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
 		virtual GrafikElement* clone() const { return new Punkt(*this); }
 		
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 
 class Linie: public GrafikElement {
@@ -66,7 +66,7 @@ class Linie: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }
 		virtual GrafikElement* clone() const { return new Linie(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 class Kreis: public GrafikElement {
 	private:
@@ -74,7 +74,7 @@ class Kreis: public GrafikElement {
 		RGB_Pixel c;	// Farbe
 	public:
 		Kreis(): GrafikElement(), c(0,0,0), radius(0) {};
-		Kreis(int XS, int YS, RGB_Pixel C, int R): GrafikElement(XS, YS), c(C), radius(R) {};
+		Kreis(int XS, int YS, int R, RGB_Pixel C): GrafikElement(XS, YS), c(C), radius(R) {};
 		virtual ~Kreis() {};
 
 		int get_radius() const { return radius; }
@@ -84,7 +84,7 @@ class Kreis: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
 		virtual GrafikElement* clone() const { return new Kreis(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 class Rechteck: public GrafikElement {
 	protected:
@@ -103,7 +103,7 @@ class Rechteck: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; xe += x_offset; ye += y_offset; }
 		virtual GrafikElement* clone() const { return new Rechteck(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 class RechteckGefuellt: public Rechteck {
 	private:
@@ -118,7 +118,7 @@ class RechteckGefuellt: public Rechteck {
 		virtual void draw(Image&);
 		virtual GrafikElement* clone() const { return new RechteckGefuellt(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 class Zeichen: public GrafikElement {
 	private:
@@ -137,7 +137,7 @@ class Zeichen: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
 		virtual GrafikElement* clone() const { return new Zeichen(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);		
+		virtual GrafikElement& operator=(const GrafikElement& r);		
 };
 class TextZeile: public GrafikElement {
 	private:
@@ -156,7 +156,7 @@ class TextZeile: public GrafikElement {
 		virtual void add_offset(int x_offset, int y_offset) { xs += x_offset; ys += y_offset; }
 		virtual GrafikElement* clone() const { return new TextZeile(*this); }
 
-		virtual GrafikElement* operator=(const GrafikElement& r);
+		virtual GrafikElement& operator=(const GrafikElement& r);
 };
 
 #endif

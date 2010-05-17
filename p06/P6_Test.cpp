@@ -4,10 +4,10 @@
 // Fachhochschule Osnabrueck
 // (c) Prof. Dr.-Ing. Bernhard Lang
 // --------------------------------------------------------------
-#include "rgb.h"             // Darstellung von Pixeln
-#include "image.h"           // Zweidimensionales Bild
-#include "bmpwrite.h"        // Schreiben von BMP-Dateien
-#include "grafik.h"          // Grafik-Objekte
+#include "RGB_Pixel.h"             // Darstellung von Pixeln
+#include "Image.h"           // Zweidimensionales Bild
+#include "BmpWrite.h"        // Schreiben von BMP-Dateien
+#include "Grafikklasse.h"          // Grafik-Objekte
 #include <iostream>
 #include <math.h>
 using namespace std;
@@ -28,7 +28,7 @@ int main() {
     //
     // Einfache Objekte
     RechteckGefuellt(3,20, width-3, 25, green,blue).draw(I);
-    Textzeile(38,11,"Testbild",red,black).draw(I);
+    TextZeile(38,11,"Testbild",red,black).draw(I);
     Rechteck(0,0,width-1,height-1,green).draw(I);
 
     // Objekte mittels GrafikElement-Referenz ansprechen
@@ -66,7 +66,7 @@ int main() {
     }
     Kreis(75,100,50,red).draw(I);
     Kreis(75,100,40,red).draw(I);
-    Textzeile(10,height/2,"OOP ist sch\x94n!",yellow,black).draw(I);
+    TextZeile(10,height/2,"OOP ist sch\x94n!",yellow,black).draw(I);
 
     // Bild schreiben
     BmpWrite("P6.bmp",I);
