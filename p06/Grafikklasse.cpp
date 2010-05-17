@@ -164,6 +164,51 @@ inline void TextZeile::draw(Image& I) {
 }
 
 GrafikElement* GrafikElement::operator=(const GrafikElement& r) {
+	try{
+		const GrafikElement &ref=dynamic_cast<const GrafikElement&>(r); // type-check
+		xs = ref.xs;
+		ys = ref.ys;
+		return *this;
+	} catch(...) {
+		throw;
+	}
+}
+
+GrafikElement* Punkt::operator=(const GrafikElement& r) {
 	cout << "Operator aufgerufen";
 }
 
+GrafikElement* Linie::operator=(const GrafikElement& r) {
+	try{
+		const Linie &ref=dynamic_cast<const Linie&>(r); // type-check
+		xs = ref.xs;
+		ys = ref.ys;
+		xe = ref.xe;
+		ye = ref.ye;
+		c  = ref.c;
+
+		return *this;
+	} catch(...) {
+		throw;
+	}
+}
+
+GrafikElement* Kreis::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
+
+GrafikElement* Rechteck::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
+
+GrafikElement* RechteckGefuellt::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
+
+GrafikElement* Zeichen::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
+
+GrafikElement* TextZeile::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
