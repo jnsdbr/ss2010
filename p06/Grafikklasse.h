@@ -25,7 +25,9 @@ class GrafikElement {
 
 		virtual void draw(Image&) {};
 		virtual void add_offset(int x_offset, int y_offset) {};
-		virtual GrafikElement* clone() const = 0;
+		virtual GrafikElement* clone() const = 0; 
+
+		virtual GrafikElement* operator=(const GrafikElement& r);
 };
 
 class Punkt: public GrafikElement {

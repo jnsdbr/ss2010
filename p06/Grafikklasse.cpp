@@ -64,6 +64,9 @@ inline void Linie::draw(Image& I)
 inline void Rechteck::draw(Image& I) {
 	
 	// Sauberer?
+	// Weiß ich nicht. HAbe ich auch zunächst überlegt,
+	// meine Variante kam mir dann aber ressourcen schonenender 
+	// und performanter vor, da nicht erst Objekte erzeugt werden
 	Linie(xs, ys, xs, ye, c).draw(I);
 	Linie(xs, ys, xe, ys, c).draw(I);
 	Linie(xs, ye, xe, ye, c).draw(I);
@@ -159,3 +162,8 @@ inline void TextZeile::draw(Image& I) {
 	for(int i=0; i<s.length(); i++)
 		Zeichen(xs+i*font_width,ys,s[i],fg,bg).draw(I);
 }
+
+GrafikElement* GrafikElement::operator=(const GrafikElement& r) {
+	cout << "Operator aufgerufen";
+}
+
