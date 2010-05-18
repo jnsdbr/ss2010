@@ -25,8 +25,8 @@ class GrafikElement {
 		int get_xs() const { return xs; }
 		int get_ys() const { return ys; }
 
-		virtual void draw(Image&) {};
-		virtual void add_offset(int x_offset, int y_offset) {};
+		virtual void draw(Image&) {} const = 0;
+		virtual void add_offset(int x_offset, int y_offset) const = 0;
 		virtual GrafikElement* clone() const = 0; 
 
 		virtual GrafikElement& operator=(const GrafikElement& r);
