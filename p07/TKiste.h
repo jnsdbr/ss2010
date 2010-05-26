@@ -6,9 +6,12 @@
 // --------------------------------------------------------------
 #ifndef _TKiste_h_
 #define _TKiste_h_
-#include <cstddef> // so we can use NULL
+#include <cstddef>	// so we can use NULL
+#include <typeinfo>	// bad_cast
 
-
+/**
+ * TKiste
+ */
 template<class E>
 class TKiste
 {
@@ -31,6 +34,9 @@ class TKiste
 		const char* get_error() { return error; }	// Fehlertext zurückgeben
 };
 
+/**
+ * Huelle
+ */
 template<class E>
 class TKiste<E>::Huelle
 {
@@ -46,29 +52,43 @@ class TKiste<E>::Huelle
 		void set_next(Huelle *x) { next = x; }
 };
 
-// Methoden des Templates
-//template<class E> TKiste<E>::TKiste()
-
-
+/**
+ * Überladener Shift Operator - hängt eine TKiste an eine andere an
+ * 
+ * @param TKiste<E>& r	Objekt von Typ E
+ * @return *this
+ */
 template<class E>
 TKiste<E>& TKiste<E>::operator<< (const TKiste<E>& r)
 {
 	for(int i = 0; i < r; i++)
 	{
-		*this << const_cast<TKiste<E>&>(r)[i];
+		try
+		{
+			*this << const_cast<TKiste<E>&>(r)[i];
+		}
+		catch(bad_cast)
+		{
+			throw "Fehler";
+		}
 	}
+	
 	return *this;
 }
-
+/**
+ * Überladener Klammer Operator
+ *
+ * @param unsigned int	i	Index
+ * @return *tmp				Referenz von Huelle
+ */
 template<class E>
 E& TKiste<E>::operator [](unsigned int i)
 {
 	Huelle *tmp = first;
 
-	// Fehler abfragen
 	if(i > count)
 	{
-		throw;
+		throw "Ausserhalb des Bereichs!";
 	}
 	
 	if(i != 0)
@@ -82,20 +102,40 @@ E& TKiste<E>::operator [](unsigned int i)
 	return *tmp;	
 } 
 
+/**
+ * Überladener Shift Operator - fügt eine Huelle zur Liste hinzu
+ *
+ * @param const E	&v	Konstante Variable vom Typ E
+ * @return *this
+ */
 template<class E>
 TKiste<E>& TKiste<E>::operator<< (const E &v)
 {
 	if(!first)
 	{
-		first = new Huelle(v);
-		last = first;
+		try
+		{
+			first = new Huelle(v);
+			last = first;
+		}
+		catch(...)
+		{
+			throw "Fehler beim allozieren des Speichers!";
+		}
 	}
 	else
 	{
 		Huelle *tmp = last;
 		
-		last = new Huelle(v);
-		tmp->set_next(last);
+		try
+		{
+			last = new Huelle(v);
+			tmp->set_next(last);
+		}
+		catch(...)
+		{
+			throw "Fehler beim allozieren des Speichers!";
+		}
 	}
 	
 	count++;
@@ -103,14 +143,27 @@ TKiste<E>& TKiste<E>::operator<< (const E &v)
 	return *this;
 }
 
+/**
+ * Default Konstruktor Huelle
+ *
+ * @param const E& e	Element vom Typ E
+ */
 template<class E>
 TKiste<E>::Huelle::Huelle(const E& e)
 {
-	E *tmp = dynamic_cast<E*>(e.clone());
-	
-	if(tmp)
+	try
 	{
-    	val = tmp;
+		E *tmp = dynamic_cast<E*>(e.clone());
+		
+		// Überprüfen ob tmp gesetzt wurde
+		if(tmp)
+		{
+	    	val = tmp;
+		}		
+	}
+	catch(bad_cast)
+	{
+		throw "Fehler";
 	}
 	
 	next = NULL;
