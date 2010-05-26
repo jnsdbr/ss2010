@@ -17,7 +17,8 @@ class Kiste
 	// Der private Teil kann Ihren Anforderungen entsprechend verändert werden
 	private:
 		class Huelle;
-		Huelle*  t;
+		Huelle* first;
+		Huelle* last;
 		const char* error;
 		unsigned int count; 
 		Kiste& operator= (const Kiste&) { return *this; } // Zuweisungsoperator sperren
@@ -25,7 +26,7 @@ class Kiste
 	
 	// Dieses oeffentliche Interface ist obligatorisch und darf nicht verändert werden
 	public:
-		Kiste() : t(NULL), error(0), count(0) {}	// Konstruktor
+		Kiste() : first(NULL), error(0), count(0) {}	// Konstruktor
 		virtual ~Kiste() {};							// Destruktor
 		operator int() const { return count; };		// Gibt Anzahl der eingeschriebenen Elemente zurück
 		Kiste& operator<< (const Element &v);		// Elemente am Ende anfügen

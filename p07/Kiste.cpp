@@ -14,9 +14,9 @@ Kiste& Kiste::operator<< (const Kiste& r)
 
 Element& Kiste::operator [](unsigned int i)
 {
-	Huelle *tmp = t;
+	Huelle *tmp = first;
 
-	
+	// Fehler abfragen
 	if(i > count)
 	{
 		throw;
@@ -35,10 +35,18 @@ Element& Kiste::operator [](unsigned int i)
 
 Kiste& Kiste::operator<< (const Element &v)
 {
-	Huelle *tmp = t;
-	
-	t = new Huelle(*(v.clone()));
-	t->set_next(tmp);
+	if(!first)
+	{
+		first = new Huelle(*(v.clone()));
+		last = first;
+	}
+	else
+	{
+		Huelle *tmp = last;
+		
+		last = new Huelle(*(v.clone()));
+		tmp->set_next(last);
+	}
 	
 	count++;
 	
