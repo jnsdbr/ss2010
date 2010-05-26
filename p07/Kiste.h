@@ -45,7 +45,7 @@ class Kiste::Huelle
 	public:
 		Huelle(const Element& e) {};
 		~Huelle() {};
-		operator Element&() {};						// Gibt Referenz auf aktuelles Element-Objekt zurück
+		operator Element&() { return *val; };						// Gibt Referenz auf aktuelles Element-Objekt zurück
 		void add(const Element &e);					// Fügt ein Huelle-Objekt am Ende der Liste an.
 		Huelle* get_next() const { return next; }
 		void set_next(Huelle *x) { next = x; }
