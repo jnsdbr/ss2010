@@ -26,7 +26,7 @@ class Kiste
 	// Dieses oeffentliche Interface ist obligatorisch und darf nicht verändert werden
 	public:
 		Kiste() : t(NULL), error(0), count(0) {}	// Konstruktor
-		virtual ~Kiste();							// Destruktor
+		virtual ~Kiste() {};							// Destruktor
 		operator int() const { return count; };		// Gibt Anzahl der eingeschriebenen Elemente zurück
 		Kiste& operator<< (const Element &v);		// Elemente am Ende anfügen
 		Kiste& operator<< (const Kiste& r);			// Inhalt der übergebenen Kiste r am Ende anfügen
@@ -43,9 +43,9 @@ class Kiste::Huelle
 		Element* val;
 	
 	public:
-		Huelle(const Element& e);
-		~Huelle();
-		operator Element&();						// Gibt Referenz auf aktuelles Element-Objekt zurück
+		Huelle(const Element& e) {};
+		~Huelle() {};
+		operator Element&() {};						// Gibt Referenz auf aktuelles Element-Objekt zurück
 		void add(const Element &e);					// Fügt ein Huelle-Objekt am Ende der Liste an.
 		Huelle* get_next() const { return next; }
 		void set_next(Huelle *x) { next = x; }
