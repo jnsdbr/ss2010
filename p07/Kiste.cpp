@@ -3,6 +3,12 @@
 
 using namespace std;
 
+/**
+ * Überladener Shift Operator - hängt eine Kiste an eine andere an
+ * 
+ * @param Kiste& r	Objekt von Typ Kiste
+ * @return *this
+ */
 Kiste& Kiste::operator<< (const Kiste& r)
 {
 	for(unsigned int i = 0; i < r; i++)
@@ -12,11 +18,16 @@ Kiste& Kiste::operator<< (const Kiste& r)
 	return *this;
 }
 
+/**
+ * Überladener Klammer Operator
+ *
+ * @param unsigned int	i	Index
+ * @return *tmp				Referenz von Huelle
+ */
 Element& Kiste::operator [](unsigned int i)
 {
 	Huelle *tmp = first;
 
-	// Fehler abfragen
 	if(i > count)
 	{
 		throw;
@@ -33,6 +44,12 @@ Element& Kiste::operator [](unsigned int i)
 	return *tmp;	
 } 
 
+/**
+ * Überladener Shift Operator - fügt eine Huelle zur Liste hinzu
+ *
+ * @param const Element	&v	Objekt vom Typ ELement
+ * @return *this
+ */
 Kiste& Kiste::operator<< (const Element &v)
 {
 	if(!first)
