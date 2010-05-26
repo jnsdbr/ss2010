@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -c -Wall -g -lm
 LDFLAGS =
-SOURCES = Image.cpp BmpWrite.cpp Grafikklasse.cpp SimpleFont.cpp Test_TKiste.cpp
+SOURCES = Image.cpp BmpWrite.cpp Grafikklasse.cpp SimpleFont.cpp AviWrite.cpp FileIO.cpp GrafikKiste.cpp Test_GrafikKiste.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 PRODUCT = Test
 RM = rm
