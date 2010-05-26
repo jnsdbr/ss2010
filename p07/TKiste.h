@@ -6,6 +6,7 @@
 // --------------------------------------------------------------
 #ifndef _TKiste_h_
 #define _TKiste_h_
+#include <cstddef> // so we can use NULL
 
 
 template<class E>
@@ -21,7 +22,7 @@ class TKiste
 		TKiste(const TKiste&) {}						// Kopierkonstruktor sperren
 		
 	public:
-		TKiste() : first(NULL), error(0), count(0) {}	// Konstruktor
+		TKiste() : first(NULL), last(NULL), error(0), count(0) {}	// Konstruktor
 		virtual ~TKiste() { delete first; };							// Destruktor
 		operator int() const { return count; };		// Gibt Anzahl der eingeschriebenen Elemente zurück
 		TKiste& operator<< (const E &v);		// Elemente am Ende anfügen
@@ -52,7 +53,7 @@ class TKiste<E>::Huelle
 template<class E>
 TKiste<E>& TKiste<E>::operator<< (const TKiste<E>& r)
 {
-	for(int i = 0; i < r; i++)
+	for(unsigned int i = 0; i < r; i++)
 	{
 		*this << const_cast<TKiste<E>&>(r)[i];
 	}
@@ -72,7 +73,7 @@ E& TKiste<E>::operator [](unsigned int i)
 	
 	if(i != 0)
 	{
-		for(int j = 1; j <= i; j++)
+		for(unsigned int j = 1; j <= i; j++)
 		{
 			tmp = tmp->get_next();
 		}

@@ -5,7 +5,7 @@ using namespace std;
 
 Kiste& Kiste::operator<< (const Kiste& r)
 {
-	for(int i = 0; i < r; i++)
+	for(unsigned int i = 0; i < r; i++)
 	{
 		*this << const_cast<Kiste&>(r)[i];
 	}
@@ -24,7 +24,7 @@ Element& Kiste::operator [](unsigned int i)
 	
 	if(i != 0)
 	{
-		for(int j = 1; j <= i; j++)
+		for(unsigned int j = 1; j <= i; j++)
 		{
 			tmp = tmp->get_next();
 		}

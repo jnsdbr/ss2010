@@ -6,9 +6,9 @@ using namespace std;
 void GrafikKiste::add_offset (int x, int y)
 {
 	GrafikElement* g = NULL;
-	for(int i = 0; i < *this; i++)
+	for(int i = 0; i < *this; i++) // *this liefert hier count zurück
 	{
-		g = &(*this)[i];
+		g = &(*(this))[i];
 		g->add_offset(x,y);
 	}
 }
@@ -16,9 +16,9 @@ void GrafikKiste::add_offset (int x, int y)
 void GrafikKiste::draw (Image &I) const
 {
 	GrafikElement* g = NULL;
-	for (unsigned int i=0; i<*this; i++)
+	for (int i=0; i < *this; i++)
 	{
-		g = &(*this)[i];
+		g = &(*(this))[i];
 		g->draw(I);
 	}
 }

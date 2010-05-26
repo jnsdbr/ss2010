@@ -73,7 +73,7 @@ class Kreis: public GrafikElement {
 		int radius;	// Make an educated guess
 		RGB_Pixel c;	// Farbe
 	public:
-		Kreis(): GrafikElement(), c(0,0,0), radius(0) {};
+		Kreis(): GrafikElement(), radius(0), c(0,0,0) {};
 		Kreis(int XS, int YS, int R, RGB_Pixel C): GrafikElement(XS, YS), radius(R), c(C) {};
 		virtual ~Kreis() {};
 
