@@ -27,8 +27,8 @@ Kiste& Kiste::operator<< (const Element &v)
 {
 	Huelle *tmp = t;
 	
-	t = new Huelle(v.clone());
-	t->set_next(*tmp);
+	t = new Huelle(*(v.clone()));
+	t->set_next(tmp);
 
 	count++;
 }
