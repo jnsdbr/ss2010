@@ -8,6 +8,9 @@
 #define _Kiste_h_
 
 #include "Element.h"
+#include <new>
+#include <typeinfo>
+
 
 class Kiste
 {

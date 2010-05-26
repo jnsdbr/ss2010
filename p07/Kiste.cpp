@@ -1,5 +1,5 @@
 #include "Kiste.h"
-#include <new>
+
 using namespace std;
 
 Kiste& Kiste::operator<< (const Kiste& r)
