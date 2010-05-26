@@ -1,4 +1,5 @@
 #include "Kiste.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,14 +14,23 @@ Kiste& Kiste::operator<< (const Kiste& r)
 
 Element& Kiste::operator [](unsigned int i)
 {
-	if(i < 0 || i >= count)
+	Huelle *tmp = t;
+
+	
+	if(i > count)
 	{
 		throw;
 	}
-	else
+	
+	if(i != 0)
 	{
-		return t[i];
+		for(int j = 1; j <= i; j++)
+		{
+			tmp = tmp->get_next();
+		}
 	}
+	
+	return *tmp;	
 } 
 
 Kiste& Kiste::operator<< (const Element &v)
@@ -29,6 +39,8 @@ Kiste& Kiste::operator<< (const Element &v)
 	
 	t = new Huelle(*(v.clone()));
 	t->set_next(tmp);
-
+	
 	count++;
+	
+	return *this;
 }
