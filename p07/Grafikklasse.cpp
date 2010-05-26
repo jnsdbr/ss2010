@@ -72,16 +72,16 @@ inline void Rechteck::draw(Image& I) {
 	Linie(xs, ye, xe, ye, c).draw(I);
 	Linie(xe, ye, xe, ys, c).draw(I);
 	
-	/*
-	for (int i=xs; i<=xe; i++) {	// Vertikal zeichnen
+	
+	/*for (int i=xs; i<=xe; i++) {	// Vertikal zeichnen
 		I[i][ys] = c;
 		I[i][ye] = c;
 	}
 	for (int i=ys; i<=ye; i++) {	// Horziontal zeichnen
 		I[xs][i] = c;
 		I[xe][i] = c;
-	}
-	*/
+	}*/
+	
 }
 /**
  * Zeichnet ein gefuelltes Rechteck
@@ -89,8 +89,14 @@ inline void Rechteck::draw(Image& I) {
  * @param	Image&	I	Bild in das gezeichnet wird
  */
 inline void RechteckGefuellt::draw(Image& I) {	
-	for(int i = 0; i <= (xe-xs)/2; i++)
-		Rechteck(xs+i,ys+i,xe-i,ye-i, (i==0)?c:f).draw(I);
+// Funktioniert in diesem Zusammenhang nicht...
+
+//	for(int i = 0; i <= (xe-xs)/2; i++) 
+//		Rechteck(xs+i,ys+i,xe-i,ye-i, (i==0)?c:f).draw(I);
+  for(int i=xs+1 ; i<xe ; i++) { // Füllung zeichnen
+    Linie(i,ys+1,i,ye-1,f).draw(I);
+  }
+  Rechteck::draw(I); // Den Rahmen zeichnen mit den ursprünglichen Koordinaten
 }
 /**
  * Bresenham-Kreis-Algorithmus

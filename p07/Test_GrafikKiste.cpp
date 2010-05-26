@@ -39,7 +39,7 @@ int main() {
       int i=int(100.0*sin(3.0*k*2.0*M_PI/frames))+height/2;
       int j=int(10.0*sin(10.0*k*2.0*M_PI/frames))+width/2;
       f << Linie(2*i/3,4*i/3,width-i,height-3*i,green);
-      f << RechteckGefuellt(3,i-2, width-3, i/2+15,green,blue);
+      f << RechteckGefuellt(3,i-2, width-3, i/2+15,green, blue);
       f << TextZeile(+j-30,i,"Testbild",red,transparent);
       f << Rechteck(0,0,width-1,height-1,green);
 

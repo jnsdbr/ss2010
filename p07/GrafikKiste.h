@@ -13,7 +13,7 @@ class GrafikKiste : public TKiste<GrafikElement> {
   GrafikKiste () {};
   virtual ~GrafikKiste () {};
   void add_offset (int x, int y);
-  void draw (Image &I) const;
+  void draw (Image &I);
 };
 
 #endif

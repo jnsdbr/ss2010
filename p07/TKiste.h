@@ -53,7 +53,7 @@ class TKiste<E>::Huelle
 template<class E>
 TKiste<E>& TKiste<E>::operator<< (const TKiste<E>& r)
 {
-	for(unsigned int i = 0; i < r; i++)
+	for(int i = 0; i < r; i++)
 	{
 		*this << const_cast<TKiste<E>&>(r)[i];
 	}
