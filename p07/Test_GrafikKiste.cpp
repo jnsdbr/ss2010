@@ -4,10 +4,10 @@
 // Fachhochschule Osnabrueck
 // (c) Prof. Dr.-Ing. Bernhard Lang
 // --------------------------------------------------------------
-#include "rgb.h"          // Darstellung von Pixeln
-#include "image.h"        // Zweidimensionales Bild
+#include "RGB_Pixel.h"          // Darstellung von Pixeln
+#include "Image.h"        // Zweidimensionales Bild
 #include "AviWrite.h"     // Schreiben von AVI-Dateien
-#include "grafik.h"       // Grafik-Objekte
+#include "Grafikklasse.h"       // Grafik-Objekte
 #include "GrafikKiste.h"   // Fifo von Grafik-Objekten
 #include <iostream>
 #include <math.h>
@@ -28,7 +28,7 @@ int main() {
 
     // Erstes Fifo für Grafikelemente vereinbaren und füllen
     GrafikKiste f1;
-    f1 << Textzeile(10,height/2,"OOP ist sch\x94n!",yellow,transparent);
+    f1 << TextZeile(10,height/2,"OOP ist sch\x94n!",yellow,transparent);
     f1 << Rechteck(8,height/2-2,130,height/2+15,yellow);
 
     for (int k=0;k<frames;k++) { // Generierung der Frames
@@ -40,7 +40,7 @@ int main() {
       int j=int(10.0*sin(10.0*k*2.0*M_PI/frames))+width/2;
       f << Linie(2*i/3,4*i/3,width-i,height-3*i,green);
       f << RechteckGefuellt(3,i-2, width-3, i/2+15,green,blue);
-      f << Textzeile(+j-30,i,"Testbild",red,transparent);
+      f << TextZeile(+j-30,i,"Testbild",red,transparent);
       f << Rechteck(0,0,width-1,height-1,green);
 
       // Bei erstem Fifo den Bezugspunkt aller Grafikelemente verschieben

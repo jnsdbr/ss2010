@@ -16,6 +16,7 @@ int main() {
 
   // Kiste c1 fuellen und ausgeben
   c1 << Element("Eins")<< Element("Zwei") << Element("Drei");
+
   for (int i=0; i<c1; i++) {
     cout << static_cast<const string>(c1[i]) << " ";
   }

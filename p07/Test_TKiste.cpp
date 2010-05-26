@@ -12,9 +12,9 @@ using namespace std;
 
 #include "Element.h"
 
-#include "image.h"           // Zweidimensionales Bild
-#include "bmpwrite.h"        // Schreiben von BMP-Dateien
-#include "grafik.h"          // Grafik-Objekte
+#include "Image.h"           // Zweidimensionales Bild
+#include "BmpWrite.h"        // Schreiben von BMP-Dateien
+#include "Grafikklasse.h"          // Grafik-Objekte
 
 
 int main() {
@@ -50,7 +50,7 @@ int main() {
 
     // Grafik-Elemente in Container schieben
     gc << RechteckGefuellt(3,20, width-3, 25, green,blue);
-    gc << Textzeile(38,11,"Testbild",red,black);
+    gc << TextZeile(38,11,"Testbild",red,black);
     gc << Rechteck(0,0,width-1,height-1,green);
     Rechteck r1(8,height/2-2,130,height/2+15,yellow);
     Rechteck r2;
@@ -71,7 +71,7 @@ int main() {
       delete pl;
       delete pk;
     }
-    gc << Textzeile(10,height/2,"OOP ist sch\x94n!",yellow,black);
+    gc << TextZeile(10,height/2,"OOP ist sch\x94n!",yellow,black);
 
     // Bild I vereinbaren
     Image I(width,height);

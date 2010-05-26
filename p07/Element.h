@@ -15,7 +15,7 @@ class Element {
   string Zeichenkette; // Die Klasse kann eine Zeichenkette speichern
  public:
   Element(const Element& r): Zeichenkette(r.Zeichenkette){} // Kopierkonstruktor
-  Element(string s): Zeichenkette(s) {};          // Konstruktor speichert die übergebene Zeichenkette
+Element(string s): Zeichenkette(s) {};          // Konstruktor speichert die übergebene Zeichenkette
   virtual Element* clone() const { return new Element(*this); } // clone-Methode, erzeugt eine Kopie des aktuellen Objekts
   operator const string&() const { return Zeichenkette; }       // Referenz auf die Zeichenkette nach aussen geben
 };
