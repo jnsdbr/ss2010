@@ -37,14 +37,14 @@ Kiste& Kiste::operator<< (const Element &v)
 {
 	if(!first)
 	{
-		first = new Huelle(*(v.clone()));
+		first = new Huelle(v);
 		last = first;
 	}
 	else
 	{
 		Huelle *tmp = last;
 		
-		last = new Huelle(*(v.clone()));
+		last = new Huelle(v); // new Huelle(*(v.clone()))
 		tmp->set_next(last);
 	}
 	

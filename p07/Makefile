@@ -1,9 +1,9 @@
 CC = g++
 CFLAGS = -c -Wall -g -lm
 LDFLAGS =
-SOURCES = Kiste.cpp Test_Kiste.cpp
+SOURCES = Image.cpp BmpWrite.cpp Grafikklasse.cpp SimpleFont.cpp Test_TKiste.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-PRODUCT = Test_Kiste
+PRODUCT = Test
 RM = rm
 
 all: $(SOURCES) $(PRODUCT)
