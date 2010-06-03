@@ -4,10 +4,10 @@
 //     FH Osnabrück 
 // 20. Mai 2005
 //------------------------------------------------------------------------------------------
-#include "grafik.h"
-#include "image.h"
+#include "Grafikklasse.h"
+#include "Image.h"
 #include "BmpRead.h"
-#include "bmpwrite.h"
+#include "BmpWrite.h"
 #include <vector>
 #include <iostream>
 using namespace std;

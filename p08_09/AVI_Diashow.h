@@ -6,12 +6,12 @@
 #ifndef _AVI_Diashow_h_
 #define _AVI_Diashow_h_
 
-#include "grafik.h"
-#include "image.h"
+#include "Grafikklasse.h"
+#include "Image.h"
 #include "BmpRead.h"
 #include "AviWrite.h"
 #include "Ueberblendungen.h"
-#include "GrafikHuelle.h"
+//#include "GrafikHuelle.h"
 #include <vector>
 #include <map>
 #include <iostream>
