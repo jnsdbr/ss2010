@@ -9,7 +9,7 @@ int AVI_Diashow::Clip_hinzufuegen(const string& name, int Laenge)
 	}
 	catch(...) {}
 
-	return clipContainer.size();
+	return clipContainer.size() - 1;
 }
 
 bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
@@ -28,7 +28,10 @@ bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 
 void AVI_Diashow::Film_erstellen() const
 {
-	
+	for(int i = 0; i < clipContainer.size(); i++)
+	{
+		cout << clipContainer[i].get_bmp_name() << endl;
+	}
 }
 
 int AVI_Diashow::Laenge_des_Films() const

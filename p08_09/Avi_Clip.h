@@ -20,5 +20,10 @@ class Avi_Clip
 //		~Avi_Clip() { delete GrafikHuellen; };
 		void Clip_erstellen() const;	
 		
+		string get_bmp_name() const
+		{
+			return this->bmp_name;
+		}
+		
 		//void add_graphic(Grafikelement &g) { GrafikHuellen.push_back(&g); };
 };

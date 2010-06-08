@@ -62,6 +62,6 @@ int main() {
 
   // Film erstellen  
   cout << "Laenge des Films: " << MeineShow.Laenge_des_Films() << " frames" << endl;
- // MeineShow.Film_erstellen();
+  MeineShow.Film_erstellen();
   return 0;
 }
