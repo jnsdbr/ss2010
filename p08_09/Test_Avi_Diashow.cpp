@@ -20,18 +20,18 @@ int main() {
   
   // Clips spezifizieren  
   { int clip = MeineShow.Clip_hinzufuegen("Schwarz.bmp",30);
-    MeineShow.Grafik_hinzufuegen(clip,Textzeile(Breite/4,Hoehe/2,"Meine Show",RGB_Pixel(255,255,255),RGB_Pixel(0,0,0)));
-    MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Soft,25);
+    //MeineShow.Grafik_hinzufuegen(clip,Textzeile(Breite/4,Hoehe/2,"Meine Show",RGB_Pixel(255,255,255),RGB_Pixel(0,0,0)));
+    //MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Soft,25);
   }
   
   { int clip = MeineShow.Clip_hinzufuegen("Bild1.bmp",60);
-    MeineShow.Grafik_hinzufuegen(clip,Rechteck(150,26,110,190,RGB_Pixel(255,255,0)));
-    MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Soft,25);
+    //MeineShow.Grafik_hinzufuegen(clip,Rechteck(150,26,110,190,RGB_Pixel(255,255,0)));
+    //MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Soft,25);
   }
   
   { int clip = MeineShow.Clip_hinzufuegen("Bild2.bmp",30);
-    MeineShow.Grafik_hinzufuegen(clip,Linie(0,0,Breite-1,Hoehe-1,RGB_Pixel(255,0,0)));
-    MeineShow.Grafik_hinzufuegen(clip,Linie(Breite-1,0,0,Hoehe-1,RGB_Pixel(255,0,0)));
+    //MeineShow.Grafik_hinzufuegen(clip,Linie(0,0,Breite-1,Hoehe-1,RGB_Pixel(255,0,0)));
+    //MeineShow.Grafik_hinzufuegen(clip,Linie(Breite-1,0,0,Hoehe-1,RGB_Pixel(255,0,0)));
   }
 
   { int len=1;
@@ -52,12 +52,12 @@ int main() {
   }
   
   { int clip = MeineShow.Clip_hinzufuegen("Bild3.bmp",30);
-    MeineShow.Grafik_hinzufuegen(clip,Textzeile(10,10,"Bild 3",RGB_Pixel(255,255,0),RGB_Pixel(0,0,0)));
-    MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Schieben,25);
+    //MeineShow.Grafik_hinzufuegen(clip,Textzeile(10,10,"Bild 3",RGB_Pixel(255,255,0),RGB_Pixel(0,0,0)));
+    //MeineShow.Uebergang_hinzufuegen(clip,AVI_Diashow::Schieben,25);
   }
 
   { int clip = MeineShow.Clip_hinzufuegen("Weiss.bmp",30);
-    MeineShow.Grafik_hinzufuegen(clip,Textzeile(Breite/4,Hoehe/2,"Das wars",RGB_Pixel(0,0,0),RGB_Pixel(255,255,255)));
+    //MeineShow.Grafik_hinzufuegen(clip,Textzeile(Breite/4,Hoehe/2,"Das wars",RGB_Pixel(0,0,0),RGB_Pixel(255,255,255)));
   }
 
   // Film erstellen  
