@@ -1,5 +1,7 @@
 #include <iostream>
 #include "GrafikHuelle.h"
+#include "Grafikklasse.h"
+#include <vector>
 using namespace std;
 
 class Avi_Clip
@@ -8,15 +10,15 @@ class Avi_Clip
 		int breite;
 		int hoehe;
 		string bmp_name;
-		//vector<GrafikHuelle> GrafikHuellen;
+		vector<GrafikHuelle> GrafikHuellen;
 		int laenge;
 		//Ueberblendung ut;
 		int ut_laenge;
 
 	public:
 		Avi_Clip(int b, int h, int l, string filename) : breite(b), hoehe(h), laenge(l), bmp_name(filename) {};
-		//~Avi_Clip() { delete GrafikHuellen; };
+//		~Avi_Clip() { delete GrafikHuellen; };
 		void Clip_erstellen() const;	
 		
 		//void add_graphic(Grafikelement &g) { GrafikHuellen.push_back(&g); };
-}
+};

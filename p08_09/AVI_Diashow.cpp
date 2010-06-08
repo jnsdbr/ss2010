@@ -3,10 +3,9 @@ using namespace std;
 
 int AVI_Diashow::Clip_hinzufuegen(const string& name, int Laenge)
 {
-	cout << "blubb";
 	try
 	{
-		clipContainer.push_back(new Avi_Clip(this->get_hoehe(), this->get_breite(), Laenge , name));
+		clipContainer.push_back(Avi_Clip(this->get_hoehe(), this->get_breite(), Laenge , name));
 	}
 	catch(...) {}
 
@@ -17,7 +16,7 @@ bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 {
 	try
 	{
-		clipContainer[Clip].add_graphic(g);
+		//clipContainer[Clip].add_graphic(g);
 		
 		return true;
 	}
@@ -27,9 +26,16 @@ bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 	}
 }
 
+void AVI_Diashow::Film_erstellen() const
+{
+	
+}
+
+int AVI_Diashow::Laenge_des_Films() const
+{
+	
+}
 
 /*
 bool Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge);
-void Film_erstellen() const;
-int  Laenge_des_Films() const;
 */
