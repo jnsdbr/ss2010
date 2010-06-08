@@ -5,19 +5,19 @@ int AVI_Diashow::Clip_hinzufuegen(const string& name, int Laenge)
 {
 	try
 	{
-		clipContainer.push_back(Avi_Clip(this->get_hoehe(), this->get_breite(), Laenge , name));
+		this->clipContainer.push_back(Avi_Clip(this->get_height(), this->get_width(), Laenge , name));
 	}
 	catch(...) {}
 
-	return clipContainer.size() - 1;
+	return this->clipContainer.size() - 1;
 }
 
 bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 {
 	try
 	{
-		//clipContainer[Clip].add_graphic(g);
-		
+		clipContainer[Clip].add_graphic(g);
+
 		return true;
 	}
 	catch(...)
@@ -28,17 +28,62 @@ bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 
 void AVI_Diashow::Film_erstellen() const
 {
-	for(int i = 0; i < clipContainer.size(); i++)
+	cout << "Erstelle Datei: " << this->avi_name << endl;
+
+	try
 	{
-		cout << clipContainer[i].get_bmp_name() << endl;
+		// Avi Objekt anlegen
+		AviWrite avi(this->avi_name.c_str(), this->avi_breite, this->avi_hoehe);
+
+		// Container durchgehen
+		for(int i = 0; i < clipContainer.size(); i++)
+		{
+			// Bitmap einlesen
+			BmpRead bmp_reader(clipContainer[i].get_bmp_name().c_str());
+			
+			// Image erstellen
+			Image img(this->avi_breite, this->avi_hoehe);
+
+			// Eingelesene Bitmap in das img "schieben"
+			bmp_reader >> img;
+		
+			// Grafikelemente hinzufuegen
+			if(clipContainer[i].get_num_elements())
+			{
+				cout << clipContainer[i].get_num_elements() << endl;
+				vector<GrafikHuelle>& tmp = clipContainer[i].get_elements();
+			}
+		
+		
+			// Clip in Avi schreiben
+			for(int j = 0; j < clipContainer[i].get_length(); j++)
+			{
+				avi << img;
+			}
+		}
 	}
+	catch(...) {}
+	
+	cout << "Finished" << endl;
 }
 
 int AVI_Diashow::Laenge_des_Films() const
 {
+	int laenge = 0;
+
+	// Container durchgehen
+	for(int i = 0; i < this->clipContainer.size(); i++)
+	{
+		// Clip laenge und Clip Ueberblendung addieren
+		laenge += this->clipContainer[i].get_length();
+		laenge += this->clipContainer[i].get_ut_length();
+	}
 	
+	return laenge;
 }
 
-/*
-bool Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge);
-*/
+
+bool AVI_Diashow::Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge)
+{
+	
+}
