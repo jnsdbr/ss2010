@@ -18,7 +18,7 @@ class Avi_Clip
 		int ut_laenge;
 
 	public:
-		Avi_Clip(int b, int h, int l, string filename) : breite(b), hoehe(h), laenge(l), bmp_name(filename), ut_laenge(0) { ut = None; };
+		Avi_Clip(int b, int h, int l, string filename) : breite(b), hoehe(h), bmp_name(filename), laenge(l), ut_laenge(0) { ut = None; };
 		~Avi_Clip() {};
 		void Clip_erstellen() const;	
 		

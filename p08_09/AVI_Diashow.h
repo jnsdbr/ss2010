@@ -1,13 +1,13 @@
 //------------------------------------------------------------------------------------------
 // (c) Prof. Dr.-Ing. Bernhard Lang
-//     FH Osnabr�ck    
+//     FH Osnabrück    
 //------------------------------------------------------------------------------------------
 
 #ifndef _AVI_Diashow_h_
 #define _AVI_Diashow_h_
 
 #include "Grafikklasse.h"
-#include "GrafikHuelle.h"
+//#include "GrafikHuelle.h" // GrafikHuelle.h:5: error: redefinition of ‘class GrafikHuelle’
 #include "Image.h"
 #include "BmpRead.h"
 #include "AviWrite.h"
