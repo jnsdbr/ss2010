@@ -79,7 +79,7 @@ void AVI_Diashow::Film_erstellen()
 				int clip_length = clipContainer[i].get_length();
 				int ut_length = clipContainer[i].get_ut_length();
 
-				cout << "Überblendung berechnen..." << endl;
+				cout << "Überblendung (Schieben) berechnen..." << endl;
 				cout << "\tCliplänge: " << clip_length << endl;
 				cout << "\tÜbergangslänge: " << ut_length << endl;
 
@@ -134,6 +134,58 @@ void AVI_Diashow::Film_erstellen()
 					}
 				}				
 			}
+			else if(static_cast<Ueberblendung>(clipContainer[i].get_ut_type()) == Soft) {
+				// Überblendung Soft ist vorhanden!
+				int clip_length = clipContainer[i].get_length();
+				int ut_length = clipContainer[i].get_ut_length();
+
+				cout << "Überblendung (Soft) berechnen..." << endl;
+				cout << "\tCliplänge: " << clip_length << endl;
+				cout << "\tÜbergangslänge: " << ut_length << endl;
+
+				/* Überblendung einfügen (ggf. eiskalt länger als Cliplänge)
+				   img: Arbeits-Image. Hierauf wird die Überblendung durchgeführt. Dieses Image wird in die Avi geknallt.
+					Bisher befindet sich hier der letzte Frame des aktuellen Clips.
+				   prev_img: Das (letzte) Image vom vorherigen Clip. Von hier werden die Daten für die Überblendung geholt.
+				   new_img: Das letzte Image vom aktuellen Clip, auf dessen Basis gerendert wird. */
+
+				// Aktuelles Image sichern und damit zum Arbeitsimage 'degradieren'
+				Image new_img(this->avi_breite, this->avi_hoehe);
+				for(int yy=0; yy <= avi_hoehe; yy++) {
+					for(int xx=0; xx <= avi_breite; xx++) {
+						new_img[yy][xx] = img[yy][xx];
+						img[yy][xx] = RGB_Pixel(0,255,0);
+					}
+				}
+				// Frames mit Überblendung erzeugen
+				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
+				for(int frame_i=0; frame_i <= ut_length; frame_i++) {
+
+					for(int yy=0; yy <= avi_hoehe; yy++) {
+						for(int xx=0; xx <= avi_breite; xx++) {
+							double step_r, step_g, step_b;
+							step_r = (new_img[yy][xx].Red()-prev_img[yy][xx].Red())/ut_length;
+							step_g = (new_img[yy][xx].Green()-prev_img[yy][xx].Green())/ut_length;
+							step_b = (new_img[yy][xx].Blue()-prev_img[yy][xx].Blue())/ut_length;
+							
+							img[yy][xx].Red(new_img[yy][xx].Red()+step_r*frame_i);						
+							img[yy][xx].Green(new_img[yy][xx].Green()+step_g*frame_i);
+							img[yy][xx].Blue(new_img[yy][xx].Blue()+step_b*frame_i);
+							// RGB_Pixel(bla,bla,bla) wäre perfomanter, aber unschöner
+						}
+					}
+
+					avi << img;				
+				}
+				// Standbilder einfügen, falls Clip länger als Überblendung
+				if(clip_length > ut_length) {
+					cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					for(int j = 0; j < (clip_length-ut_length); j++)
+					{
+						avi << new_img;
+					}
+				}				
+			}
 			else { cout << "Unbekannte Überblendung :(" << endl; }
 
 			// Image sichern, damit es für eine eventuelle Überblendung nicht neu berechnet werden muss
@@ -158,8 +210,11 @@ int AVI_Diashow::Laenge_des_Films() const
 	for(unsigned int i = 0; i < this->clipContainer.size(); i++)
 	{
 		// Clip laenge und Clip Ueberblendung addieren
-		laenge += this->clipContainer[i].get_length();
-		laenge += this->clipContainer[i].get_ut_length();
+		if(clipContainer[i].get_length() > clipContainer[i].get_ut_length()) {
+			laenge += this->clipContainer[i].get_length();
+		} else {
+			laenge += this->clipContainer[i].get_ut_length();
+		}
 	}
 	
 	return laenge;
