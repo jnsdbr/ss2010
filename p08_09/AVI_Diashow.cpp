@@ -36,7 +36,7 @@ void AVI_Diashow::Film_erstellen() const
 		AviWrite avi(this->avi_name.c_str(), this->avi_breite, this->avi_hoehe);
 
 		// Container durchgehen
-		for(int i = 0; i < clipContainer.size(); i++)
+		for(unsigned int i = 0; i < clipContainer.size(); i++)
 		{
 			// Bitmap einlesen
 			BmpRead bmp_reader(clipContainer[i].get_bmp_name().c_str());
@@ -72,7 +72,7 @@ int AVI_Diashow::Laenge_des_Films() const
 	int laenge = 0;
 
 	// Container durchgehen
-	for(int i = 0; i < this->clipContainer.size(); i++)
+	for(unsigned int i = 0; i < this->clipContainer.size(); i++)
 	{
 		// Clip laenge und Clip Ueberblendung addieren
 		laenge += this->clipContainer[i].get_length();
@@ -85,5 +85,5 @@ int AVI_Diashow::Laenge_des_Films() const
 
 bool AVI_Diashow::Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge)
 {
-	
+	return true; // Der Rückgabewert gibt an, ob die Information dem Clip hinzugefügt werden konnte
 }
