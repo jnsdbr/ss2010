@@ -25,10 +25,10 @@ class Avi_Clip
 		string get_bmp_name() const { return this->bmp_name; }
 		int get_length() const { return this->laenge; }
 		int get_ut_length() const { return this->ut_laenge; }
-		Ueberblendung get_ue_type() const { return this->ut; }
+		Ueberblendung get_ut_type() const { return this->ut; }
 		
 		int get_num_elements() const { return this->GrafikHuellen.size(); }
-		vector<GrafikHuelle>& get_elements() { cout << "WTF!" << endl; return GrafikHuellen; }
+		vector<GrafikHuelle>& get_elements() { return GrafikHuellen; }
 		
 		void add_graphic(const GrafikElement& g) { GrafikHuellen.push_back(g); }
 };

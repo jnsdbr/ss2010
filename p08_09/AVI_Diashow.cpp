@@ -48,7 +48,7 @@ void AVI_Diashow::Film_erstellen() const
 			bmp_reader >> img;
 		
 			// Grafikelemente hinzufuegen
-			if(clipContainer[i].get_num_elements())
+			if(clipContainer[i].get_num_elements() > 0)
 			{
 				cout << clipContainer[i].get_num_elements() << endl;
 				vector<GrafikHuelle>& tmp = clipContainer[i].get_elements();
