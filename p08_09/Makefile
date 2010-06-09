@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -c -Wall -g -lm
 LDFLAGS =
-SOURCES = Image.cpp BmpRead.cpp BmpWrite.cpp Grafikklasse.cpp SimpleFont.cpp AviWrite.cpp Avi_Clip.cpp AVI_Diashow.cpp FileIO.cpp Test_Avi_Diashow.cpp
+SOURCES = Image.cpp BmpRead.cpp BmpWrite.cpp Grafikklasse.cpp SimpleFont.cpp AviWrite.cpp AVI_Diashow.cpp FileIO.cpp Test_Avi_Diashow.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 PRODUCT = Diashow
 RM = rm
