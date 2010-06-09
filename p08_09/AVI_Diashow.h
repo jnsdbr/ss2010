@@ -30,7 +30,7 @@ class AVI_Diashow {
 		int Clip_hinzufuegen(const string& name, int Laenge);
 		bool Grafik_hinzufuegen(int Clip, const GrafikElement& g);
 		bool Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge);
-		void Film_erstellen() const;
+		void Film_erstellen();
 		int  Laenge_des_Films() const;
 
 		int get_height() const { return this->avi_hoehe; }

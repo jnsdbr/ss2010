@@ -18,7 +18,7 @@ class Avi_Clip
 		int ut_laenge;
 
 	public:
-		Avi_Clip(int b, int h, int l, string filename) : breite(b), hoehe(h), bmp_name(filename), laenge(l), ut_laenge(0) { ut = None; };
+		Avi_Clip(int b, int h, int l, string filename) : breite(b), hoehe(h), bmp_name(filename), laenge(l), ut_laenge(-1) { ut = None; };
 		~Avi_Clip() {};
 		void Clip_erstellen() const;	
 		
@@ -31,4 +31,5 @@ class Avi_Clip
 		vector<GrafikHuelle>& get_elements() { return GrafikHuellen; }
 		
 		void add_graphic(const GrafikElement& g) { GrafikHuellen.push_back(g); }
+		void set_ut(int UT, int UT_LAENGE) { ut = static_cast<Ueberblendung>(UT); ut_laenge = UT_LAENGE; }
 };

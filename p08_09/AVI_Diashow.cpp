@@ -26,7 +26,7 @@ bool AVI_Diashow::Grafik_hinzufuegen(int Clip, const GrafikElement& g)
 	}
 }
 
-void AVI_Diashow::Film_erstellen() const
+void AVI_Diashow::Film_erstellen()
 {
 	cout << "Erstelle Datei: " << this->avi_name << endl;
 
@@ -34,14 +34,16 @@ void AVI_Diashow::Film_erstellen() const
 	{
 		// Avi Objekt anlegen
 		AviWrite avi(this->avi_name.c_str(), this->avi_breite, this->avi_hoehe);
-
+		Image prev_img(this->avi_breite, this->avi_hoehe); // Nötig für Überblendungen
+		
 		// Container durchgehen
 		for(unsigned int i = 0; i < clipContainer.size(); i++)
 		{
+			cout << "Verarbeite Clip " << i << "..." << endl;
 			// Bitmap einlesen
 			BmpRead bmp_reader(clipContainer[i].get_bmp_name().c_str());
 			
-			// Image erstellen
+			// Images erstellen
 			Image img(this->avi_breite, this->avi_hoehe);
 
 			// Eingelesene Bitmap in das img "schieben"
@@ -50,15 +52,97 @@ void AVI_Diashow::Film_erstellen() const
 			// Grafikelemente hinzufuegen
 			if(clipContainer[i].get_num_elements() > 0)
 			{
-				cout << clipContainer[i].get_num_elements() << endl;
+				int anzGE = clipContainer[i].get_num_elements();
+				cout << "Anz. GrafikElemente: " << anzGE << endl;
+
 				vector<GrafikHuelle>& tmp = clipContainer[i].get_elements();
+
+				// GrafikElemente einzeichnen
+				for(; anzGE > 0; anzGE--) {
+					cout << "Lege GrafikElement " << anzGE << " auf Clip..." << endl;
+					tmp[anzGE-1].draw(img);
+				}
+
 			}
-		
-		
-			// Clip in Avi schreiben
-			for(int j = 0; j < clipContainer[i].get_length(); j++)
+
+			// Überblendung vorhanden?
+			if(static_cast<Ueberblendung>(clipContainer[i].get_ut_type()) == None)
 			{
-				avi << img;
+				// Clip in Avi schreiben
+				for(int j = 0; j < clipContainer[i].get_length(); j++)
+				{
+					avi << img;
+				}
+			}
+			else if(static_cast<Ueberblendung>(clipContainer[i].get_ut_type()) == Schieben) {
+				// Überblendung Schieben ist vorhanden!
+				int clip_length = clipContainer[i].get_length();
+				int ut_length = clipContainer[i].get_ut_length();
+
+				cout << "Überblendung berechnen..." << endl;
+				cout << "\tCliplänge: " << clip_length << endl;
+				cout << "\tÜbergangslänge: " << ut_length << endl;
+
+				double step_x, step_y; // Pixel per Frame
+				step_x = this->avi_breite / ut_length;
+				step_y = this->avi_hoehe / ut_length;
+
+				cout << "\t" << step_x << " x-Pixel pro Frame schieben" << endl;
+
+				/* Überblendung einfügen (ggf. eiskalt länger als Cliplänge)
+				   img: Arbeits-Image. Hierauf wird die Überblendung durchgeführt. Dieses Image wird in die Avi geknallt.
+					Bisher befindet sich hier der letzte Frame des aktuellen Clips.
+				   prev_img: Das (letzte) Image vom vorherigen Clip. Von hier werden die Daten für die Überblendung geholt.
+				   new_img: Das letzte Image vom aktuellen Clip, auf dessen Basis gerendert wird. */
+
+				// Aktuelles Image sichern und damit zum Arbeitsimage 'degradieren'
+				Image new_img(this->avi_breite, this->avi_hoehe);
+				for(int yy=0; yy <= avi_hoehe; yy++) {
+					for(int xx=0; xx <= avi_breite; xx++) {
+						new_img[yy][xx] = img[yy][xx];
+						img[yy][xx] = RGB_Pixel(0,255,0);
+					}
+				}
+
+				// Frames mit Überblendung erzeugen
+				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
+				for(int frame_i=0; frame_i <= ut_length; frame_i++) {
+
+					// Aktuellen Clip einfügen
+					// frame_i*step_x  := Pixel, die in diesem Frame gezeichnet werden müssen
+
+					for(int yy=0; yy <= avi_hoehe; yy++) { // funktioniert auch nur so lange, wie avi_hoehe = clip=hoehe
+						for(int xx=0; xx <= frame_i*step_x; xx++) {
+							img[yy][xx] = new_img[yy][avi_breite-(frame_i*step_x)+xx];
+						}
+					}		
+
+					// Alten clip dahinter hängen
+					for(int yy=0; yy <= avi_hoehe; yy++) {
+						for(int xx=0; xx <= avi_breite-(frame_i*step_x); xx++) {
+							img[yy][xx+frame_i*step_x] = prev_img[yy][xx];
+						}
+					}
+	
+					avi << img;				
+				}
+				// Standbilder einfügen, falls Clip länger als Überblendung
+				if(clip_length > ut_length) {
+					cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					for(int j = 0; j < (clip_length-ut_length); j++)
+					{
+						avi << new_img;
+					}
+				}				
+			}
+			else { cout << "Unbekannte Überblendung :(" << endl; }
+
+			// Image sichern, damit es für eine eventuelle Überblendung nicht neu berechnet werden muss
+			// Es existiert weder operator=, noch ein Kopierkonstruktor für Images :(
+			for(int yy=0; yy <= avi_hoehe; yy++) {
+				for(int xx=0; xx <= avi_breite; xx++) {
+					prev_img[yy][xx] = img[yy][xx];
+				}
 			}
 		}
 	}
@@ -85,5 +169,18 @@ int AVI_Diashow::Laenge_des_Films() const
 
 bool AVI_Diashow::Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge)
 {
-	return true; // Der Rückgabewert gibt an, ob die Information dem Clip hinzugefügt werden konnte
+	if(ue == Schieben || ue == Soft) {
+		clipContainer[Clip].set_ut(static_cast<int>(ue), Laenge); // static_cast<Avi_Clip::Ueberblendung>(ue) geht nicht, da private
+		return true;
+	} else {
+		cout << "Fehler: Überblendung nicht vollständig Implementiert!" << endl;
+		return false;
+	}
+	
+
+
+/*	cout << "Clip 1 ist kürzer als die Überblendung. Soll dieser verlängert werden? (j/n): ";
+	string test;
+	cin >> test;
+	cout << "Antwort: " << test << endl;*/
 }
