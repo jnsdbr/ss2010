@@ -105,7 +105,7 @@ void AVI_Diashow::Film_erstellen()
 
 				// Frames mit Überblendung erzeugen
 				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
-				for(int frame_i=0; frame_i <= ut_length; frame_i++) {
+				for(int frame_i=0; frame_i < ut_length; frame_i++) {
 
 					// Aktuellen Clip einfügen
 					// frame_i*step_x  := Pixel, die in diesem Frame gezeichnet werden müssen
@@ -159,19 +159,14 @@ void AVI_Diashow::Film_erstellen()
 				}
 				// Frames mit Überblendung erzeugen
 				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
-				for(int frame_i=0; frame_i <= ut_length; frame_i++) {
+				for(int frame_i=0; frame_i < ut_length; frame_i++) {
 
 					for(int yy=0; yy <= avi_hoehe; yy++) {
 						for(int xx=0; xx <= avi_breite; xx++) {
-							double step_r, step_g, step_b;
-							step_r = (new_img[yy][xx].Red()-prev_img[yy][xx].Red())/ut_length;
-							step_g = (new_img[yy][xx].Green()-prev_img[yy][xx].Green())/ut_length;
-							step_b = (new_img[yy][xx].Blue()-prev_img[yy][xx].Blue())/ut_length;
-							
-							img[yy][xx].Red(new_img[yy][xx].Red()+step_r*frame_i);						
-							img[yy][xx].Green(new_img[yy][xx].Green()+step_g*frame_i);
-							img[yy][xx].Blue(new_img[yy][xx].Blue()+step_b*frame_i);
-							// RGB_Pixel(bla,bla,bla) wäre perfomanter, aber unschöner
+							img[yy][xx] = RGB_Pixel(							
+							(prev_img[yy][xx].Red()*(ut_length-frame_i)+(new_img[yy][xx].Red()*frame_i))/ut_length,
+							(prev_img[yy][xx].Green()*(ut_length-frame_i)+(new_img[yy][xx].Green()*frame_i))/ut_length,
+							(prev_img[yy][xx].Blue()*(ut_length-frame_i)+(new_img[yy][xx].Blue()*frame_i))/ut_length);
 						}
 					}
 

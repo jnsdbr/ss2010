@@ -60,6 +60,18 @@ int main() {
     MeineShow.Grafik_hinzufuegen(clip,TextZeile(Breite/4,Hoehe/2,"Das wars",RGB_Pixel(0,0,0),RGB_Pixel(255,255,255)));
   }
 
+  { int clip = MeineShow.Clip_hinzufuegen("Weiss.bmp",60);
+    MeineShow.Grafik_hinzufuegen(clip,TextZeile(Breite/4,Hoehe/2,"Trauig, aber wahr.",RGB_Pixel(0,0,0),RGB_Pixel(255,255,255)));
+  }
+  { int clip = MeineShow.Clip_hinzufuegen("Schwarz.bmp",60);
+    MeineShow.Grafik_hinzufuegen(clip,TextZeile(Breite/4,Hoehe/2,"Da habe ich mehr erwartet",RGB_Pixel(255,255,255),RGB_Pixel(0,0,0)));
+  }
+  { int clip = MeineShow.Clip_hinzufuegen("Weiss.bmp",60);
+    MeineShow.Grafik_hinzufuegen(clip,TextZeile(Breite/4,Hoehe/2,"Ja, ich auch. :(",RGB_Pixel(0,0,0),RGB_Pixel(255,255,255)));
+  }
+  { int clip = MeineShow.Clip_hinzufuegen("Schwarz.bmp",60);
+    MeineShow.Grafik_hinzufuegen(clip,TextZeile(Breite/4,Hoehe/2,"...",RGB_Pixel(255,255,255),RGB_Pixel(0,0,0)));
+  }
   // Film erstellen  
   cout << "Laenge des Films: " << MeineShow.Laenge_des_Films() << " frames" << endl;
   MeineShow.Film_erstellen();
