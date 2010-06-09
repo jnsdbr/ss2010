@@ -1,4 +1,5 @@
 #include "AVI_Diashow.h"
+//#define DEBUG
 using namespace std;
 
 int AVI_Diashow::Clip_hinzufuegen(const string& name, int Laenge)
@@ -36,10 +37,20 @@ void AVI_Diashow::Film_erstellen()
 		AviWrite avi(this->avi_name.c_str(), this->avi_breite, this->avi_hoehe);
 		Image prev_img(this->avi_breite, this->avi_hoehe); // Nötig für Überblendungen
 		
+		unsigned int cnt_size = clipContainer.size();
+		
 		// Container durchgehen
-		for(unsigned int i = 0; i < clipContainer.size(); i++)
+		for(unsigned int i = 0; i < cnt_size; i++)
 		{
-			cout << "Verarbeite Clip " << i << "..." << endl;
+			#ifndef DEBUG
+				fflush(stdout);
+				cout << "\r" << i * 100 / cnt_size << " %";
+			#endif
+			
+			#ifdef DEBUG
+				cout << "Verarbeite Clip " << i << "..." << endl;
+			#endif
+			
 			// Bitmap einlesen
 			BmpRead bmp_reader(clipContainer[i].get_bmp_name().c_str());
 			
@@ -53,13 +64,20 @@ void AVI_Diashow::Film_erstellen()
 			if(clipContainer[i].get_num_elements() > 0)
 			{
 				int anzGE = clipContainer[i].get_num_elements();
-				cout << "Anz. GrafikElemente: " << anzGE << endl;
+				
+				#ifdef DEBUG
+					cout << "Anz. GrafikElemente: " << anzGE << endl;
+				#endif
 
 				vector<GrafikHuelle>& tmp = clipContainer[i].get_elements();
 
 				// GrafikElemente einzeichnen
 				for(; anzGE > 0; anzGE--) {
-					cout << "Lege GrafikElement " << anzGE << " auf Clip..." << endl;
+					
+					#ifdef DEBUG
+						cout << "Lege GrafikElement " << anzGE << " auf Clip..." << endl;
+					#endif
+					
 					tmp[anzGE-1].draw(img);
 				}
 
@@ -79,14 +97,16 @@ void AVI_Diashow::Film_erstellen()
 				int clip_length = clipContainer[i].get_length();
 				int ut_length = clipContainer[i].get_ut_length();
 
-				cout << "Überblendung (Schieben) berechnen..." << endl;
-				cout << "\tCliplänge: " << clip_length << endl;
-				cout << "\tÜbergangslänge: " << ut_length << endl;
+				#ifdef DEBUG
+					cout << "Überblendung (Schieben) berechnen..." << endl;
+					cout << "\tCliplänge: " << clip_length << endl;
+					cout << "\tÜbergangslänge: " << ut_length << endl;
+				#endif
 
 				double step_x; // Pixel per Frame
 				step_x = this->avi_breite / ut_length;
 
-				cout << "\t" << step_x << " x-Pixel pro Frame schieben" << endl;
+				//cout << "\t" << step_x << " x-Pixel pro Frame schieben" << endl;
 
 				/* Überblendung einfügen (ggf. eiskalt länger als Cliplänge)
 				   img: Arbeits-Image. Hierauf wird die Überblendung durchgeführt. Dieses Image wird in die Avi geknallt.
@@ -104,7 +124,7 @@ void AVI_Diashow::Film_erstellen()
 				}
 
 				// Frames mit Überblendung erzeugen
-				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
+				//cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
 				for(int frame_i=0; frame_i < ut_length; frame_i++) {
 
 					// Aktuellen Clip einfügen
@@ -127,7 +147,11 @@ void AVI_Diashow::Film_erstellen()
 				}
 				// Standbilder einfügen, falls Clip länger als Überblendung
 				if(clip_length > ut_length) {
-					cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					
+					#ifdef DEBUG
+						cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					#endif
+					
 					for(int j = 0; j < (clip_length-ut_length); j++)
 					{
 						avi << new_img;
@@ -139,9 +163,9 @@ void AVI_Diashow::Film_erstellen()
 				int clip_length = clipContainer[i].get_length();
 				int ut_length = clipContainer[i].get_ut_length();
 
-				cout << "Überblendung (Soft) berechnen..." << endl;
-				cout << "\tCliplänge: " << clip_length << endl;
-				cout << "\tÜbergangslänge: " << ut_length << endl;
+				//cout << "Überblendung (Soft) berechnen..." << endl;
+				//cout << "\tCliplänge: " << clip_length << endl;
+				//cout << "\tÜbergangslänge: " << ut_length << endl;
 
 				/* Überblendung einfügen (ggf. eiskalt länger als Cliplänge)
 				   img: Arbeits-Image. Hierauf wird die Überblendung durchgeführt. Dieses Image wird in die Avi geknallt.
@@ -158,7 +182,7 @@ void AVI_Diashow::Film_erstellen()
 					}
 				}
 				// Frames mit Überblendung erzeugen
-				cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
+				//cout << "\tÜberblendung (" << ut_length << " Frames) wird eingefügt..." << endl;
 				for(int frame_i=0; frame_i < ut_length; frame_i++) {
 
 					for(int yy=0; yy <= avi_hoehe; yy++) {
@@ -174,7 +198,11 @@ void AVI_Diashow::Film_erstellen()
 				}
 				// Standbilder einfügen, falls Clip länger als Überblendung
 				if(clip_length > ut_length) {
-					cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					
+					#ifdef DEBUG
+						cout << "\tStandbilder (" << clip_length-ut_length << " Frames) werden eingefügt..." << endl;
+					#endif
+					
 					for(int j = 0; j < (clip_length-ut_length); j++)
 					{
 						avi << new_img;
@@ -193,6 +221,11 @@ void AVI_Diashow::Film_erstellen()
 		}
 	}
 	catch(...) {}
+	
+	#ifndef DEBUG
+		fflush(stdout);
+		cout << "\r100%" << endl;
+	#endif
 	
 	cout << "Finished" << endl;
 }

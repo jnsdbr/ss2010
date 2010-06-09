@@ -32,6 +32,8 @@ class AVI_Diashow {
 		bool Uebergang_hinzufuegen(int Clip, Ueberblendung ue, int Laenge);
 		void Film_erstellen();
 		int  Laenge_des_Films() const;
+		
+		void progressbar(int percent);
 
 		int get_height() const { return this->avi_hoehe; }
 		int get_width() const { return this->avi_breite; }
