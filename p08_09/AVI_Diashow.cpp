@@ -83,9 +83,8 @@ void AVI_Diashow::Film_erstellen()
 				cout << "\tCliplänge: " << clip_length << endl;
 				cout << "\tÜbergangslänge: " << ut_length << endl;
 
-				double step_x, step_y; // Pixel per Frame
+				double step_x; // Pixel per Frame
 				step_x = this->avi_breite / ut_length;
-				step_y = this->avi_hoehe / ut_length;
 
 				cout << "\t" << step_x << " x-Pixel pro Frame schieben" << endl;
 
